@@ -152,7 +152,7 @@ public class Game extends JFrame
 		
 		
 		
-		Level level = new Level(areas, g.getGameboard());
+		Level level = new Level(areas, g.getGameboard(),"Music.wav");
 		g.addLevel(level);
 		
 		g.play();
