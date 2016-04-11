@@ -106,40 +106,42 @@ public class Mario extends Character{
 		}
 		
 		for(Obstacle t: handler.getCurrentLevel().getCurrentArea().getObstacles()){
-			if(!t.isSolid()) break;
-			if(t instanceof QuestionBlock){
-				if(getBoundsTop().intersects(t.getBoundsBottom())){
-					handler.getCurrentLevel().getCurrentArea().removeObstacle(t);
-				}
-			}
-			if(t instanceof Ground || t instanceof Brick){
-				if(getBoundsTop().intersects(t.getBounds())){
-					setVelY(0);
-					if(jumping){
-						jumping = false;
-						gravity = 0.0;
-						falling = true;
+			if(t.isSolid())
+			{
+				if(t instanceof QuestionBlock){
+					if(getBoundsTop().intersects(t.getBoundsBottom())){
+						handler.getCurrentLevel().getCurrentArea().removeObstacle(t);
 					}
 				}
-				if(getBoundsBottom().intersects(t.getBounds())){
-					setVelY(0);
-					if(falling){
-						falling = false;
+				if(t instanceof Ground || t instanceof Brick){
+					if(getBoundsTop().intersects(t.getBounds())){
+						setVelY(0);
+						if(jumping){
+							jumping = false;
+							gravity = 0.0;
+							falling = true;
+						}
 					}
-				}
-				else{
-					if(!falling && !jumping){
-						gravity = 0.0;
-						falling = true;
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(0);
+						if(falling){
+							falling = false;
+						}
 					}
-				}
-				if(getBoundsLeft().intersects(t.getBounds())){
-					setVelX(0);
-					x = t.getX()+t.getWidth();
-				}
-				if(getBoundsRight().intersects(t.getBounds())){
-					setVelX(0);
-					x = t.getX()-t.getWidth();
+					else{
+						if(!falling && !jumping){
+							gravity = 0.0;
+							falling = true;
+						}
+					}
+					if(getBoundsLeft().intersects(t.getBounds())){
+						setVelX(0);
+						x = t.getX()+t.getWidth();
+					}
+					if(getBoundsRight().intersects(t.getBounds())){
+						setVelX(0);
+						x = t.getX()-t.getWidth();
+					}
 				}
 			}
 		}
