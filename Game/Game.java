@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import Character.*;
 import Obstacles.*;
-
+/**
+ * The class containing the Game loop and extends JFrame
+ *
+ */
 public class Game extends JFrame 
 {
 
@@ -14,13 +17,14 @@ public class Game extends JFrame
 	private Level currentLevel;
 	private Scoreboard score;
 	private Gameboard gameBoard;
-	private int width = 1000, height = 600;
 	private int displayTime = 0, loop = 0;
 	private double actualTime = 0.0;
+	/**
+	 * 
+	 * @param levels An ArrayList of the Levels that will be in this Game
+	 */
 	public Game(ArrayList<Level> levels)
 	{
-		width = 1000;
-		height = 600;
 		this.levels = levels;
 		score = new Scoreboard();
 		mario = new Mario(20,400,this);
@@ -37,40 +41,60 @@ public class Game extends JFrame
 		setSize(1000, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	/**
+	 * Alternative constructor that limits adding levels to just the addLevel(Level) method
+	 */
 	public Game()
 	{
 		this(new ArrayList<Level>());
 	}
+	/**
+	 * 
+	 * @return All of the Current Levels in the Game
+	 */
 	public ArrayList<Level> getLevels()
 	{
 		return levels;
 	}
+	/**
+	 * 
+	 * @return The Scoreboard of the Game
+	 */
 	public Scoreboard getScoreboard()
 	{
 		return score;
 	}
+	/**
+	 * 
+	 * @return The Mario of the Game
+	 */
 	public Mario getMario()
 	{
 		return mario;
 	}
-	public int getWidth()
-	{
-		return this.width;
-	}
-	public int getHeight()
-	{
-		return this.height;
-	}
+	/**
+	 * 
+	 * @return The Gameboard being used
+	 */
 	public Gameboard getGameboard()
 	{
 		return gameBoard;
 	}
+	/**
+	 * Adds a Level to the levels ArrayList
+	 * @param level The Level to be added
+	 */
 	public void addLevel(Level level)
 	{
 		levels.add(level);
 	}
+	/**
+	 * Displays the Specified Level on the Gameboard
+	 * @param level The Level to be displayed on the Gameboard
+	 */
 	public void displayLevel(Level level)
 	{
+		setVisible(false);
 		remove(this.gameBoard);
 		currentLevel = level;
 		this.mario.setLocation(20, 300);
@@ -80,11 +104,17 @@ public class Game extends JFrame
 		add(this.gameBoard);
 		setVisible(true);
 	}
+	/**
+	 * 
+	 * @return The Level that is currently being displayed on the Gameboard
+	 */
 	public Level getCurrentLevel()
 	{
 		return currentLevel;
 	}
-	
+	/**
+	 * Runs the Game loop.  Keeps track of the loop number that it is on as well as the total time elapsed since starting it
+	 */
 	public void play()
 	{
 		currentLevel = levels.get(0);
@@ -116,14 +146,26 @@ public class Game extends JFrame
 			//System.out.println("#" + loop + ":  " + displayTime);
 		}
 	}
+	/**
+	 * 
+	 * @return The time elapsed in the game loop as an int
+	 */
 	public int getDisplayTime()
 	{
 		return displayTime;
 	}
+	/**
+	 * 
+	 * @return The time elapsed in the game loop as a double
+	 */
 	public double getActualTime()
 	{
 		return actualTime;
 	}
+	/**
+	 * 
+	 * @return The number of the loop that the game loop is currently on
+	 */
 	public int getLoopNumber()
 	{
 		return loop;

@@ -2,12 +2,20 @@ package Character;
 
 
 import Game.Game;
-
+/**
+ * A basic Enemy 
+ *
+ */
 public class Koopa extends Enemy
 {
-
-	public Koopa(int x, int y, Game handler) {
-		super(x, y, 16, 27, true,"KoopaWalkLeft.gif", handler);
+	/**
+	 * 
+	 * @param x The x location on the Gameboard
+	 * @param y The y location on the Gameboard
+	 * @param game The instance of the Game
+	 */
+	public Koopa(int x, int y, Game game) {
+		super(x, y, 16, 27, true,"KoopaWalkLeft.gif", game);
 		
 	}
 	

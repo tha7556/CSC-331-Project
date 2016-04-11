@@ -9,31 +9,41 @@ import Obstacles.Obstacle;
 
 
 
-
+/**
+ * Extends the {@link Character} class to create Enemies
+ *
+ */
 public class Enemy extends Character{
-
-	public Enemy(int x, int y, int width, int height, boolean solid,String imageName, Game handler) {
-		super(x, y, width, height, solid, imageName, handler);
+	/**
+	 * 
+	 * @param x The x location on the Gameboard
+	 * @param y The y location on the Gameboard
+	 * @param width width of border collision rectangle (typically width of the image)
+	 * @param height height of border collision rectangle (typically height of the image)
+	 * @param solid True if border collision should be calculated 
+	 * @param imageName The filename of the {@link Character}'s ImageIcon
+	 * @param game The instance of the Game
+	 */
+	public Enemy(int x, int y, int width, int height, boolean solid,String imageName, Game game) {
+		super(x, y, width, height, solid, imageName, game);
 		setVelX(1);
 		
 	}
-
 	@Override
 	public void render(Graphics g, Gameboard c) {
 		this.image.paintIcon(c, g, x, y);
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, width, height);
 	}
-	
+	@Override
 	public void die(){
-		handler.getCurrentLevel().getCurrentArea().removeCharacter(this);
+		game.getCurrentLevel().getCurrentArea().removeCharacter(this);
 	}
-
 	@Override
 	public void tick() {
 		x += velX;
 		y += velY;
-		for(Obstacle t: handler.getCurrentLevel().getCurrentArea().getObstacles()){
+		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
 			if(!t.isSolid()) break;
 				if(getBoundsBottom().intersects(t.getBounds())){
 					gravity = 0.0;
@@ -57,7 +67,7 @@ public class Enemy extends Character{
 			gravity += 0.2;
 			setVelY((int) gravity);
 		}
-		for(Enemy coEnemies: handler.getCurrentLevel().getCurrentArea().getEnemies()){
+		for(Enemy coEnemies: game.getCurrentLevel().getCurrentArea().getEnemies()){
 			
 				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
 					setVelX(-(getVelX()));
@@ -77,9 +87,9 @@ public class Enemy extends Character{
 			x = 0;
 			setVelX(1);
 		}
-		if(x + width >= handler.getWidth()){
+		if(x + width >= game.getWidth()){
 			setVelX(-1);
-			x = handler.getWidth() - (width+1);
+			x = game.getWidth() - (width+1);
 		}
 		
 	}

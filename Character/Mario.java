@@ -3,13 +3,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.Set;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.ImageIcon;
 
 import Game.Game;
 import Game.Gameboard;
@@ -19,16 +14,23 @@ import Obstacles.Obstacle;
 import Obstacles.QuestionBlock;
 
 
-
+/**
+ * The {@link Character} that the user will control
+ *
+ */
 public class Mario extends Character{
 	
-	private ImageIcon mario;
 	private int jumpStart = -100000;
-	public Mario(int x, int y, Game handler) {
-		super(x, y, 60, 60, true,"MarioIdleRight.png", handler);
+	/**
+	 * 
+	 * @param x The X location on the Gameboard
+	 * @param y The Y location on the Gameboard
+	 * @param game The instance of the Game
+	 */
+	public Mario(int x, int y, Game game) {
+		super(x, y, 60, 60, true,"MarioIdleRight.png", game);
 	}
-	
-	//what the character will look like
+	@Override
 	public void render(Graphics g, Gameboard c) {
 		if(this.jumping){
 			if(facingRight)
@@ -56,7 +58,7 @@ public class Mario extends Character{
 		else{
 			setImage("MarioIdleRight.png");
 		}
-		mario.paintIcon(handler, g, x-8, y);
+		image.paintIcon(game, g, x-8, y);
 		g.setColor(Color.RED);
 		Rectangle r = getBounds();
 		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
@@ -77,7 +79,7 @@ public class Mario extends Character{
 		r = getBoundsRight();
 		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@Override
 	public void tick() {
 		x += velX;
 		y += velY;
@@ -94,23 +96,23 @@ public class Mario extends Character{
 			y = 0;
 		}
 
-		if(x + width >= handler.getWidth()) 
+		if(x + width >= game.getWidth()) 
 		{
 			System.out.println("off screen");
-			x = handler.getWidth() - width;
+			x = game.getWidth() - width;
 		}
-		if(y + height >= handler.getHeight()) 
+		if(y + height >= game.getHeight()) 
 		{
 			System.out.println("off screen");
-			y = handler.getHeight() - height;
+			y = game.getHeight() - height;
 		}
 		
-		for(Obstacle t: handler.getCurrentLevel().getCurrentArea().getObstacles()){
+		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
 			if(t.isSolid())
 			{
 				if(t instanceof QuestionBlock){
 					if(getBoundsTop().intersects(t.getBoundsBottom())){
-						handler.getCurrentLevel().getCurrentArea().removeObstacle(t);
+						game.getCurrentLevel().getCurrentArea().removeObstacle(t);
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick){
@@ -146,7 +148,7 @@ public class Mario extends Character{
 			}
 		}
 		
-		for(Enemy enemy: handler.getCurrentLevel().getCurrentArea().getEnemies()){
+		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
 			
 				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
 					playSound("Jump.wav");
@@ -182,26 +184,30 @@ public class Mario extends Character{
 		
 		
 	}
+	/**
+	 * Uses the input from the Gameboard to move Mario
+	 * @param activeKeys The Set containing the keyCodes of all of the keys currently pressed
+	 */
 	public void move(Set<Integer> activeKeys)
 	{
-		if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 55 < handler.getLoopNumber())
+		if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
 		{
 			if(!jumping)
 			{
 				playSound("Jump.wav");
 				jumping = true;
 				gravity = 8.0;
-				jumpStart = handler.getLoopNumber();
+				jumpStart = game.getLoopNumber();
 			}
 		}
-		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 55 < handler.getLoopNumber())
+		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
 		{
 			if(!jumping)
 			{
 				playSound("Jump.wav");
 				jumping = true;
 				gravity = 8.0;
-				jumpStart = handler.getLoopNumber();
+				jumpStart = game.getLoopNumber();
 				runningLeft = true;
 				runningRight = false;
 				standingStillLeft = true;
@@ -209,14 +215,14 @@ public class Mario extends Character{
 				facingRight = false;
 			}
 		}
-		else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart + 55 < handler.getLoopNumber())
+		else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart + 55 < game.getLoopNumber())
 		{
 			if(!jumping)
 			{
 				playSound("Jump.wav");
 				jumping = true;
 				gravity = 8.0;
-				jumpStart = handler.getLoopNumber();
+				jumpStart = game.getLoopNumber();
 				runningRight = true;
 				runningLeft = false;
 				standingStillLeft = false;
@@ -249,27 +255,6 @@ public class Mario extends Character{
 			runningRight = false;
 			setVelX(0);
 		}
-	}
-	public void playSound(String sound)
-	{
-		 try {
-		        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
-		        Clip clip = AudioSystem.getClip();
-		        clip.open(audioInputStream);
-		        clip.start();
-		    } catch(Exception ex) {
-		        System.out.println("Error with playing sound.");
-		        ex.printStackTrace();
-		    }
-	}
-	public void setImage(String fileName)
-	{
-		mario = new ImageIcon(fileName);
-	}
-	public void setLocation(int x, int y)
-	{
-		this.x = x;
-		this.y = y;
 	}
 
 }
