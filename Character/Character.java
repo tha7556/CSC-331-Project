@@ -168,14 +168,14 @@ public abstract class Character {
 	 * @return The border collision Rectangle of the top part of the {@link Character}
 	 */
 	public Rectangle getBoundsTop(){
-		return new Rectangle(getX()+5,getY(),width-5,5);
+		return new Rectangle(getX()+14,getY(),width-25,5);
 	}
 	/**
 	 * 
 	 * @return The border collision Rectangle of the bottom part of the {@link Character}
 	 */
 	public Rectangle getBoundsBottom(){
-		return new Rectangle(getX()+5,getY()+height,width-5,5);
+		return new Rectangle(getX()+14,getY()+height+2,width-25,6);
 	}
 	/**
 	 * 

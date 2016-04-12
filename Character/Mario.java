@@ -20,7 +20,8 @@ import Obstacles.QuestionBlock;
  */
 public class Mario extends Character{
 	
-	private int jumpStart = -100000;
+	private int jumpStart = -1;
+	private boolean ducking = false;
 	/**
 	 * 
 	 * @param x The X location on the Gameboard
@@ -46,12 +47,20 @@ public class Mario extends Character{
 			setImage("MarioWalkLeft.gif");
 		}
 		
-		else if(this.standingStillRight){
+		else if(this.standingStillRight && !ducking){
 			setImage("MarioIdleRight.png");
 		}
 		
-		else if(this.standingStillLeft){
+		else if(this.standingStillLeft && !ducking){
 			setImage("MarioIdleLeft.png");
+		}
+		else if(facingRight && ducking)
+		{
+			setImage("MarioDuckRight.png");
+		}
+		else if(!facingRight && ducking)
+		{
+			setImage("MarioDuckLeft.png");
 		}
 		
 		
@@ -78,11 +87,20 @@ public class Mario extends Character{
 		g.setColor(Color.BLUE);
 		r = getBoundsRight();
 		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
+		
+		g.setColor(Color.BLUE);
+		r = getMiddleBound();
+		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
 	}
 	@Override
 	public void tick() {
 		x += velX;
 		y += velY;
+		Rectangle top;
+		if(ducking)
+			top = getMiddleBound();
+		else 
+			top = getBoundsTop();
 		
 		//if the current x or y is beyond or below the specified bounds, reset the shape to be at the bounds with the whole shape showing
 		if(x <= 0) 
@@ -111,7 +129,7 @@ public class Mario extends Character{
 			if(t.isSolid())
 			{
 				if(t instanceof QuestionBlock){
-					if(getBoundsTop().intersects(t.getBoundsBottom())){
+					if(top.intersects(t.getBoundsBottom())){
 						setVelY(0);
 						jumping = false;
 						falling = true;
@@ -119,7 +137,7 @@ public class Mario extends Character{
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick){
-					if(getBoundsTop().intersects(t.getBounds())){
+					if(top.intersects(t.getBounds())){
 						setVelY(0);
 						if(jumping){
 							jumping = false;
@@ -198,8 +216,10 @@ public class Mario extends Character{
 			{
 				playSound("Jump.wav");
 				jumping = true;
+				ducking = false;
 				gravity = 8.0;
 				jumpStart = game.getLoopNumber();
+				setVelX(0);
 			}
 		}
 		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
@@ -208,6 +228,7 @@ public class Mario extends Character{
 			{
 				playSound("Jump.wav");
 				jumping = true;
+				ducking = false;
 				gravity = 8.0;
 				jumpStart = game.getLoopNumber();
 				runningLeft = true;
@@ -223,6 +244,7 @@ public class Mario extends Character{
 			{
 				playSound("Jump.wav");
 				jumping = true;
+				ducking = false;
 				gravity = 8.0;
 				jumpStart = game.getLoopNumber();
 				runningRight = true;
@@ -236,6 +258,7 @@ public class Mario extends Character{
 		{
 			runningLeft = true;
 			runningRight = false;
+			ducking = false;
 			standingStillLeft = true;
 			standingStillRight = false;
 			facingRight = false;
@@ -248,15 +271,29 @@ public class Mario extends Character{
 			standingStillRight = true;
 			standingStillLeft = false;
 			facingRight = true;
+			ducking = false;
 			setVelX(5);
+		}
+		else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
+		{
+			System.out.println(velX);
+			runningRight = false;
+			runningLeft = false;
+			ducking = true;
+			setVelX(0);
 		}
 		
 		else if(!activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_SPACE))
 		{
 			runningLeft = false;
 			runningRight = false;
+			ducking = false;
 			setVelX(0);
 		}
+	}
+	public Rectangle getMiddleBound()
+	{
+		return new Rectangle(getX()+5,getY()+30,width-5,5);
 	}
 
 }
