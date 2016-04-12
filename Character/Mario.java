@@ -22,6 +22,7 @@ public class Mario extends Character{
 	
 	private int jumpStart = -1;
 	private boolean ducking = false;
+	private boolean onGround = false;
 	/**
 	 * 
 	 * @param x The X location on the Gameboard
@@ -96,6 +97,11 @@ public class Mario extends Character{
 	public void tick() {
 		x += velX;
 		y += velY;
+		onGround = isOnGround();
+		if(!onGround && !jumping)
+			falling = true;
+		else if(onGround)
+			falling = false;
 		Rectangle top;
 		if(ducking)
 			top = getMiddleBound();
@@ -291,9 +297,27 @@ public class Mario extends Character{
 			setVelX(0);
 		}
 	}
+	/**
+	 * 
+	 * @return The border collision Rectangle of the middle part of Mario
+	 */
 	public Rectangle getMiddleBound()
 	{
 		return new Rectangle(getX()+5,getY()+30,width-5,5);
+	}
+	/**
+	 * 
+	 * @return True if Mario is on solid ground
+	 */
+	public boolean isOnGround()
+	{
+		for(Obstacle o : game.getCurrentLevel().getCurrentArea().getObstacles())
+		{
+			if(o.isSolid())
+				if(getBoundsBottom().intersects(o.getBoundsTop()))
+					return true;
+		}
+		return false;
 	}
 
 }
