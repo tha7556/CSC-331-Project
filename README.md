@@ -1,4 +1,5 @@
 # CSC-331-Project
+When Adding Code: Make sure it has Javadoc<br/>
 4 Packages:
 <br/>
   <br/>Character: Contains Character classes (Mario, Enemies, etc)
