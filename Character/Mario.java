@@ -112,7 +112,10 @@ public class Mario extends Character{
 			{
 				if(t instanceof QuestionBlock){
 					if(getBoundsTop().intersects(t.getBoundsBottom())){
-						game.getCurrentLevel().getCurrentArea().removeObstacle(t);
+						setVelY(0);
+						jumping = false;
+						falling = true;
+						t.die();
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick){
@@ -120,7 +123,6 @@ public class Mario extends Character{
 						setVelY(0);
 						if(jumping){
 							jumping = false;
-							gravity = 0.0;
 							falling = true;
 						}
 					}
