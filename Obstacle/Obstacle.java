@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.Rectangle;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 
@@ -68,6 +69,24 @@ public abstract class Obstacle
 	 */
 	public void die(){
 		handler.getCurrentLevel().getCurrentArea().removeObstacle(this);
+	}
+	public ImageIcon getImage()
+	{
+		return this.image;
+	}
+	/**
+	 * 
+	 * @param imageName The String representation of the File where the new Image is 
+	 */
+	public void setImage(String imageName)
+	{
+		File f = new File(imageName);
+		if(!f.exists())
+		{
+			throw new RuntimeException("Image File not found: " + imageName);
+		}
+		else 
+			this.image = new ImageIcon(imageName);
 	}
 	/**
 	 * 

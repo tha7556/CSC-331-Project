@@ -19,5 +19,10 @@ public class QuestionBlock extends Obstacle
 	{
 		super(x, y,53,53,true,false,game, new ImageIcon("Question Block.png"));
 	}
+	@Override
+	public void die()
+	{
+		this.setImage("Brown Block.png");
+	}
 
 }
