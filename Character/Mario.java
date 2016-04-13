@@ -172,6 +172,12 @@ public class Mario extends Character{
 						x = getX()-5;
 					}
 				}
+				if(t instanceof Pipe)
+				{
+					Pipe p = (Pipe)t;
+					if(p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+						System.out.println("down ya go");
+				}
 			}
 		}
 		
