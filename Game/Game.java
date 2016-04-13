@@ -38,7 +38,9 @@ public class Game extends JFrame
 			this.gameBoard = new Gameboard(mario, null);
 		}
 		add(this.gameBoard);
-		setSize(1000, 600);
+		//changed the size to accomodate 32 bit size characters, and resizable to false
+		setSize(960, 640);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	/**
@@ -176,23 +178,9 @@ public class Game extends JFrame
 		Game g = new Game();
 
 		Area area = new Area("LevelA.png");
-		for(int i = 0; i < 960; i += 60)
-		{
-			area.addObstacle(new Ground(i,487,g));
-		}
-		//area.addObstacle(new QuestionBlock(75,249));
-		area.addObstacle(new QuestionBlock(378,249,g));
-		area.addObstacle(new QuestionBlock(497,249,g));
-		area.addObstacle(new QuestionBlock(440,9,g));
-		area.addObstacle(new Brick(432,249,g));
-		area.addObstacle(new Brick(315,249,g));
-		area.addObstacle(new Brick(551,249,g));
-		area.addObstacle(new Brick(500,432,g));
-		
-		area.addEnemy(new Koopa(300,450,g));
+		//added this method
+		area.createLevel(area, g);
 		areas.add(area);
-		
-		
 		
 		Level level = new Level(areas, g.getGameboard(),"Music.wav");
 		g.addLevel(level);
