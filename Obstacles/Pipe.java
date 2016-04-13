@@ -17,6 +17,7 @@ import Game.Gameboard;
 public class Pipe extends Obstacle
 {
 	private Area area;
+	
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
