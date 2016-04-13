@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import Items.Item;
+import java.awt.image.BufferedImage;
 import Character.Character;
 import Character.Enemy;
 import Obstacles.Obstacle;
@@ -13,7 +14,7 @@ import Obstacles.Obstacle;
  */
 public class Area 
 {
-	private ImageIcon background;
+	private BufferedImage background;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Obstacle> obstacles; //Change to ArrayList<Obstacle> later
 	private ArrayList<Item> items;     //Change to ArrayList<Item> later
@@ -26,7 +27,12 @@ public class Area
 		enemies = new ArrayList<Enemy>();
 		obstacles = new ArrayList<Obstacle>();
 		items = new ArrayList<Item>();
-		this.background = new ImageIcon(background);
+		fileName = new File("TestLevel.png");
+		try {
+			this.background = ImageIO.read(fileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Adds an Enemy to the enemies ArrayList
@@ -160,6 +166,37 @@ public class Area
 			for(Enemy e : enemies)
 				if(e.isAlive())
 					e.render(g, comp);
+		}
+	}
+	
+	//new method that iterates over the buffered image and creates objects based on pixels rgb
+	public void createLevel(Area area,Game g){
+		int width = 30;
+		int height = 20;
+		
+		
+		for(int y=0; y < height; y++){
+			for(int x=0; x < width; x++){
+				int pixel = background.getRGB(x, y);
+				
+				int red = (pixel >> 16) & 0xff;
+				int green = (pixel >> 8) & 0xff;
+				int blue = (pixel) & 0xff;
+				
+				if(red == 0 && green == 0 && blue == 0){
+					area.addObstacle(new Brick(x*32,y*32-32,g));
+
+				}
+				if(red == 255 && green == 0 && blue == 0){
+					area.addEnemy(new Koopa(x*32,y*32-32,g));
+
+				}
+				
+				if(red == 0 && green == 255 && blue == 0){
+					area.addObstacle(new Obstacles.QuestionBlock(x*32,y*32-32,g));
+
+				}
+			}
 		}
 	}
 	
