@@ -11,6 +11,7 @@ import Game.Gameboard;
 import Obstacles.Brick;
 import Obstacles.Ground;
 import Obstacles.Obstacle;
+import Obstacles.Pipe;
 import Obstacles.QuestionBlock;
 
 
@@ -142,7 +143,7 @@ public class Mario extends Character{
 						t.die();
 					}
 				}
-				if(t instanceof Ground || t instanceof Brick){
+				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe){
 					if(top.intersects(t.getBounds())){
 						setVelY(0);
 						if(jumping){
@@ -164,11 +165,11 @@ public class Mario extends Character{
 					}
 					if(getBoundsLeft().intersects(t.getBounds())){
 						setVelX(0);
-						x = t.getX()+t.getWidth();
+						x = getX()+5;
 					}
 					if(getBoundsRight().intersects(t.getBounds())){
 						setVelX(0);
-						x = t.getX()-t.getWidth();
+						x = getX()-5;
 					}
 				}
 			}
@@ -282,7 +283,6 @@ public class Mario extends Character{
 		}
 		else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
 		{
-			System.out.println(velX);
 			runningRight = false;
 			runningLeft = false;
 			ducking = true;
