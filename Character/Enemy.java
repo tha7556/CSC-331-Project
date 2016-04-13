@@ -74,11 +74,9 @@ public class Enemy extends Character{
 				}
 				if(getBoundsLeft().intersects(t.getBounds())){
 					setVelX(-velX);
-					x = t.getX()+t.getWidth();
 				}
 				if(getBoundsRight().intersects(t.getBounds())){
 					setVelX(-velX);
-					x = t.getX()-t.getWidth();
 				}
 			
 		}
