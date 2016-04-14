@@ -257,7 +257,7 @@ public class Mario extends Character{
 	{
 		if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
 		{
-			if(!jumping)
+			if(!jumping && onGround)
 			{
 				playSound("Jump.wav");
 				jumping = true;
@@ -269,7 +269,7 @@ public class Mario extends Character{
 		}
 		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
 		{
-			if(!jumping)
+			if(!jumping && onGround)
 			{
 				playSound("Jump.wav");
 				jumping = true;
@@ -285,7 +285,7 @@ public class Mario extends Character{
 		}
 		else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart + 55 < game.getLoopNumber())
 		{
-			if(!jumping)
+			if(!jumping && onGround)
 			{
 				playSound("Jump.wav");
 				jumping = true;
