@@ -1,19 +1,28 @@
 package Game;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import Items.Item;
-import java.awt.image.BufferedImage;
 import Character.Character;
 import Character.Enemy;
+import Character.Koopa;
+import Obstacles.Brick;
 import Obstacles.Obstacle;
+import Obstacles.Pipe;
+import Obstacles.QuestionBlock;
 /**
  * A single Area inside of a Level
  *
  */
 public class Area 
 {
+	private ImageIcon displayBackground;
 	private BufferedImage background;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Obstacle> obstacles; //Change to ArrayList<Obstacle> later
@@ -27,12 +36,13 @@ public class Area
 		enemies = new ArrayList<Enemy>();
 		obstacles = new ArrayList<Obstacle>();
 		items = new ArrayList<Item>();
-		fileName = new File("TestLevel.png");
-		try {
-			this.background = ImageIO.read(fileName);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.displayBackground = new ImageIcon(background);
+		File fileName = new File("TestLevel.png");
+		 try {
+		 this.background = ImageIO.read(fileName);
+		 } catch (IOException e) {
+		 e.printStackTrace();
+		 }
 	}
 	/**
 	 * Adds an Enemy to the enemies ArrayList
@@ -95,9 +105,9 @@ public class Area
 	 * 
 	 * @return The ImageIcon of the background
 	 */
-	public ImageIcon getBackground()
+	public ImageIcon getDisplayBackground()
 	{
-		return background;
+		return displayBackground;
 	}
 	/**
 	 * 
@@ -159,7 +169,9 @@ public class Area
 	{
 		if(g != null && comp != null)
 		{
-			background.paintIcon(comp, g, 0, 0);
+			displayBackground.paintIcon(comp, g, 0, 0);
+			//g.drawImage(background, 0, 0, comp);
+	
 			for(Obstacle o : obstacles)
 				if(o.isVisible())
 					o.render(g, comp);
@@ -168,36 +180,46 @@ public class Area
 					e.render(g, comp);
 		}
 	}
-	
-	//new method that iterates over the buffered image and creates objects based on pixels rgb
-	public void createLevel(Area area,Game g){
-		int width = 30;
-		int height = 20;
-		
-		
-		for(int y=0; y < height; y++){
-			for(int x=0; x < width; x++){
-				int pixel = background.getRGB(x, y);
-				
-				int red = (pixel >> 16) & 0xff;
-				int green = (pixel >> 8) & 0xff;
-				int blue = (pixel) & 0xff;
-				
-				if(red == 0 && green == 0 && blue == 0){
-					area.addObstacle(new Brick(x*32,y*32-32,g));
-
-				}
-				if(red == 255 && green == 0 && blue == 0){
-					area.addEnemy(new Koopa(x*32,y*32-32,g));
-
-				}
-				
-				if(red == 0 && green == 255 && blue == 0){
-					area.addObstacle(new Obstacles.QuestionBlock(x*32,y*32-32,g));
-
-				}
-			}
-		}
-	}
-	
+	/**
+	 * Adds Objects to Area using 30x20 image
+	 * <br>Black = Brick</br>
+	 * <br>Red = Koopa</br>
+	 * <br>Green = Question Block</br>
+	 * @param area The Area to add Objects to
+	 * @param g The instance of the Game
+	 */
+	 public void createLevel(Area area,Game g){
+	 		int width = 30;
+	 		int height = 20;
+	 		
+	 		
+	 		for(int y=0; y < height; y++){
+	 			for(int x=0; x < width; x++){
+	 				int pixel = background.getRGB(x, y);
+	 				
+	 				int red = (pixel >> 16) & 0xff;
+	 				int green = (pixel >> 8) & 0xff;
+	 				int blue = (pixel) & 0xff;
+	 				
+	 				if(red == 0 && green == 0 && blue == 0){
+	 					area.addObstacle(new Brick(x*32,y*32-32,g));
+	 
+	 				}
+	 				if(red == 255 && green == 0 && blue == 0){
+	 					area.addEnemy(new Koopa(x*32,y*32-32,g));
+	 
+	 				}
+	 				
+	 				if(red == 0 && green == 255 && blue == 0){
+	 					area.addObstacle(new QuestionBlock(x*32,y*32-32,g));
+	 
+	 				}
+	 				if(red == 0 && green == 0 && blue == 255)
+	 				{
+	 					area.addObstacle(new Pipe(x*32, y*32-32, g));
+	 				}
+	 			}
+	 		}
+	 }
 }
+
