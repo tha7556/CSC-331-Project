@@ -111,7 +111,7 @@ public class Mario extends Character{
 		//Pipes
 		if(goingDownPipe)
 		{
-			x = pipe.getX()+(pipe.getWidth()/4);
+			x = pipe.getX()+(pipe.getWidth()/6);
 			if(game.getLoopNumber() - pipeStart < 35)
 				y += 3;
 			else
@@ -200,10 +200,11 @@ public class Mario extends Character{
 				}
 				if(t instanceof Pipe)
 				{
-					pipe = (Pipe)t;
-					pipeStart = game.getLoopNumber();
-					if(pipe.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+					Pipe p = (Pipe)t;
+					if(p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
 						{
+							pipe = p;
+							pipeStart = game.getLoopNumber();
 							goingDownPipe = true;
 							playSound("Pipe.wav");
 						}

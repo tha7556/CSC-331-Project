@@ -27,7 +27,7 @@ public class Pipe extends Obstacle
 	 */
 	public Pipe(int x, int y, Game game, Area area)
 	{
-		super(x,y,121,120,true,true, game, new ImageIcon("Pipe.png"));
+		super(x,y,100,99,true,true, game, new ImageIcon("Pipe.png"));
 		this.area = area;
 	}
 	/**
@@ -62,7 +62,7 @@ public class Pipe extends Obstacle
 	 */
 	public Rectangle getBoundsMiddle()
 	{
-		return new Rectangle(getX()+55,getY()-4,width - 110,5);
+		return new Rectangle(getX()+40,getY(),width/6,5);
 	}
 	@Override
 	public void render(Graphics g, Gameboard c)
