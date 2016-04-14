@@ -3,7 +3,6 @@ package Game;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import Character.*;
-import Obstacles.*;
 /**
  * The class containing the Game loop and extends JFrame
  *
@@ -38,9 +37,12 @@ public class Game extends JFrame
 			this.gameBoard = new Gameboard(mario, null);
 		}
 		add(this.gameBoard);
+		
 		//changed the size to accomodate 32 bit size characters, and resizable to false
 		setSize(960, 640);
 		setResizable(false);
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	/**
@@ -177,10 +179,11 @@ public class Game extends JFrame
 		ArrayList<Area> areas = new ArrayList<Area>();
 		Game g = new Game();
 
-		Area area = new Area("LevelA.png");
-		//added this method
+		Area area = new Area("LevelBackground.png");
 		area.createLevel(area, g);
 		areas.add(area);
+		
+		
 		
 		Level level = new Level(areas, g.getGameboard(),"Music.wav");
 		g.addLevel(level);
