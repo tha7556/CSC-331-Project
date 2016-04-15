@@ -26,6 +26,7 @@ public class Mario extends Character{
 	private boolean onGround = false;
 	//Pipe variables
 	private boolean goingDownPipe = false;
+	private boolean goingUpPipe = false;
 	private boolean insidePipe = false;
 	private Pipe pipe;
 	private int pipeStart = -1;
@@ -109,7 +110,7 @@ public class Mario extends Character{
 	@Override
 	public void tick() {
 		//Pipes
-		if(goingDownPipe)
+		if(goingDownPipe) //Going down Pipe animation
 		{
 			x = pipe.getX()+(pipe.getWidth()/6);
 			if(game.getLoopNumber() - pipeStart < 35)
@@ -121,17 +122,32 @@ public class Mario extends Character{
 			}	
 			return;
 		}
-		if(insidePipe)
+		if(insidePipe) //Switch to linked Level
 		{
-			System.out.println("insidePipe");
-			try
+			Pipe p = pipe;
+			this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY()+10);
+			goingUpPipe = true;
+			pipe = p;
+			pipeStart = game.getLoopNumber();
+			return;
+		}
+		if(goingUpPipe)
+		{
+			if(game.getLoopNumber() - pipeStart == 20) //Waits 20 loops then plays sound
+				playSound("Pipe.wav");
+			else if(game.getLoopNumber() - pipeStart > 20) //After the 20 loops, move Mario
 			{
-				this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY());
+				x = pipe.getX()+(pipe.getWidth()/6);
+				if(game.getLoopNumber() - pipeStart < 47)
+					y -= 3;
+				else
+				{
+					goingUpPipe = false;
+					pipeStart = -1;
+				}	
 			}
-			catch(RuntimeException e)
-			{
-				
-			}
+			return;
+			
 		}
 		//Normal Moving
 		x += velX;
@@ -192,7 +208,7 @@ public class Mario extends Character{
 						t.die();
 					}
 				}
-				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe){
+				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
 					if(top.intersects(t.getBounds())){
 						setVelY(0);
 						if(jumping){
@@ -264,7 +280,6 @@ public class Mario extends Character{
 				falling = true;
 			}
 		}
-		
 		if(falling){
 			gravity += 0.3;
 			setVelY((int) gravity);
