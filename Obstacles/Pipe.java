@@ -49,10 +49,18 @@ public class Pipe extends Obstacle
 	{
 		return area;
 	}
+	/**
+	 * 
+	 * @return The Pipe that this one links to
+	 */
 	public Pipe getLinkedPipe()
 	{
 		return linkedPipe;
 	}
+	/**
+	 * Links this Pipe with another
+	 * @param p The Pipe to be linked with
+	 */
 	public void setLinkedPipe(Pipe p)
 	{
 		this.linkedPipe = p;

@@ -117,16 +117,18 @@ public class Game extends JFrame
 	}
 	/**
 	 * Runs the Game loop.  Keeps track of the loop number that it is on as well as the total time elapsed since starting it
+	 * <br>Must be called for every Level in the Game</br>
+	 * @param level The Level to be played
 	 */
-	public void play()
+	public void play(Level level)
 	{
-		currentLevel = levels.get(0);
+		currentLevel = level;
 		currentLevel.setCurrentArea(0);
 		displayLevel(currentLevel);
 		loop = 0;
 		displayTime = 0;
 		actualTime = 0.0;
-		while(mario.isAlive())
+		while(mario.isAlive()) //Add later: while(mario.isAlive() && !levelOver)
 		{
 			loop++;
 			long start = System.currentTimeMillis();
@@ -146,7 +148,6 @@ public class Game extends JFrame
 			long end = System.currentTimeMillis();
 			actualTime += (end-start)/1000.0;
 			displayTime = (int)actualTime;
-			//System.out.println("#" + loop + ":  " + displayTime);
 		}
 	}
 	/**
@@ -182,7 +183,7 @@ public class Game extends JFrame
 		
 		Area area2 = new Area("TestLevel2.png");
 		Pipe p1 = new Pipe(250, 420, g, area2);
-		Pipe p2 = new Pipe(250,420,g,area);
+		Pipe p2 = new Pipe(250,420,g);
 		p1.setLinkedPipe(p2);
 		area.addObstacle(p1);
 		area2.addObstacle(p2);
@@ -195,8 +196,8 @@ public class Game extends JFrame
 		
 		Level level = new Level(areas, g.getGameboard(),"Music.wav");
 		g.addLevel(level);
-		
-		g.play();
+		for(Level lev : g.getLevels())
+			g.play(lev);
 	}
 	
 }
