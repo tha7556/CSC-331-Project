@@ -86,6 +86,14 @@ public abstract class Character {
 	}
 	/**
 	 * 
+	 * @return The width of the Character
+	 */
+	public int getWidth()
+	{
+		return width;
+	}
+	/**
+	 * 
 	 * @param x The new X coordinate value
 	 */
 	public void setX(int x) {
