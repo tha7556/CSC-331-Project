@@ -409,11 +409,8 @@ public class Mario extends Character{
 		insidePipe = false;
 		pipe = null;
 		pipeStart = -1;
-		System.out.println(this.x + "," + this.y);
 		this.x = x;
 		this.y = y;
-		System.out.println(this.x + "," + this.y);
-		System.out.println("reset");
 	}
 
 }

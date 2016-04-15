@@ -101,16 +101,11 @@ public class Level
 	 */
 	public void loadNextLevel()
 	{		
-		System.out.println("??" + currentIndex);
 			if(currentIndex > -1  && currentIndex + 1 < areas.size())
 			{
-				System.out.println("inside");
 				displayArea(areas.get(currentIndex+1),gameboard.getGraphics(),gameboard);	
-				System.out.println("here?");
 				gameboard.getMario().reset(0, gameboard.getMario().getY());
-				System.out.println("not here?");
 				currentIndex++;
-				System.out.println("currentIndex: " + currentIndex);
 				return;
 			}
 		
@@ -126,7 +121,6 @@ public class Level
 			displayArea(areas.get(currentIndex-1),gameboard.getGraphics(),gameboard);	
 			gameboard.getMario().reset(960-gameboard.getMario().getWidth()-10, gameboard.getMario().getY());
 			currentIndex--;
-			System.out.println("currentIndex: " + currentIndex);
 			return;
 		}
 	
@@ -145,8 +139,7 @@ public class Level
 			displayArea(area,gameboard.getGraphics(),gameboard);
 			gameboard.getMario().reset(x, y);
 			currentIndex = areas.indexOf(area);
-			System.out.println("currentIndex: " + currentIndex);
-			System.out.println(gameboard.getMario().getX());
+
 			return;
 		}
 		throw new RuntimeException("New Area == null");
