@@ -19,24 +19,25 @@ public class Gameboard extends JComponent implements KeyListener
 
 	private static final long serialVersionUID = 1L;
 	private Mario mario;
-	private Area area;
+	private Level level;
 	private Set<Integer> activeKeys = new HashSet<>();
 	/**
 	 * 
 	 * @param mario The Mario of the Game
-	 * @param area The current Area to be displayed
+	 * @param level The Level to be displayed
 	 */
-	public Gameboard(Mario mario, Area area)
+	public Gameboard(Mario mario, Level level)
 	{
 		super();
 		this.mario = mario;
-		this.area = area;
+		this.level = level;
 		addKeyListener(this);
 		setFocusable(true);
 	}
 	@Override
 	public void paintComponent(Graphics g)
 	{
+		Area area = level.getCurrentArea();
 		if(area != null)
 		{
 			area.draw(g, this);
