@@ -224,7 +224,7 @@ public class Mario extends Character{
 				if(t instanceof Pipe)
 				{
 					Pipe p = (Pipe)t;
-					if(p.getArea() != null & p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+					if(p.getArea() != null && p.getLinkedPipe() != null &&  p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
 						{
 							pipe = p;
 							pipeStart = game.getLoopNumber();
