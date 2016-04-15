@@ -14,6 +14,7 @@ public class Level
 {
 	private ArrayList<Area> areas;
 	private Area currentArea;
+	private int currentIndex;
 	private Gameboard gameboard;
 	private String musicFile;
 	/**
@@ -30,8 +31,11 @@ public class Level
 		if(areas.size() > 0)
 		{
 			this.currentArea = areas.get(0);
+			currentIndex = 0;
 			displayArea(currentArea,gameboard.getGraphics(), gameboard);
 		}
+		if(musicFile != null)
+			playMusic();
 	}
 	/**
 	 * Alternative constructor without music
@@ -66,6 +70,10 @@ public class Level
 	{
 		return currentArea;
 	}
+	public int getCurrentIndex()
+	{
+		return currentIndex;
+	}
 	/**
 	 * 
 	 * @param index The index of the new Area in the areas ArrayList
@@ -85,9 +93,63 @@ public class Level
 		if(area != null)
 		{
 			area.draw(g, comp);
-			if(musicFile != null)
-				playMusic();
+			currentArea = area;
 		}
+	}
+	/**
+	 * Loads the Area that comes after the current one in the areas ArrayList
+	 */
+	public void loadNextLevel()
+	{		
+		System.out.println("??" + currentIndex);
+			if(currentIndex > -1  && currentIndex + 1 < areas.size())
+			{
+				System.out.println("inside");
+				displayArea(areas.get(currentIndex+1),gameboard.getGraphics(),gameboard);	
+				System.out.println("here?");
+				gameboard.getMario().reset(0, gameboard.getMario().getY());
+				System.out.println("not here?");
+				currentIndex++;
+				System.out.println("currentIndex: " + currentIndex);
+				return;
+			}
+		
+		throw new RuntimeException("Next Level == null at index: " + currentIndex);
+	}
+	/**
+	 * Loads the Area that comes before the current one in the areas ArrayList
+	 */
+	public void loadPreviousLevel()
+	{
+		if(currentIndex > 0)
+		{
+			displayArea(areas.get(currentIndex-1),gameboard.getGraphics(),gameboard);	
+			gameboard.getMario().reset(960-gameboard.getMario().getWidth()-10, gameboard.getMario().getY());
+			currentIndex--;
+			System.out.println("currentIndex: " + currentIndex);
+			return;
+		}
+	
+		throw new RuntimeException("Previous Level == null");
+	}
+	/**
+	 * Loads a specific Area from the areas ArrayList
+	 * @param area The Area to load
+	 * @param x The x coordinate to put Mario
+	 * @param y The y coordinate to put Mario
+	 */
+	public void loadSpecificLevel(Area area, int x, int y)
+	{
+		if(areas.contains(area))
+		{
+			displayArea(area,gameboard.getGraphics(),gameboard);
+			gameboard.getMario().reset(x, y);
+			currentIndex = areas.indexOf(area);
+			System.out.println("currentIndex: " + currentIndex);
+			System.out.println(gameboard.getMario().getX());
+			return;
+		}
+		throw new RuntimeException("New Area == null");
 	}
 	/**
 	 * Plays the background Music on a loop (15 times)

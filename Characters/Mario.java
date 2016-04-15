@@ -121,6 +121,18 @@ public class Mario extends Character{
 			}	
 			return;
 		}
+		if(insidePipe)
+		{
+			System.out.println("insidePipe");
+			try
+			{
+				this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY());
+			}
+			catch(RuntimeException e)
+			{
+				
+			}
+		}
 		//Normal Moving
 		x += velX;
 		y += velY;
@@ -138,23 +150,34 @@ public class Mario extends Character{
 		//if the current x or y is beyond or below the specified bounds, reset the shape to be at the bounds with the whole shape showing
 		if(x <= 0) 
 		{
-			System.out.println("x<0");
-			x=0;
+			try
+			{
+				this.game.getCurrentLevel().loadPreviousLevel();
+			}
+			catch(RuntimeException e)
+			{
+				x = 0;
+			}
 		}
 		if(y <= 0)
 		{
-			System.out.println("y<0");
 			y = 0;
 		}
 
 		if(x + width >= game.getWidth()) 
 		{
-			System.out.println("off screen");
-			x = game.getWidth() - width;
+			try
+			{
+				this.game.getCurrentLevel().loadNextLevel();
+			}
+			catch(RuntimeException e)
+			{
+				x = game.getWidth()-width;
+			}
+			
 		}
 		if(y + height >= game.getHeight()) 
 		{
-			System.out.println("off screen");
 			y = game.getHeight() - height;
 		}
 		
@@ -201,7 +224,7 @@ public class Mario extends Character{
 				if(t instanceof Pipe)
 				{
 					Pipe p = (Pipe)t;
-					if(p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+					if(p.getArea() != null & p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
 						{
 							pipe = p;
 							pipeStart = game.getLoopNumber();
@@ -234,7 +257,7 @@ public class Mario extends Character{
 		}
 		
 		if(jumping){
-			gravity -= 0.3;
+			gravity -= 0.2;
 			setVelY((int) -gravity);
 			if(gravity <= 0.0){
 				jumping = false;
@@ -356,6 +379,26 @@ public class Mario extends Character{
 					return true;
 		}
 		return false;
+	}
+	/**
+	 * Resets Mario's variables and puts him at the specified location
+	 * @param x The x coordinate value on the Gameboard
+	 * @param y The y coordinate value on the Gameboard
+	 */
+	public void reset(int x, int y)
+	{
+		jumpStart = -1;
+		ducking = false;
+		onGround = false;
+		goingDownPipe = false;
+		insidePipe = false;
+		pipe = null;
+		pipeStart = -1;
+		System.out.println(this.x + "," + this.y);
+		this.x = x;
+		this.y = y;
+		System.out.println(this.x + "," + this.y);
+		System.out.println("reset");
 	}
 
 }

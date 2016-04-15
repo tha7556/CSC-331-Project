@@ -17,6 +17,7 @@ import Game.Gameboard;
 public class Pipe extends Obstacle
 {
 	private Area area;
+	private Pipe linkedPipe;
 	
 	/**
 	 * 
@@ -48,6 +49,14 @@ public class Pipe extends Obstacle
 	{
 		return area;
 	}
+	public Pipe getLinkedPipe()
+	{
+		return linkedPipe;
+	}
+	public void setLinkedPipe(Pipe p)
+	{
+		this.linkedPipe = p;
+	}
 	/**
 	 * Changes the linked Area to a different one
 	 * @param newArea The new Area to be linked to
@@ -62,7 +71,7 @@ public class Pipe extends Obstacle
 	 */
 	public Rectangle getBoundsMiddle()
 	{
-		return new Rectangle(getX()+40,getY(),width/6,5);
+		return new Rectangle(getX()+40,getY()-4,width/6,5);
 	}
 	@Override
 	public void render(Graphics g, Gameboard c)

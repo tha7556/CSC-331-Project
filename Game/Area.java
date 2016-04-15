@@ -36,8 +36,8 @@ public class Area
 		enemies = new ArrayList<Enemy>();
 		obstacles = new ArrayList<Obstacle>();
 		items = new ArrayList<Item>();
-		this.displayBackground = new ImageIcon(background);
-		File fileName = new File("TestLevel.png");
+		this.displayBackground = new ImageIcon("LevelBackground.png");
+		File fileName = new File(background);
 		 try {
 		 this.background = ImageIO.read(fileName);
 		 } catch (IOException e) {
@@ -170,7 +170,6 @@ public class Area
 		if(g != null && comp != null)
 		{
 			displayBackground.paintIcon(comp, g, 0, 0);
-			//g.drawImage(background, 0, 0, comp);
 	
 			for(Obstacle o : obstacles)
 				if(o.isVisible())

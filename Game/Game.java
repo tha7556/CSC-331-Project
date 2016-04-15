@@ -3,6 +3,7 @@ package Game;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import Character.*;
+import Obstacles.Pipe;
 /**
  * The class containing the Game loop and extends JFrame
  *
@@ -30,7 +31,7 @@ public class Game extends JFrame
 		if(levels.size() > 0 && levels.get(0).getAreas().size() > 0)
 		{
 			currentLevel = levels.get(0);
-			this.gameBoard = new Gameboard(mario, currentLevel.getAreas().get(0));
+			this.gameBoard = new Gameboard(mario, currentLevel);
 		}
 		else
 		{
@@ -38,7 +39,6 @@ public class Game extends JFrame
 		}
 		add(this.gameBoard);
 		
-		//changed the size to accomodate 32 bit size characters, and resizable to false
 		setSize(960, 640);
 		setResizable(false);
 		
@@ -98,11 +98,10 @@ public class Game extends JFrame
 	 */
 	public void displayLevel(Level level)
 	{
-		setVisible(false);
 		remove(this.gameBoard);
 		currentLevel = level;
 		this.mario.setLocation(20, 300);
-		this.gameBoard = new Gameboard(this.mario,currentLevel.getCurrentArea());
+		this.gameBoard = new Gameboard(this.mario,currentLevel);
 		
 		
 		add(this.gameBoard);
@@ -178,10 +177,19 @@ public class Game extends JFrame
 	{
 		ArrayList<Area> areas = new ArrayList<Area>();
 		Game g = new Game();
-
-		Area area = new Area("LevelBackground.png");
+		
+		Area area = new Area("TestLevel.png");
+		
+		Area area2 = new Area("TestLevel2.png");
+		Pipe p1 = new Pipe(250, 420, g, area2);
+		Pipe p2 = new Pipe(250,420,g,area);
+		p1.setLinkedPipe(p2);
+		area.addObstacle(p1);
+		area2.addObstacle(p2);
 		area.createLevel(area, g);
+		area2.createLevel(area2, g);
 		areas.add(area);
+		areas.add(area2);
 		
 		
 		
