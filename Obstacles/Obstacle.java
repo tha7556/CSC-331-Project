@@ -58,7 +58,7 @@ public abstract class Obstacle
 		if(g != null)
 		{
 			image.paintIcon(c, g, x, y);
-			g.setColor(Color.red);
+			g.setColor(Color.RED);
 			g.drawRect((int)getBounds().getX(), (int)getBounds().getY(), (int)getBounds().getWidth(), (int)getBounds().getHeight());
 		}
 		
@@ -209,7 +209,7 @@ public abstract class Obstacle
 	 * @return The border collision Rectangle of the top part of the Obstacle
 	 */
 	public Rectangle getBoundsTop(){
-		return new Rectangle(getX()+10,getY()-2,width,5);
+		return new Rectangle(getX(),getY()-2,width,10);
 	}
 	/**
 	 * 
