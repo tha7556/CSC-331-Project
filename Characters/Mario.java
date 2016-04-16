@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -253,6 +253,8 @@ public class Mario extends Character{
 		}
 		
 		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
+			if(enemy.isSolid())
+			{
 			
 				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
 					playSound("Jump.wav");
@@ -269,6 +271,7 @@ public class Mario extends Character{
 					die();
 					break;
 				}
+			}
 			
 		}
 		
@@ -390,8 +393,10 @@ public class Mario extends Character{
 		for(Obstacle o : game.getCurrentLevel().getCurrentArea().getObstacles())
 		{
 			if(o.isSolid())
+			{
 				if(getBoundsBottom().intersects(o.getBoundsTop()))
 					return true;
+			}
 		}
 		return false;
 	}
