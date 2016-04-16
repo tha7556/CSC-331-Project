@@ -25,6 +25,8 @@ public class Enemy extends Character{
 	 * @param imageName The filename of the {@link Character}'s ImageIcon
 	 * @param game The instance of the Game
 	 */
+	private int dieStart = -1;
+	private boolean dead = false;
 	public Enemy(int x, int y, int width, int height, boolean solid,String imageName, Game game) {
 		super(x, y, width, height, solid, imageName, game);
 		setVelX(1);
@@ -53,13 +55,29 @@ public class Enemy extends Character{
 		g.setColor(Color.BLUE);
 		r = getBoundsRight();
 		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
+		
 	}
 	@Override
 	public void die(){
-		game.getCurrentLevel().getCurrentArea().removeCharacter(this);
+		if(!alive)
+			game.getCurrentLevel().getCurrentArea().removeCharacter(this);
+		else
+		{
+			dead = true;
+			dieStart = game.getLoopNumber();
+			this.setImage("Poof.gif");
+		}
 	}
 	@Override
 	public void tick() {
+		if(dead) //Death Animation
+		{
+			if(game.getLoopNumber() - dieStart > 10)
+			{
+				alive = false;
+			}
+			return;
+		}
 		x += velX;
 		y += velY;
 		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
