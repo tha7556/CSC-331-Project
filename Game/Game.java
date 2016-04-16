@@ -2,7 +2,8 @@ package Game;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import Character.*;
+
+import Characters.*;
 import Obstacles.Pipe;
 /**
  * The class containing the Game loop and extends JFrame
@@ -135,7 +136,8 @@ public class Game extends JFrame
 			mario.move(this.gameBoard.getActiveKeys());
 			mario.tick();	
 			for(Enemy e : currentLevel.getCurrentArea().getEnemies())
-				e.tick();
+				if(e.isVisible())
+					e.tick();
 			gameBoard.repaint();
 			try 
 			{
