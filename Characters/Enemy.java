@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -60,7 +60,9 @@ public class Enemy extends Character{
 	@Override
 	public void die(){
 		if(!alive)
-			game.getCurrentLevel().getCurrentArea().removeCharacter(this);
+		{
+			game.getCurrentLevel().getCurrentArea().removeCharacter(this);			
+		}
 		else
 		{
 			dead = true;
@@ -75,6 +77,7 @@ public class Enemy extends Character{
 			if(game.getLoopNumber() - dieStart > 10)
 			{
 				alive = false;
+				die();
 			}
 			return;
 		}
@@ -103,6 +106,8 @@ public class Enemy extends Character{
 			setVelY((int) gravity);
 		}
 		for(Enemy coEnemies: game.getCurrentLevel().getCurrentArea().getEnemies()){
+			if(coEnemies.isSolid())
+			{
 			
 				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
 					setVelX(-(getVelX()));
@@ -114,6 +119,7 @@ public class Enemy extends Character{
 					jumping = true;
 					falling = false;
 				}
+			}
 				
 			
 		}
