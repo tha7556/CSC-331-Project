@@ -8,7 +8,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 
-import Character.Character;
+import Characters.Character;
 import Game.Game;
 import Game.Gameboard;
 

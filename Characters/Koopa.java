@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 
 
 import Game.Game;

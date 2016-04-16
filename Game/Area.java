@@ -8,10 +8,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import Characters.Character;
+import Characters.Enemy;
+import Characters.Koopa;
 import Items.Item;
-import Character.Character;
-import Character.Enemy;
-import Character.Koopa;
 import Obstacles.Brick;
 import Obstacles.Obstacle;
 import Obstacles.Pipe;
@@ -175,7 +176,7 @@ public class Area
 				if(o.isVisible())
 					o.render(g, comp);
 			for(Enemy e : enemies)
-				if(e.isAlive())
+				if(e.isVisible())
 					e.render(g, comp);
 		}
 	}

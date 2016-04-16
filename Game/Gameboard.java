@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JComponent;
 
-import Character.Mario;
+import Characters.Mario;
 import Game.Area;
 /**
  * Extends JComponent and implements KeyListener.
