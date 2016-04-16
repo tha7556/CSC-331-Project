@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.File;
@@ -135,6 +135,14 @@ public abstract class Character {
 	public void setVisible(boolean v)
 	{
 		visible = v;
+	}
+	/**
+	 * 
+	 * @return True if the Character is Visible
+	 */
+	public boolean isVisible()
+	{
+		return visible;
 	}
 	/**
 	 * 
