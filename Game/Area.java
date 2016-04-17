@@ -14,6 +14,7 @@ import Characters.Enemy;
 import Characters.Koopa;
 import Items.Item;
 import Obstacles.Brick;
+import Obstacles.Ground;
 import Obstacles.Obstacle;
 import Obstacles.Pipe;
 import Obstacles.QuestionBlock;
@@ -188,7 +189,7 @@ public class Area
 	 * @param area The Area to add Objects to
 	 * @param g The instance of the Game
 	 */
-	 public void createLevel(Area area,Game g){
+	 public void createArea(Area area,Game g){
 	 		int width = 30;
 	 		int height = 20;
 	 		
@@ -218,6 +219,8 @@ public class Area
 	 				{
 	 					area.addObstacle(new Pipe(x*32, y*32-32, g));
 	 				}
+	 				if(red == 255 && green == 255 && blue == 0)
+	 					area.addObstacle(new Ground(x*32, y*32-32,g));
 	 			}
 	 		}
 	 }
