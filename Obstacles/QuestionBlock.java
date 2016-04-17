@@ -9,6 +9,9 @@ import Game.Game;
  */
 public class QuestionBlock extends Obstacle
 {
+	private boolean coin;
+	private boolean mushroom;
+	private boolean life;
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -17,12 +20,31 @@ public class QuestionBlock extends Obstacle
 	 */
 	public QuestionBlock(int x, int y,Game game)
 	{
+
 		super(x, y,53,53,true,false,game, new ImageIcon("Question Block.png"));
+		double a = Math.random();
+		if(a > .4){
+			coin = true;
+		}
+		else if(a > 0.1){
+			mushroom = true;
+		}
+		else{
+			life = true;
+		}
 	}
 	@Override
 	public void die()
 	{
 		this.setImage("Brown Block.png");
 	}
-
+	public boolean hasCoin() {
+		return coin;
+	}
+	public boolean hasMushroom(){
+		return mushroom;
+	}
+	public boolean hasLife(){
+		return life;
+	}
 }
