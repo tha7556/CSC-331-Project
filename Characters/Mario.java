@@ -8,6 +8,9 @@ import java.util.Set;
 
 import Game.Game;
 import Game.Gameboard;
+import Items.Coin;
+import Items.ExtraLife;
+import Items.Mushroom;
 import Obstacles.Brick;
 import Obstacles.FinishLine;
 import Obstacles.Ground;
@@ -216,6 +219,18 @@ public class Mario extends Character{
 						jumping = false;
 						falling = true;
 						t.die();
+						if(((QuestionBlock) t).hasCoin()){
+							Coin tempitem = new Coin(t.getX(), t.getY()-32);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasMushroom()){
+							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasLife()){
+							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
