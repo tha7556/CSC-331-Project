@@ -118,7 +118,6 @@ public class Mario extends Character{
 	}
 	@Override
 	public void tick() {
-	if(!dying){
 		//Pipes
 		if(goingDownPipe) //Going down Pipe animation
 		{
@@ -174,6 +173,7 @@ public class Mario extends Character{
 			top = getBoundsTop();
 		
 		//if the current x or y is beyond or below the specified bounds, reset the shape to be at the bounds with the whole shape showing
+	if(!dying){	
 		if(x <= 0) 
 		{
 			try
