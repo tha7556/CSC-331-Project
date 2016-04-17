@@ -75,6 +75,9 @@ public class Scoreboard extends JComponent
 		coins++;
 		score += 100;
 	}
+	public void addScore(){
+		score+=500;
+	}
 	/**
 	 * Gives Mario an extra life
 	 */
