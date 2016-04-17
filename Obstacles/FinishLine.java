@@ -39,6 +39,11 @@ public class FinishLine extends Obstacle
 	{
 		return new Rectangle(barX+5,barY+6,width/2-10,20);
 	}
+	@Override
+	public Rectangle getBounds()
+	{
+		return new Rectangle(x+(width/2)-30,y,width/2,height);
+	}
 	/**
 	 * Moves the bar every time the Game loops, goes in the opposite direction when it gets to the top or bottom 
 	 */
