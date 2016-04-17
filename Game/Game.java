@@ -215,7 +215,7 @@ public class Game extends JFrame
 		p1.setLinkedPipe(p2);
 		area.addObstacle(p1);
 		area2.addObstacle(p2);
-		area2.addObstacle(new FinishLine(600,150,g));
+		//area2.addObstacle(new FinishLine(600,150,g));
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		areas.add(area);
