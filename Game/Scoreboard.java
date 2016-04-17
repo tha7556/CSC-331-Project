@@ -76,6 +76,20 @@ public class Scoreboard extends JComponent
 		score += 100;
 	}
 	/**
+	 * Gives Mario an extra life
+	 */
+	public void addLife()
+	{
+		this.lives ++;
+	}
+	/**
+	 * Takes a life from Mario
+	 */
+	public void takeLife()
+	{
+		this.lives--;
+	}
+	/**
 	 * Resets the score, and coins back to 0
 	 */
 	public void reset()
