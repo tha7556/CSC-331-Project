@@ -25,6 +25,7 @@ public class Mario extends Character{
 	private int jumpStart = -1;
 	private boolean ducking = false;
 	private boolean onGround = false;
+	private boolean dying = false;
 	//Pipe variables
 	private boolean goingDownPipe = false;
 	private boolean goingUpPipe = false;
@@ -117,6 +118,7 @@ public class Mario extends Character{
 	}
 	@Override
 	public void tick() {
+	if(!dying){
 		//Pipes
 		if(goingDownPipe) //Going down Pipe animation
 		{
@@ -294,6 +296,7 @@ public class Mario extends Character{
 			}
 			
 		}
+	}	
 		
 		if(jumping){
 			gravity -= 0.2;
@@ -308,7 +311,25 @@ public class Mario extends Character{
 			setVelY((int) gravity);
 		}
 		
-		
+		if(dying){
+			if(game.getScoreboard().getLives() > 0){
+				if(y >= game.getHeight()-20) 
+				{
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					game.getScoreboard().takeLife();
+					dying = false;
+					reset(30,300);
+				}
+			}
+			
+			if(game.getScoreboard().getLives() == 0){
+				System.out.println("Game Over");
+			}
+		}
 	}
 	/**
 	 * Uses the input from the Gameboard to move Mario
@@ -436,6 +457,18 @@ public class Mario extends Character{
 		pipeStart = -1;
 		this.x = x;
 		this.y = y;
+	}
+	
+	@Override
+	public void die(){
+		dying = true;
+		jumping = true;
+		gravity = 6.0;
+		if(getY() >= game.getHeight()) 
+		{
+			System.out.println("Past");
+			y = game.getHeight() - height;
+		}
 	}
 
 }
