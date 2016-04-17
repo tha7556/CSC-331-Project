@@ -17,6 +17,6 @@ public class Ground extends Obstacle
 	 */
 	public Ground(int x, int y, Game game)
 	{
-		super(x,y,59,52,true,false,game,new ImageIcon("Ground.png"));
+		super(x,y,64,56,true,false,game,new ImageIcon("Ground.png"));
 	}
 }
