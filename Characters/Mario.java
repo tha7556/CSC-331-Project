@@ -51,7 +51,14 @@ public class Mario extends Character{
 				setImage("MarioJumpRight.png");
 			else
 				setImage("MarioJumpLeft.png");
-		}		
+		}
+		else if(!this.onGround)
+		{
+			if(facingRight)
+				setImage("MarioFallRight.png");
+			else
+				setImage("MarioFallLeft.png");
+		}
 		else if(this.runningRight){
 			setImage("MarioWalkRight.gif");
 		}
