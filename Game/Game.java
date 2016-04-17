@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Characters.*;
+import Obstacles.FinishLine;
+import Obstacles.Obstacle;
 import Obstacles.Pipe;
 /**
  * The class containing the Game loop and extends JFrame
@@ -147,6 +149,14 @@ public class Game extends JFrame
 			for(Enemy e : currentLevel.getCurrentArea().getEnemies())
 				if(e.isVisible())
 					e.tick();
+			for(Obstacle o : currentLevel.getCurrentArea().getObstacles())
+			{
+				if(o instanceof FinishLine && o.isVisible())
+				{
+					FinishLine f = (FinishLine)o;
+					f.tick();
+				}
+			}
 			gameBoard.repaint();
 			score.repaint();
 			try 
@@ -199,6 +209,7 @@ public class Game extends JFrame
 		p1.setLinkedPipe(p2);
 		area.addObstacle(p1);
 		area2.addObstacle(p2);
+		area2.addObstacle(new FinishLine(600,150,g));
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		areas.add(area);
