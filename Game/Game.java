@@ -1,6 +1,9 @@
 package Game;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Characters.*;
@@ -26,8 +29,10 @@ public class Game extends JFrame
 	 */
 	public Game(ArrayList<Level> levels)
 	{
+		ImageIcon icon = new ImageIcon("MarioSymbol.png");
+		this.setIconImage(icon.getImage());
 		this.levels = levels;
-		score = new Scoreboard();
+		score = new Scoreboard(this);
 		mario = new Mario(20,400,this);
 		if(levels.size() > 0 && levels.get(0).getAreas().size() > 0)
 		{
@@ -38,9 +43,11 @@ public class Game extends JFrame
 		{
 			this.gameBoard = new Gameboard(mario, null);
 		}
-		add(this.gameBoard);
 		
-		setSize(960, 640);
+		setLayout(new BorderLayout());
+		add(score,"North");
+		
+		setSize(960, 690);
 		setResizable(false);
 		
 		
@@ -99,6 +106,7 @@ public class Game extends JFrame
 	 */
 	public void displayLevel(Level level)
 	{
+		setVisible(false);
 		remove(this.gameBoard);
 		currentLevel = level;
 		this.mario.setLocation(20, 300);
@@ -139,6 +147,7 @@ public class Game extends JFrame
 				if(e.isVisible())
 					e.tick();
 			gameBoard.repaint();
+			score.repaint();
 			try 
 			{
 				Thread.sleep(20);
@@ -184,13 +193,13 @@ public class Game extends JFrame
 		Area area = new Area("TestLevel.png");
 		
 		Area area2 = new Area("TestLevel2.png");
-		Pipe p1 = new Pipe(250, 420, g, area2);
-		Pipe p2 = new Pipe(250,420,g);
+		Pipe p1 = new Pipe(250, 450, g, area2);
+		Pipe p2 = new Pipe(250,450,g);
 		p1.setLinkedPipe(p2);
 		area.addObstacle(p1);
 		area2.addObstacle(p2);
-		area.createLevel(area, g);
-		area2.createLevel(area2, g);
+		area.createArea(area, g);
+		area2.createArea(area2, g);
 		areas.add(area);
 		areas.add(area2);
 		
