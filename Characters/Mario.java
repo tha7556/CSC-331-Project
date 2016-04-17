@@ -322,6 +322,7 @@ public class Mario extends Character{
 					}
 					game.getScoreboard().takeLife();
 					dying = false;
+					game.getCurrentLevel().playMusic();
 					reset(30,300);
 				}
 			}
@@ -461,6 +462,8 @@ public class Mario extends Character{
 	
 	@Override
 	public void die(){
+		game.getCurrentLevel().stopMusic();
+		playSound("death.wav");
 		dying = true;
 		jumping = true;
 		gravity = 6.0;
