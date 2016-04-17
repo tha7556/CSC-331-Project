@@ -1,4 +1,5 @@
 package Game;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,6 +34,7 @@ public class Gameboard extends JComponent implements KeyListener
 		this.level = level;
 		addKeyListener(this);
 		setFocusable(true);
+		this.setPreferredSize(new Dimension(960,640));
 	}
 	@Override
 	public void paintComponent(Graphics g)
