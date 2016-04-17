@@ -16,7 +16,7 @@ public class Koopa extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public Koopa(int x, int y, Game game) {
-		super(x, y, 32, 54, true,"KoopaWalkLeft.gif", game);
+		super(x, y, 32, 32, true,"KoopaWalkLeft.gif", game);
 		
 	}
 	@Override
@@ -57,9 +57,13 @@ public class Koopa extends Enemy
 				}
 				if(getBoundsLeft().intersects(t.getBounds())){
 					setVelX(-velX);
+					setImage("KoopaWalkRight.gif");
+
 				}
 				if(getBoundsRight().intersects(t.getBounds())){
 					setVelX(-velX);
+					setImage("KoopaWalkLeft.gif");
+
 				}
 			
 		}
@@ -73,9 +77,12 @@ public class Koopa extends Enemy
 			
 				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
 					setVelX(-(getVelX()));
+					setImage("KoopaWalkLeft.gif");
+
 				}
 				if(getBoundsLeft().intersects(coEnemies.getBoundsRight())){
 					setVelX(-(getVelX()));
+					setImage("KoopaWalkRight.gif");
 				}
 				if(getBoundsBottom().intersects(coEnemies.getBoundsTop())){
 					jumping = true;
