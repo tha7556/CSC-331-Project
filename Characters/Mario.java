@@ -224,6 +224,7 @@ public class Mario extends Character{
 						if(jumping){
 							jumping = false;
 							falling = true;
+							
 						}
 					}
 					if(getBoundsBottom().intersects(t.getBounds())){
@@ -338,84 +339,111 @@ public class Mario extends Character{
 	 */
 	public void move(Set<Integer> activeKeys)
 	{
-		if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
-		{
-			if(!jumping && onGround)
+		if(!dying){
+			if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
 			{
-				playSound("Jump.wav");
-				jumping = true;
-				ducking = false;
-				gravity = 8.0;
-				jumpStart = game.getLoopNumber();
-				setVelX(0);
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+				}
+				else{
+				}
 			}
-		}
-		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
-		{
-			if(!jumping && onGround)
+			else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
 			{
-				playSound("Jump.wav");
-				jumping = true;
-				ducking = false;
-				gravity = 8.0;
-				jumpStart = game.getLoopNumber();
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+					runningLeft = true;
+					runningRight = false;
+					standingStillLeft = true;
+					standingStillRight = false;
+					facingRight = false;
+					setVelX(-5);
+	
+				}
+				else{
+					ducking = false;
+					runningLeft = true;
+					runningRight = false;
+					standingStillLeft = true;
+					standingStillRight = false;
+					facingRight = false;
+					setVelX(-5);
+	
+				}
+			}
+			else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart < game.getLoopNumber())
+			{
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+					runningRight = true;
+					runningLeft = false;
+					standingStillLeft = false;
+					standingStillRight = true;
+					facingRight = true;
+					setVelX(5);
+	
+				}
+				else{
+					ducking = false;
+					runningRight = true;
+					runningLeft = false;
+					standingStillLeft = false;
+					standingStillRight = true;
+					facingRight = true;
+					setVelX(5);
+	
+				}
+			}
+			else if(activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT))
+			{
 				runningLeft = true;
 				runningRight = false;
+				ducking = false;
 				standingStillLeft = true;
 				standingStillRight = false;
 				facingRight = false;
+				setVelX(-5);
 			}
-		}
-		else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart + 55 < game.getLoopNumber())
-		{
-			if(!jumping && onGround)
+			else if(activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_LEFT))
 			{
-				playSound("Jump.wav");
-				jumping = true;
-				ducking = false;
-				gravity = 8.0;
-				jumpStart = game.getLoopNumber();
 				runningRight = true;
 				runningLeft = false;
-				standingStillLeft = false;
 				standingStillRight = true;
+				standingStillLeft = false;
 				facingRight = true;
+				ducking = false;
+				setVelX(5);
 			}
-		}
-		else if(activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT))
-		{
-			runningLeft = true;
-			runningRight = false;
-			ducking = false;
-			standingStillLeft = true;
-			standingStillRight = false;
-			facingRight = false;
-			setVelX(-5);
-		}
-		else if(activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_LEFT))
-		{
-			runningRight = true;
-			runningLeft = false;
-			standingStillRight = true;
-			standingStillLeft = false;
-			facingRight = true;
-			ducking = false;
-			setVelX(5);
-		}
-		else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
-		{
-			runningRight = false;
-			runningLeft = false;
-			ducking = true;
-			setVelX(0);
-		}
-		
-		else if(!activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_SPACE))
-		{
-			runningLeft = false;
-			runningRight = false;
-			ducking = false;
-			setVelX(0);
+			else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
+			{
+				runningRight = false;
+				runningLeft = false;
+				ducking = true;
+				setVelX(0);
+			}
+			
+			else if(!activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_SPACE))
+			{
+				runningLeft = false;
+				runningRight = false;
+				ducking = false;
+				setVelX(0);
+			}
 		}
 	}
 	/**
@@ -467,6 +495,7 @@ public class Mario extends Character{
 		dying = true;
 		jumping = true;
 		gravity = 6.0;
+		setVelX(0);
 		if(getY() >= game.getHeight()) 
 		{
 			System.out.println("Past");
