@@ -175,6 +175,11 @@ public class Area
 			for(Enemy e : enemies)
 				if(e.isVisible())
 					e.render(g, comp);
+			for(Item i : items){
+				if(i.isVisible()){
+					i.render(g, comp);
+				}
+			}
 		}
 	}
 	/**
