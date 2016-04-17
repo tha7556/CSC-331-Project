@@ -17,6 +17,8 @@ public class Level
 	private int currentIndex;
 	private Gameboard gameboard;
 	private String musicFile;
+	private Clip clip;
+	private boolean finished;
 	/**
 	 * 
 	 * @param areas ArrayList containing the Areas in this Level
@@ -26,6 +28,7 @@ public class Level
 	public Level(ArrayList<Area> areas, Gameboard gameboard, String music)
 	{
 		this.areas = areas;
+		this.finished = false;
 		this.gameboard = gameboard;
 		this.musicFile = music;
 		if(areas.size() > 0)
@@ -34,8 +37,7 @@ public class Level
 			currentIndex = 0;
 			displayArea(currentArea,gameboard.getGraphics(), gameboard);
 		}
-		if(musicFile != null)
-			playMusic();
+		
 	}
 	/**
 	 * Alternative constructor without music
@@ -159,7 +161,7 @@ public class Level
 			 else
 			 {
 				 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(musicFile).getAbsoluteFile());
-			     Clip clip = AudioSystem.getClip();
+			     clip = AudioSystem.getClip();
 			     clip.open(audioInputStream);
 			     clip.loop(15);
 			     clip.start();
@@ -169,6 +171,13 @@ public class Level
 		{
 			ex.printStackTrace();
 		}
+	}
+	/**
+	 * Stops the Music from playing
+	 */
+	public void stopMusic()
+	{
+		clip.stop();
 	}
 	/**
 	 * 
@@ -193,5 +202,21 @@ public class Level
 	public Gameboard getGameboard()
 	{
 		return gameboard;
+	}
+	/**
+	 * 
+	 * @return True if the Level is Finished, False otherwise
+	 */
+	public boolean isFinished()
+	{
+		return finished;
+	}
+	/**
+	 * 
+	 * @param f True if the Level should be finished, False otherwise
+	 */
+	public void setFinished(boolean f)
+	{
+		finished = f;
 	}
 }

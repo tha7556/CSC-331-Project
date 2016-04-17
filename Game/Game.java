@@ -113,6 +113,8 @@ public class Game extends JFrame
 		currentLevel = level;
 		this.mario.setLocation(20, 300);
 		this.gameBoard = new Gameboard(this.mario,currentLevel);
+		if(level.getMusic() != null)
+			level.playMusic();
 		
 		
 		add(this.gameBoard);
@@ -140,7 +142,7 @@ public class Game extends JFrame
 		displayTime = 0;
 		actualTime = 0.0;
 		score.reset();
-		while(mario.isAlive()) //Add later: while(mario.isAlive() && !levelOver)
+		while(mario.isAlive() && !currentLevel.isFinished())
 		{
 			loop++;
 			long start = System.currentTimeMillis();
@@ -171,6 +173,10 @@ public class Game extends JFrame
 			actualTime += (end-start)/1000.0;
 			displayTime = (int)actualTime;
 		}
+		//End of Level:
+		mario.reset(20, 400);
+		currentLevel.stopMusic();
+		setVisible(false);
 	}
 	/**
 	 * 
@@ -219,8 +225,10 @@ public class Game extends JFrame
 		
 		Level level = new Level(areas, g.getGameboard(),"Music.wav");
 		g.addLevel(level);
+		g.addLevel(new Level(areas, g.getGameboard(),"Music.wav"));
 		for(Level lev : g.getLevels())
 			g.play(lev);
+		g.dispose();
 	}
 	
 }

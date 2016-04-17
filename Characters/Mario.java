@@ -9,6 +9,7 @@ import java.util.Set;
 import Game.Game;
 import Game.Gameboard;
 import Obstacles.Brick;
+import Obstacles.FinishLine;
 import Obstacles.Ground;
 import Obstacles.Obstacle;
 import Obstacles.Pipe;
@@ -255,6 +256,18 @@ public class Mario extends Character{
 							playSound("Pipe.wav");
 						}
 					
+				}
+				if(t instanceof FinishLine)
+				{
+					FinishLine f = (FinishLine)t;
+					if(getBounds().intersects(f.getBounds()))
+					{
+						if(getBounds().intersects(f.getBarBounds()))
+						{
+							System.out.println("You hit the Bar!!!");
+						}
+						game.getCurrentLevel().setFinished(true);
+					}
 				}
 			}
 		}
