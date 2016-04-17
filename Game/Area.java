@@ -13,11 +13,7 @@ import Characters.Character;
 import Characters.Enemy;
 import Characters.Koopa;
 import Items.Item;
-import Obstacles.Brick;
-import Obstacles.Ground;
-import Obstacles.Obstacle;
-import Obstacles.Pipe;
-import Obstacles.QuestionBlock;
+import Obstacles.*;
 /**
  * A single Area inside of a Level
  *
@@ -183,9 +179,12 @@ public class Area
 	}
 	/**
 	 * Adds Objects to Area using 30x20 image
-	 * <br>Black = Brick</br>
-	 * <br>Red = Koopa</br>
-	 * <br>Green = Question Block</br>
+	 * <br>Black = Brick
+	 * <br>Red = Koopa
+	 * <br>Green = Question Block
+	 * <br>Blue = Pipe
+	 * <br>Yellow = Ground
+	 * <br>Purple = FinishLine
 	 * @param area The Area to add Objects to
 	 * @param g The instance of the Game
 	 */
@@ -221,6 +220,10 @@ public class Area
 	 				}
 	 				if(red == 255 && green == 255 && blue == 0)
 	 					area.addObstacle(new Ground(x*32, y*32-32,g));
+	 				if(red == 255 && green == 0 && blue == 255)
+	 				{
+	 					area.addObstacle(new FinishLine(x*32,y*32-390,g));
+	 				}
 	 			}
 	 		}
 	 }
