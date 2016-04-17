@@ -25,8 +25,8 @@ public class Enemy extends Character{
 	 * @param imageName The filename of the {@link Character}'s ImageIcon
 	 * @param game The instance of the Game
 	 */
-	private int dieStart = -1;
-	private boolean dead = false;
+	protected int dieStart = -1;
+	protected boolean dead = false;
 	public Enemy(int x, int y, int width, int height, boolean solid,String imageName, Game game) {
 		super(x, y, width, height, solid, imageName, game);
 		setVelX(1);
@@ -57,83 +57,7 @@ public class Enemy extends Character{
 		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
 		
 	}
-	@Override
-	public void die(){
-		if(!alive)
-		{
-			game.getCurrentLevel().getCurrentArea().removeCharacter(this);			
-		}
-		else
-		{
-			dead = true;
-			dieStart = game.getLoopNumber();
-			this.setImage("Poof.gif");
-		}
-	}
-	@Override
-	public void tick() {
-		if(dead) //Death Animation
-		{
-			if(game.getLoopNumber() - dieStart > 10)
-			{
-				alive = false;
-				die();
-			}
-			return;
-		}
-		x += velX;
-		y += velY;
-		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
-			if(!t.isSolid()) break;
-				if(getBoundsBottom().intersects(t.getBounds())){
-					gravity = 0.0;
-					falling = false;
-					setVelY(0);
-				}
-				else{
-					falling = true;
-				}
-				if(getBoundsLeft().intersects(t.getBounds())){
-					setVelX(-velX);
-				}
-				if(getBoundsRight().intersects(t.getBounds())){
-					setVelX(-velX);
-				}
-			
-		}
-		if(falling){
-			gravity += 0.2;
-			setVelY((int) gravity);
-		}
-		for(Enemy coEnemies: game.getCurrentLevel().getCurrentArea().getEnemies()){
-			if(coEnemies.isSolid())
-			{
-			
-				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
-					setVelX(-(getVelX()));
-				}
-				if(getBoundsLeft().intersects(coEnemies.getBoundsRight())){
-					setVelX(-(getVelX()));
-				}
-				if(getBoundsBottom().intersects(coEnemies.getBoundsTop())){
-					jumping = true;
-					falling = false;
-				}
-			}
-				
-			
-		}
-		
-		if(x <= 0){
-			x = 0;
-			setVelX(1);
-		}
-		if(x + width >= game.getWidth()){
-			setVelX(-1);
-			x = game.getWidth() - (width+1);
-		}
-		
-	}
+
 	/**
 	 * 
 	 * @return The Rectangle used in border collision calculations
@@ -156,6 +80,11 @@ public class Enemy extends Character{
 	@Override
 	public Rectangle getBoundsRight(){
 		return new Rectangle(getX()-5+width,getY()+10, 5, height-20);
+	}
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
