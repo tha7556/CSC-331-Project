@@ -137,6 +137,7 @@ public class Game extends JFrame
 		loop = 0;
 		displayTime = 0;
 		actualTime = 0.0;
+		score.reset();
 		while(mario.isAlive()) //Add later: while(mario.isAlive() && !levelOver)
 		{
 			loop++;

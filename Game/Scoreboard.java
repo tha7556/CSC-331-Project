@@ -75,4 +75,12 @@ public class Scoreboard extends JComponent
 		coins++;
 		score += 100;
 	}
+	/**
+	 * Resets the score, and coins back to 0
+	 */
+	public void reset()
+	{
+		coins = 0;
+		score = 0;
+	}
 }
