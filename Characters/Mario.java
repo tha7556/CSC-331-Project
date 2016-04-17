@@ -277,14 +277,20 @@ public class Mario extends Character{
 		
 		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
 			if(enemy.isSolid())
-			{
-			
+			{			
 				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
-					playSound("Jump.wav");
-					jumping = true;
-					falling = false;
-					enemy.die();
-					break;
+					if(enemy instanceof Koopa || enemy instanceof BulletBill){
+						playSound("Jump.wav");
+						jumping = true;
+						falling = false;
+						enemy.die();
+						game.getScoreboard().addScore();
+						break;
+					}
+					else{
+						die();
+						break;
+					}
 				}
 				if(getBoundsLeft().intersects(enemy.getBoundsRight())){
 					die();
