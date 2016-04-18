@@ -14,7 +14,7 @@ public class Coin extends Item
 	 */
 	public Coin(int x, int y, Game game)
 	{
-		super(x, y, 32, 32, "Coin.png", game);
+		super(x, y, 32, 45, "Coin.gif", game);
 	}
 
 }
