@@ -1,4 +1,7 @@
 package Items;
+
+import Game.Game;
+
 /**
  *Coin Item that can be picked up by Mario and adds to the score on the Scoreboard
  */
@@ -9,9 +12,9 @@ public class Coin extends Item
 	 * @param x The X coordinate of the coin
 	 * @param y The Y coordinate of the coin
 	 */
-	public Coin(int x, int y)
+	public Coin(int x, int y, Game game)
 	{
-		super(x, y, 32, 32, "Coin.png");
+		super(x, y, 32, 32, "Coin.png", game);
 	}
 
 }

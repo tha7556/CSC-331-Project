@@ -1,4 +1,7 @@
 package Items;
+
+import Game.Game;
+
 /**
  *Extra Life Item that can be picked up by Mario and gives him 1 more life
  */
@@ -9,9 +12,9 @@ public class ExtraLife extends Item
 	 * @param x The X coordinate of the coin
 	 * @param y The Y coordinate of the coin
 	 */
-	public ExtraLife(int x, int y)
+	public ExtraLife(int x, int y, Game game)
 	{
-		super(x, y, 32, 32, "GreenMushroom.png");
+		super(x, y, 32, 32, "GreenMushroom.png", game);
 	}
 
 }

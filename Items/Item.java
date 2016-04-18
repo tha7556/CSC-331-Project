@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
+import Game.Game;
 import Game.Gameboard;
 /**
  * Abstract Item class used to make coins extra lives, 
@@ -17,6 +18,7 @@ public abstract class Item
 	protected int x, y, width, height, velX, velY;
 	protected ImageIcon image;
 	protected boolean visible, alive;
+	protected Game game;
 	/**
 	 * 
 	 * @param x X location on the Gameboard
@@ -25,7 +27,7 @@ public abstract class Item
 	 * @param height height of border collision rectangle (typically height of the image)
 	 * @param imageFile the image representing the Item
 	 */
-	public Item(int x, int y, int width, int height, String imageFile)
+	public Item(int x, int y, int width, int height, String imageFile, Game game)
 	{
 		this.x = x;
 		this.y = y;
@@ -34,6 +36,7 @@ public abstract class Item
 		this.image = new ImageIcon(imageFile);
 		this.visible = true;
 		this.alive = true;
+		this.game = game;
 	}
 	/**
 	 * 
@@ -177,5 +180,8 @@ public abstract class Item
 			g.drawRect((int)getBounds().getX(), (int)getBounds().getY(), (int)getBounds().getWidth(), (int)getBounds().getHeight());
 		}
 		
+	}
+	public void die() {
+		game.getCurrentLevel().getCurrentArea().removeItem(this);		
 	}
 }
