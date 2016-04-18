@@ -15,9 +15,22 @@ public class BulletBill extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public BulletBill(int x, int y, Game game) {
-		super(x, y, 16, 27, true,"Null", game);
-		
+		super(x, y, 32, 32, true,"Bullet.png", game);
+		setVelX(-4);		
 	}
-	
+	@Override
+	public void tick() {
+		if(dead) //Death Animation
+		{
+			if(game.getLoopNumber() - dieStart > 10)
+			{
+				alive = false;
+				die();
+			}
+			return;
+		}
+		x += velX;
+
+	}
 
 }

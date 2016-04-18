@@ -8,6 +8,7 @@ import Game.Game;
  */
 public class PiranhaPlant extends Enemy
 {
+	private int starty;
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -15,9 +16,20 @@ public class PiranhaPlant extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public PiranhaPlant(int x, int y, Game game) {
-		super(x, y, 16, 27, true,"Null", game);
-		
+		super(x, y, 32, 64, true,"PiranhaPlant.png", game);
+		starty = y;
+		setVelY(2);
 	}
 	
+	public void tick() {
+		if(getY()==starty-64){
+			setVelY(2);
+		}
+		if(getY()==starty+64){
+			setVelY(-2);
+		}
+		y+=velY;
+
+	}
 
 }

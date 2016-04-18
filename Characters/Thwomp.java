@@ -8,6 +8,8 @@ import Game.Game;
  */
 public class Thwomp extends Enemy
 {
+	private int starty;
+
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -15,8 +17,21 @@ public class Thwomp extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public Thwomp(int x, int y, Game game) {
-		super(x, y, 16, 27, true,"Null", game);
+		super(x, y, 32, 64, true,"Thwomp.png", game);
 		
+		starty = y-52;
+		setVelY(2);
+	}
+	
+	public void tick() {
+		if(getY()==starty){
+			setVelY(2);
+		}
+		if(getY()==starty+256+128){
+			setVelY(-2);
+		}
+		y+=velY;
+
 	}
 	
 
