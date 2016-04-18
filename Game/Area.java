@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import Characters.BulletBill;
 import Characters.Character;
 import Characters.Enemy;
 import Characters.Koopa;
+import Characters.PiranhaPlant;
+import Characters.Thwomp;
 import Items.Item;
 import Obstacles.*;
 /**
@@ -168,13 +171,13 @@ public class Area
 		if(g != null && comp != null)
 		{
 			displayBackground.paintIcon(comp, g, 0, 0);
-	
-			for(Obstacle o : obstacles)
-				if(o.isVisible())
-					o.render(g, comp);
 			for(Enemy e : enemies)
 				if(e.isVisible())
 					e.render(g, comp);
+			for(Obstacle o : obstacles)
+				if(o.isVisible())
+					o.render(g, comp);
+
 			for(Item i : items){
 				if(i.isVisible()){
 					i.render(g, comp);
@@ -212,6 +215,18 @@ public class Area
 	 				}
 	 				if(red == 255 && green == 0 && blue == 0){
 	 					area.addEnemy(new Koopa(x*32,y*32-32,g));
+	 
+	 				}
+	 				if(red == 127 && green == 0 && blue == 0){
+	 					area.addEnemy(new BulletBill(x*32,y*32-32,g));
+	 
+	 				}
+	 				if(red == 0 && green == 127 && blue == 0){
+	 					area.addEnemy(new PiranhaPlant(x*32,y*32-32,g));
+	 
+	 				}
+	 				if(red == 0 && green == 0 && blue == 127){
+	 					area.addEnemy(new Thwomp(x*32,y*32-32,g));
 	 
 	 				}
 	 				
