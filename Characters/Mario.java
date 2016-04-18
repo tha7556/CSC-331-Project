@@ -10,6 +10,7 @@ import Game.Game;
 import Game.Gameboard;
 import Items.Coin;
 import Items.ExtraLife;
+import Items.Item;
 import Items.Mushroom;
 import Obstacles.Brick;
 import Obstacles.FinishLine;
@@ -214,21 +215,21 @@ public class Mario extends Character{
 			if(t.isSolid())
 			{
 				if(t instanceof QuestionBlock){
-					if(top.intersects(t.getBoundsBottom())){
+					if(top.intersects(t.getBoundsBottom())&& getVelY() < 0){
 						setVelY(0);
 						jumping = false;
 						falling = true;
 						t.die();
 						if(((QuestionBlock) t).hasCoin()){
-							Coin tempitem = new Coin(t.getX(), t.getY()-32);
+							Coin tempitem = new Coin(t.getX(), t.getY()-32,game);
 							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
 						}
 						if(((QuestionBlock) t).hasMushroom()){
-							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32);
+							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32,game);
 							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
 						}
 						if(((QuestionBlock) t).hasLife()){
-							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32);
+							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32,game);
 							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
 						}
 					}
@@ -317,6 +318,26 @@ public class Mario extends Character{
 				}
 			}
 			
+		}
+		for(Item item: game.getCurrentLevel().getCurrentArea().getItems()){
+			if(item.isAlive()){
+				if(getBounds().intersects(item.getBounds())){
+					item.die();
+					if(item instanceof Coin){
+						game.getScoreboard().addCoin();
+						playSound("Coin.wav");
+					}
+					if(item instanceof Mushroom){
+						game.getScoreboard().addScore();
+						playSound("Mushroom.wav");
+					}
+					if(item instanceof ExtraLife){
+						game.getScoreboard().addLife();
+						game.getScoreboard().addScore();
+						playSound("GreenMushroom.wav");
+					}
+				}
+			}
 		}
 	}	
 		
