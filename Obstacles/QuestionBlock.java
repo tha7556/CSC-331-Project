@@ -36,6 +36,8 @@ public class QuestionBlock extends Obstacle
 			item = new ExtraLife(x,y-30,game);
 		}
 		item.setVisible(false);
+		item.setVelX(1);
+		item.setVelY(0);
 	}
 	@Override
 	public void die()

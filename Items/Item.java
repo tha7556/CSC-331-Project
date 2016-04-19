@@ -6,8 +6,10 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
+import Characters.Enemy;
 import Game.Game;
 import Game.Gameboard;
+import Obstacles.Obstacle;
 /**
  * Abstract Item class used to make coins extra lives, 
  * 
@@ -19,6 +21,8 @@ public abstract class Item
 	protected ImageIcon image;
 	protected boolean visible, alive;
 	protected Game game;
+	protected double gravity = 0.0;
+	protected boolean falling;
 	/**
 	 * 
 	 * @param x X location on the Gameboard
@@ -183,5 +187,70 @@ public abstract class Item
 	}
 	public void die() {
 		game.getCurrentLevel().getCurrentArea().removeItem(this);		
+	}
+	public Rectangle getBoundsBottom(){
+		return new Rectangle(getX()+5,getY()+height,width-5,5);
+	}
+	public Rectangle getBoundsLeft(){
+		return new Rectangle(getX()+2,getY()+10, 5, height-20);
+	}
+	public Rectangle getBoundsRight(){
+		return new Rectangle(getX()-5+width,getY()+10, 5, height-20);
+	}
+	public void tick()
+	{
+		x += velX;
+		y += velY;
+		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
+			if(!t.isSolid()) break;
+				if(getBoundsBottom().intersects(t.getBounds())){
+					gravity = 0.0;
+					falling = false;
+					setVelY(0);
+				}
+				else{
+					falling = true;
+				}
+				if(getBoundsLeft().intersects(t.getBounds())){
+					setVelX(-velX);
+					x = t.getX()+t.getWidth();
+	
+				}
+				if(getBoundsRight().intersects(t.getBounds())){
+					setVelX(-velX);
+					x = t.getX()-40;
+	
+				}
+			
+		}
+		if(falling){
+			gravity += 0.2;
+			setVelY((int) gravity);
+		}
+		for(Enemy coEnemies: game.getCurrentLevel().getCurrentArea().getEnemies()){
+			if(coEnemies.isSolid())
+			{
+			
+				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
+					setVelX(-(getVelX()));
+	
+				}
+				if(getBoundsLeft().intersects(coEnemies.getBoundsRight())){
+					setVelX(-(getVelX()));
+				}
+			}
+				
+			
+		}
+		
+		if(x <= 0){
+			x = 0;
+			setVelX(-velX);
+		}
+		if(x + width >= game.getWidth()){
+			setVelX(-velX);
+			x = game.getWidth() - (width+1);
+		}
+		
 	}
 }
