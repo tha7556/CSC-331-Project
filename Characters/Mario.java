@@ -44,7 +44,7 @@ public class Mario extends Character{
 	 * @param game The instance of the Game
 	 */
 	public Mario(int x, int y, Game game) {
-		super(x, y, 60, 60, true,"MarioIdleRight.png", game);
+		super(x, y, 32, 32, true,"MarioIdleRight.png", game);
 	}
 	@Override
 	public void render(Graphics g, Gameboard c) {
@@ -219,24 +219,19 @@ public class Mario extends Character{
 						setVelY(0);
 						jumping = false;
 						falling = true;
-						
-						QuestionBlock q = (QuestionBlock)t;
-						if(!q.isDispensed())
-						{
-							if(q.hasCoin()){
-								Coin tempitem = new Coin(t.getX()+10, t.getY()-45,game);
-								game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-							}
-							if(q.hasMushroom()){
-								Mushroom tempitem = new Mushroom(t.getX()+7, t.getY()-40,game);
-								game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-							}
-							if(q.hasLife()){
-								ExtraLife tempitem = new ExtraLife(t.getX()+7, t.getY()-40,game);
-								game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-							}
-						}
 						t.die();
+						if(((QuestionBlock) t).hasCoin()){
+							Coin tempitem = new Coin(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasMushroom()){
+							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasLife()){
+							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
@@ -385,86 +380,113 @@ public class Mario extends Character{
 	 * @param activeKeys The Set containing the keyCodes of all of the keys currently pressed
 	 */
 	public void move(Set<Integer> activeKeys)
- 	{
- 		if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
- 		{
- 			if(!jumping && onGround)
- 			{
- 				playSound("Jump.wav");
- 				jumping = true;
- 				ducking = false;
- 				gravity = 8.0;
- 				jumpStart = game.getLoopNumber();
- 				setVelX(0);
- 			}
- 		}
- 		else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart + 50 < game.getLoopNumber())
- 		{
- 			if(!jumping && onGround)
- 			{
- 				playSound("Jump.wav");
- 				jumping = true;
- 				ducking = false;
- 				gravity = 8.0;
- 				jumpStart = game.getLoopNumber();
- 				runningLeft = true;
- 				runningRight = false;
- 				standingStillLeft = true;
- 				standingStillRight = false;
- 				facingRight = false;
- 			}
- 		}
- 		else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart + 55 < game.getLoopNumber())
- 		{
- 			if(!jumping && onGround)
- 			{
- 				playSound("Jump.wav");
- 				jumping = true;
- 				ducking = false;
- 				gravity = 8.0;
- 				jumpStart = game.getLoopNumber();
- 				runningRight = true;
- 				runningLeft = false;
- 				standingStillLeft = false;
- 				standingStillRight = true;
- 				facingRight = true;
- 			}
- 		}
- 		else if(activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT))
- 		{
- 			runningLeft = true;
- 			runningRight = false;
- 			ducking = false;
- 			standingStillLeft = true;
- 			standingStillRight = false;
- 			facingRight = false;
- 			setVelX(-5);
- 		}
- 		else if(activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_LEFT))
- 		{
- 			runningRight = true;
- 			runningLeft = false;
- 			standingStillRight = true;
- 			standingStillLeft = false;
- 			facingRight = true;
- 			ducking = false;
- 			setVelX(5);
- 		}
- 		else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
- 		{
- 			runningRight = false;
- 			runningLeft = false;
- 			ducking = true;
- 			setVelX(0);
- 		}
- 		
- 		else if(!activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_SPACE))
- 		{
- 			runningLeft = false;
- 			runningRight = false;
- 			ducking = false;
- 			setVelX(0);
- 		}
+	{
+		if(!dying){
+			if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
+			{
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+				}
+				else{
+				}
+			}
+			else if(activeKeys.contains(KeyEvent.VK_SPACE) && activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
+			{
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+					runningLeft = true;
+					runningRight = false;
+					standingStillLeft = true;
+					standingStillRight = false;
+					facingRight = false;
+					setVelX(-5);
+	
+				}
+				else{
+					ducking = false;
+					runningLeft = true;
+					runningRight = false;
+					standingStillLeft = true;
+					standingStillRight = false;
+					facingRight = false;
+					setVelX(-5);
+	
+				}
+			}
+			else if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && activeKeys.contains(KeyEvent.VK_RIGHT)&& jumpStart < game.getLoopNumber())
+			{
+				if(!jumping && onGround)
+				{
+					playSound("Jump.wav");
+					jumping = true;
+					ducking = false;
+					gravity = 8.0;
+					jumpStart = game.getLoopNumber();
+					runningRight = true;
+					runningLeft = false;
+					standingStillLeft = false;
+					standingStillRight = true;
+					facingRight = true;
+					setVelX(5);
+	
+				}
+				else{
+					ducking = false;
+					runningRight = true;
+					runningLeft = false;
+					standingStillLeft = false;
+					standingStillRight = true;
+					facingRight = true;
+					setVelX(5);
+	
+				}
+			}
+			else if(activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT))
+			{
+				runningLeft = true;
+				runningRight = false;
+				ducking = false;
+				standingStillLeft = true;
+				standingStillRight = false;
+				facingRight = false;
+				setVelX(-5);
+			}
+			else if(activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_LEFT))
+			{
+				runningRight = true;
+				runningLeft = false;
+				standingStillRight = true;
+				standingStillLeft = false;
+				facingRight = true;
+				ducking = false;
+				setVelX(5);
+			}
+			else if(activeKeys.contains(KeyEvent.VK_DOWN) && velY == 0.0)
+			{
+				runningRight = false;
+				runningLeft = false;
+				ducking = true;
+				setVelX(0);
+			}
+			
+			else if(!activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && !activeKeys.contains(KeyEvent.VK_SPACE))
+			{
+				runningLeft = false;
+				runningRight = false;
+				ducking = false;
+				setVelX(0);
+			}
+		}
 	}
 	/**
 	 * 

@@ -222,7 +222,7 @@ public class Area
 	 
 	 				}
 	 				if(red == 0 && green == 127 && blue == 0){
-	 					area.addEnemy(new PiranhaPlant(x*32,y*32-32,g));
+	 					area.addEnemy(new PiranhaPlant(x*32,y*32-64,g));
 	 
 	 				}
 	 				if(red == 0 && green == 0 && blue == 127){
@@ -238,8 +238,16 @@ public class Area
 	 				{
 	 					area.addObstacle(new Pipe(x*32, y*32-32, g));
 	 				}
+	 				
+	 				if(red == 1 && green == 34 && blue == 102){
+	 					area.addEnemy(new PiranhaPlant(x*32+16,y*32-32,g));
+	 					area.addObstacle(new Pipe(x*32, y*32-32, g));
+	 					
+	 				}
 	 				if(red == 255 && green == 255 && blue == 0)
+	 				{
 	 					area.addObstacle(new Ground(x*32, y*32-32,g));
+	 				}
 	 				if(red == 255 && green == 0 && blue == 255)
 	 				{
 	 					area.addObstacle(new FinishLine(x*32,y*32-390,g));

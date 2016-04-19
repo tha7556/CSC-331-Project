@@ -17,15 +17,18 @@ public class Thwomp extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public Thwomp(int x, int y, Game game) {
-		super(x, y, 64, 128, true,"Thwomp.png", game);
+		super(x, y, 64, 96, true,"Thwomp.png", game);
 		
-		starty = y-52;
+		starty = y-46;
 		setVelY(2);
 	}
 	
 	public void tick() {
 		if(getY()==starty){
 			setVelY(2);
+			if(getX()>game.getMario().getX()&&getX()+64<game.getMario().getX()+32){
+				setVelY(5);
+			}
 		}
 		if(getY()==starty+256+128){
 			setVelY(-2);
