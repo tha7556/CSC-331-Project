@@ -259,7 +259,7 @@ public class Area
 	 				}
 	 				if(red == 255 && green == 0 && blue == 255)
 	 				{
-	 					area.addObstacle(new FinishLine(x*32,y*32-390,g));
+	 					area.addObstacle(new FinishLine(x*32,y*32-375,g));
 	 				}
 	 			}
 	 		}
