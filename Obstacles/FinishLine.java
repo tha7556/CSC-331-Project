@@ -25,8 +25,8 @@ public class FinishLine extends Obstacle
 	 */
 	public FinishLine(int x, int y, Game game)
 	{
-		super(x,y,123,384,true,true, game, new ImageIcon("Images\\FinishLine.png"));
-		barX = x;
+		super(x,y,160,384,true,true, game, new ImageIcon("Images\\FinishLine.png"));
+		barX = x+33;
 		barY = y+50;
 		barVelY = 3;
 		bar = new ImageIcon("Images\\FinishBar.png");
@@ -37,12 +37,12 @@ public class FinishLine extends Obstacle
 	 */
 	public Rectangle getBarBounds()
 	{
-		return new Rectangle(barX+10,barY+6,(int)(width/1.5)-10,20);
+		return new Rectangle(barX+5,barY+6,width/2-10,20);
 	}
 	@Override
 	public Rectangle getBounds()
 	{
-		return new Rectangle(x,y,width,height);
+		return new Rectangle(x+(width/2)-30,y,width/2,height);
 	}
 	/**
 	 * Moves the bar every time the Game loops, goes in the opposite direction when it gets to the top or bottom 
