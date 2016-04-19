@@ -29,7 +29,7 @@ public class Scoreboard extends JComponent
 		score = 0;
 		coins = 0;
 		lives = 5;
-		image = new ImageIcon("ScoreBoard.png");
+		image = new ImageIcon("Images\\ScoreBoard.png");
 		this.game = game;
 	}
 	@Override

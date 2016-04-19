@@ -15,7 +15,7 @@ public class BulletBill extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public BulletBill(int x, int y, Game game) {
-		super(x, y, 32, 32, true,"Bullet.png", game);
+		super(x, y, 32, 32, true,"Images\\Bullet.png", game);
 		setVelX(-4);		
 	}
 	@Override

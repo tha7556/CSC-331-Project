@@ -16,7 +16,7 @@ public class PiranhaPlant extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public PiranhaPlant(int x, int y, Game game) {
-		super(x, y, 32, 64, true,"PiranhaPlant.png", game);
+		super(x, y, 32, 64, true,"Images\\PiranhaPlant.png", game);
 		starty = y;
 		setVelY(2);
 	}

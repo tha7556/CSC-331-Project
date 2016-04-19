@@ -10,7 +10,7 @@ public class Goomba extends Enemy
 {
 	public Goomba(int x, int y, Game game) 
 	{
-		super(x, y, 32, 32, true,"GoombaWalkLeft.gif", game);
+		super(x, y, 32, 32, true,"Images\\GoombaWalkLeft.gif", game);
 	}
 	@Override
 	public void tick() 
@@ -38,12 +38,12 @@ public class Goomba extends Enemy
 				}
 				if(getBoundsLeft().intersects(t.getBounds())){
 					setVelX(-velX);
-					setImage("GoombaWalkRight.gif");
+					setImage("Images\\GoombaWalkRight.gif");
 
 				}
 				if(getBoundsRight().intersects(t.getBounds())){
 					setVelX(-velX);
-					setImage("GoombaWalkLeft.gif");
+					setImage("Images\\GoombaWalkLeft.gif");
 
 				}
 			
@@ -58,12 +58,12 @@ public class Goomba extends Enemy
 			
 				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
 					setVelX(-(getVelX()));
-					setImage("GoombaWalkLeft.gif");
+					setImage("Images\\GoombaWalkLeft.gif");
 
 				}
 				if(getBoundsLeft().intersects(coEnemies.getBoundsRight())){
 					setVelX(-(getVelX()));
-					setImage("GoombaWalkRight.gif");
+					setImage("Images\\GoombaWalkRight.gif");
 				}
 				if(getBoundsBottom().intersects(coEnemies.getBoundsTop())){
 					jumping = true;

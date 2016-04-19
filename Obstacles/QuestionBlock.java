@@ -21,7 +21,7 @@ public class QuestionBlock extends Obstacle
 	public QuestionBlock(int x, int y,Game game)
 	{
 
-		super(x, y,32,32,true,false,game, new ImageIcon("Question Block.png"));
+		super(x, y,32,32,true,false,game, new ImageIcon("Images\\Question Block.png"));
 		double a = Math.random();
 		if(a > .4){
 			coin = true;
@@ -36,7 +36,7 @@ public class QuestionBlock extends Obstacle
 	@Override
 	public void die()
 	{
-		this.setImage("Brown Block.png");
+		this.setImage("Images\\Brown Block.png");
 	}
 	public boolean hasCoin() {
 		return coin;

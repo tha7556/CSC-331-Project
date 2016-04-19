@@ -25,11 +25,11 @@ public class FinishLine extends Obstacle
 	 */
 	public FinishLine(int x, int y, Game game)
 	{
-		super(x,y,160,384,true,true, game, new ImageIcon("FinishLine.png"));
+		super(x,y,160,384,true,true, game, new ImageIcon("Images\\FinishLine.png"));
 		barX = x+33;
 		barY = y+50;
 		barVelY = 3;
-		bar = new ImageIcon("FinishBar.png");
+		bar = new ImageIcon("Images\\FinishBar.png");
 	}
 	/**
 	 * Used in collision detection with the bar

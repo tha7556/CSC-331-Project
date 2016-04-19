@@ -31,7 +31,7 @@ public class Game extends JFrame
 	 */
 	public Game(ArrayList<Level> levels)
 	{
-		ImageIcon icon = new ImageIcon("MarioSymbol.png");
+		ImageIcon icon = new ImageIcon("Images\\MarioSymbol.png");
 		this.setIconImage(icon.getImage());
 		this.levels = levels;
 		score = new Scoreboard(this);
@@ -207,9 +207,9 @@ public class Game extends JFrame
 		ArrayList<Area> areas = new ArrayList<Area>();
 		Game g = new Game();
 		
-		Area area = new Area("TestLevel.png");		
-		Area area2 = new Area("TestLevel2.png");
-		Area area3 = new Area("TestLevel3.png");
+		Area area = new Area("Images\\TestLevel.png");		
+		Area area2 = new Area("Images\\TestLevel2.png");
+		Area area3 = new Area("Images\\TestLevel3.png");
 		
 		//Pipe p1 = new Pipe(250, 450, g, area2);
 		//Pipe p2 = new Pipe(250,450,g);
@@ -228,9 +228,9 @@ public class Game extends JFrame
 		
 		
 		
-		Level level = new Level(areas, g.getGameboard(),"Music.wav");
+		Level level = new Level(areas, g.getGameboard(),"Audio\\Music.wav");
 		g.addLevel(level);
-		g.addLevel(new Level(areas, g.getGameboard(),"Music.wav"));
+		g.addLevel(new Level(areas, g.getGameboard(),"Audio\\Music.wav"));
 		for(Level lev : g.getLevels())
 			g.play(lev);
 		g.dispose();

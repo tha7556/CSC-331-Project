@@ -17,7 +17,7 @@ public class Thwomp extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public Thwomp(int x, int y, Game game) {
-		super(x, y, 64, 96, true,"Thwomp.png", game);
+		super(x, y, 64, 96, true,"Images\\Thwomp.png", game);
 		
 		starty = y-46;
 		setVelY(2);

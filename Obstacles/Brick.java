@@ -17,6 +17,6 @@ public class Brick extends Obstacle
 	 */
 	public Brick(int x, int y, Game game)
 	{
-		super(x,y,32,32,true,true, game, new ImageIcon("Brick.png"));
+		super(x,y,32,32,true,true, game, new ImageIcon("Images\\Brick.png"));
 	}
 }

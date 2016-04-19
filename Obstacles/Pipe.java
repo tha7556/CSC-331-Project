@@ -28,7 +28,7 @@ public class Pipe extends Obstacle
 	 */
 	public Pipe(int x, int y, Game game, Area area)
 	{
-		super(x,y,64,64,true,true, game, new ImageIcon("Pipe.png"));
+		super(x,y,64,64,true,true, game, new ImageIcon("Images\\Pipe.png"));
 		this.area = area;
 	}
 	/**

@@ -37,7 +37,7 @@ public class Area
 		enemies = new ArrayList<Enemy>();
 		obstacles = new ArrayList<Obstacle>();
 		items = new ArrayList<Item>();
-		this.displayBackground = new ImageIcon("LevelBackground.png");
+		this.displayBackground = new ImageIcon("Images\\LevelBackground.png");
 		File fileName = new File(background);
 		 try {
 		 this.background = ImageIO.read(fileName);

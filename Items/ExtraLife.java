@@ -14,7 +14,7 @@ public class ExtraLife extends Item
 	 */
 	public ExtraLife(int x, int y, Game game)
 	{
-		super(x, y, 32, 32, "GreenMushroom.png", game);
+		super(x, y, 32, 32, "Images\\GreenMushroom.png", game);
 	}
 
 }
