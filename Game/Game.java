@@ -7,8 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Characters.*;
-import Items.Item;
-import Obstacles.*;
+import Obstacles.FinishLine;
+import Obstacles.Obstacle;
+import Obstacles.Pipe;
 /**
  * The class containing the Game loop and extends JFrame
  *
@@ -110,7 +111,7 @@ public class Game extends JFrame
 		setVisible(false);
 		remove(this.gameBoard);
 		currentLevel = level;
-		this.mario.setLocation(20, 300);
+		this.mario.setLocation(20, 450);
 		this.gameBoard = new Gameboard(this.mario,currentLevel);
 		if(level.getMusic() != null)
 			level.playMusic();
@@ -157,32 +158,31 @@ public class Game extends JFrame
 					FinishLine f = (FinishLine)o;
 					f.tick();
 				}
-				else if(o instanceof QuestionBlock && o.isVisible())
-				{
-					QuestionBlock q = (QuestionBlock)o;
-					Item item = q.getItem();
-					if(item.isAlive() && item.isVisible())
-						item.tick();
-				}
 			}
 			gameBoard.repaint();
 			score.repaint();
 			try 
 			{
-				Thread.sleep(20);
+				Thread.sleep(15);
 			} 
 			catch (InterruptedException e) 
 			{
 				e.printStackTrace();
 			}
 			long end = System.currentTimeMillis();
-			actualTime += (end-start)/1000.0;
-			displayTime = (int)actualTime;
+			if(score.isVisibility() == true){
+				actualTime += (end-start)/1000.0;
+				displayTime = (int)actualTime;
+			}
 		}
 		//End of Level:
-		mario.reset(20, 400);
+		mario.reset(30, 450);
 		currentLevel.stopMusic();
 		setVisible(false);
+	}
+	public void resetActualTime(){
+		actualTime = 0;
+		displayTime = 0;
 	}
 	/**
 	 * 
@@ -213,6 +213,9 @@ public class Game extends JFrame
 		ArrayList<Area> areas = new ArrayList<Area>();
 		Game g = new Game();
 		
+		Area titleScreen = new Area("Images\\TitleScreen.png");
+		Area gameOverScreen = new Area("Images\\gameOverScreen.png");
+		Area tutorialLevel = new Area("Images\\TutorialLevel.png");
 		Area area = new Area("Images\\TestLevel.png");		
 		Area area2 = new Area("Images\\TestLevel2.png");
 		Area area3 = new Area("Images\\TestLevel3.png");
@@ -224,10 +227,16 @@ public class Game extends JFrame
 		//area2.addObstacle(p2);
 		//area2.addObstacle(new FinishLine(600,150,g));
 		
-		
+		titleScreen.createArea(titleScreen, g);
+		gameOverScreen.createArea(gameOverScreen, g);
+		tutorialLevel.createArea(tutorialLevel, g);
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
+		
+		areas.add(titleScreen);
+		areas.add(gameOverScreen);
+		areas.add(tutorialLevel);
 		areas.add(area);
 		areas.add(area2);
 		areas.add(area3);

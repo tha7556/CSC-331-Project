@@ -64,6 +64,10 @@ public class Level
 	{
 		return areas;
 	}
+	
+	public void setCurrentIndex(int index){
+		currentIndex = index;
+	}
 	/**
 	 * 
 	 * @return The Level that is currently being displayed

@@ -176,16 +176,7 @@ public class Area
 					e.render(g, comp);
 			for(Obstacle o : obstacles)
 				if(o.isVisible())
-				{
 					o.render(g, comp);
-					if(o instanceof QuestionBlock)
-					{
-						QuestionBlock q = (QuestionBlock)o;
-						if(q.getItem().isVisible() & q.getItem().isAlive())
-							q.getItem().render(g, comp);
-					}
-				}
-			
 
 			for(Item i : items){
 				if(i.isVisible()){
@@ -218,6 +209,15 @@ public class Area
 	 				int green = (pixel >> 8) & 0xff;
 	 				int blue = (pixel) & 0xff;
 	 				
+	 				if(red == 30 && green == 40 && blue == 100){
+	 					area.addObstacle(new StartGameBlock(x*32, y*32-32,g));
+	 				}
+	 				if(red ==100 && green ==100 && blue ==200){
+	 					area.addObstacle(new EndGameBlock(x*32,y*32-32,g));
+	 				}
+	 				if(red == 150 && green == 150 && blue == 150){
+	 					area.addObstacle(new RestartGameBlock(x*32,y*32-32,g));
+	 				}
 	 				if(red == 0 && green == 0 && blue == 0){
 	 					area.addObstacle(new Brick(x*32,y*32-32,g));
 	 
@@ -259,7 +259,7 @@ public class Area
 	 				}
 	 				if(red == 255 && green == 0 && blue == 255)
 	 				{
-	 					area.addObstacle(new FinishLine(x*32,y*32-375,g));
+	 					area.addObstacle(new FinishLine(x*32,y*32-390,g));
 	 				}
 	 			}
 	 		}
