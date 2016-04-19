@@ -83,7 +83,6 @@ public class Enemy extends Character{
 	}
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 		
 	}
 	
