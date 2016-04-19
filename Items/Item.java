@@ -185,18 +185,36 @@ public abstract class Item
 		}
 		
 	}
+	/**
+	 * Removes the Item from the Area
+	 */
 	public void die() {
 		game.getCurrentLevel().getCurrentArea().removeItem(this);		
 	}
+	/**
+	 * 
+	 * @return The Rectangle representing the Bottom bound
+	 */
 	public Rectangle getBoundsBottom(){
 		return new Rectangle(getX()+5,getY()+height,width-5,5);
 	}
+	/**
+	 * 
+	 * @return The Rectangle representing the Left bound
+	 */
 	public Rectangle getBoundsLeft(){
 		return new Rectangle(getX()+2,getY()+10, 5, height-20);
 	}
+	/**
+	 * 
+	 * @return The Rectangle representing the Right bound
+	 */
 	public Rectangle getBoundsRight(){
 		return new Rectangle(getX()-5+width,getY()+10, 5, height-20);
 	}
+	/**
+	 * Is called every time the game loops, allows movement
+	 */
 	public void tick()
 	{
 		x += velX;
