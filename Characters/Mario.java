@@ -283,7 +283,7 @@ public class Mario extends Character{
 			if(enemy.isSolid())
 			{			
 				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
-					if(enemy instanceof Koopa || enemy instanceof BulletBill){
+					if(enemy instanceof Koopa || enemy instanceof BulletBill || enemy instanceof Goomba){
 						playSound("Audio\\Jump.wav");
 						jumping = true;
 						falling = false;
@@ -301,6 +301,11 @@ public class Mario extends Character{
 					break;
 				}
 				if(getBoundsRight().intersects(enemy.getBoundsLeft())){
+					die();
+					break;
+				}
+				if(getBoundsTop().intersects(enemy.getBoundsBottom()))
+				{
 					die();
 					break;
 				}
@@ -336,7 +341,7 @@ public class Mario extends Character{
 	    		QuestionBlock q = (QuestionBlock)o;
 	    		Item item = q.getItem();
 	    		
-	    		if(item.isAlive()){
+	    		if(item.isAlive() && item.isVisible()){
 					if(getBounds().intersects(item.getBounds())){
 						item.die();
 						if(item instanceof Coin){
@@ -511,7 +516,7 @@ public class Mario extends Character{
 	 */
 	public Rectangle getMiddleBound()
 	{
-		return new Rectangle(getX()+5,getY()+30,width-5,5);
+		return new Rectangle(getX()+5,getY()+height/2,width-5,5);
 	}
 	/**
 	 * 
