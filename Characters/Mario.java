@@ -226,7 +226,7 @@ public class Mario extends Character{
 				if(t.isSolid())
 				{
 					if(t instanceof QuestionBlock){
-						if(top.intersects(t.getBoundsBottom())&& getVelY() < 0){
+						if(top.intersects(t.getBounds())){
 							setVelY(0);
 							jumping = false;
 							falling = true;
