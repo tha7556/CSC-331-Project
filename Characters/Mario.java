@@ -210,7 +210,7 @@ public class Mario extends Character{
 		{
 			y = game.getHeight() - height;
 		}
-		
+		//Obstacles
 		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
 			if(t.isSolid())
 			{
@@ -220,18 +220,6 @@ public class Mario extends Character{
 						jumping = false;
 						falling = true;
 						t.die();
-						if(((QuestionBlock) t).hasCoin()){
-							Coin tempitem = new Coin(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
-						if(((QuestionBlock) t).hasMushroom()){
-							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
-						if(((QuestionBlock) t).hasLife()){
-							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
@@ -290,7 +278,7 @@ public class Mario extends Character{
 				}
 			}
 		}
-		
+		//Enemies
 		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
 			if(enemy.isSolid())
 			{			
@@ -319,6 +307,7 @@ public class Mario extends Character{
 			}
 			
 		}
+		//Items in general
 		for(Item item: game.getCurrentLevel().getCurrentArea().getItems()){
 			if(item.isAlive()){
 				if(getBounds().intersects(item.getBounds())){
@@ -339,6 +328,34 @@ public class Mario extends Character{
 				}
 			}
 		}
+		//Items from QuestionBlocks
+	    for(Obstacle o : game.getCurrentLevel().getCurrentArea().getObstacles())
+	    {
+	    	if(o instanceof QuestionBlock)
+	    	{
+	    		QuestionBlock q = (QuestionBlock)o;
+	    		Item item = q.getItem();
+	    		
+	    		if(item.isAlive()){
+					if(getBounds().intersects(item.getBounds())){
+						item.die();
+						if(item instanceof Coin){
+							game.getScoreboard().addCoin();
+							playSound("Audio\\Coin.wav");
+						}
+						if(item instanceof Mushroom){
+							game.getScoreboard().addScore();
+							playSound("Audio\\Mushroom.wav");
+						}
+						if(item instanceof ExtraLife){
+							game.getScoreboard().addLife();
+							game.getScoreboard().addScore();
+							playSound("Audio\\ExtraLife.wav");
+						}
+					}
+				}
+	    	}
+	    }
 	}	
 		
 		if(jumping){

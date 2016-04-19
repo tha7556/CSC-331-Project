@@ -3,15 +3,18 @@ package Obstacles;
 import javax.swing.ImageIcon;
 
 import Game.Game;
+import Items.Coin;
+import Items.ExtraLife;
+import Items.Item;
+import Items.Mushroom;
 /**
  * Unbreakable Obstacle that when hit, turns brown and dispenses an Item
  *
  */
 public class QuestionBlock extends Obstacle
 {
-	private boolean coin;
-	private boolean mushroom;
-	private boolean life;
+	private Item item;
+	private boolean dispensed = false;
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -24,27 +27,40 @@ public class QuestionBlock extends Obstacle
 		super(x, y,32,32,true,false,game, new ImageIcon("Images\\Question Block.png"));
 		double a = Math.random();
 		if(a > .4){
-			coin = true;
+			item = new Coin(x+5,y-30,game);
 		}
 		else if(a > 0.1){
-			mushroom = true;
+			item = new Mushroom(x,y-30,game);
 		}
 		else{
-			life = true;
+			item = new ExtraLife(x,y-30,game);
 		}
+		item.setVisible(false);
 	}
 	@Override
 	public void die()
 	{
-		this.setImage("Images\\Brown Block.png");
+		if(!dispensed)
+		{
+			this.setImage("Images\\Brown Block.png");
+			this.item.setVisible(true);
+			this.dispensed = true;
+		}
 	}
-	public boolean hasCoin() {
-		return coin;
+	/**
+	 * 
+	 * @return The Item in the Question Block
+	 */
+	public Item getItem()
+	{
+		return item;
 	}
-	public boolean hasMushroom(){
-		return mushroom;
-	}
-	public boolean hasLife(){
-		return life;
+	/**
+	 * 
+	 * @return True if the Item has been dispensed, false otherwise
+	 */
+	public boolean isDispensed()
+	{
+		return dispensed;
 	}
 }

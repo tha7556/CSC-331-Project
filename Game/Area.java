@@ -176,7 +176,16 @@ public class Area
 					e.render(g, comp);
 			for(Obstacle o : obstacles)
 				if(o.isVisible())
+				{
 					o.render(g, comp);
+					if(o instanceof QuestionBlock)
+					{
+						QuestionBlock q = (QuestionBlock)o;
+						if(q.getItem().isVisible() & q.getItem().isAlive())
+							q.getItem().render(g, comp);
+					}
+				}
+			
 
 			for(Item i : items){
 				if(i.isVisible()){
