@@ -13,11 +13,14 @@ import Items.ExtraLife;
 import Items.Item;
 import Items.Mushroom;
 import Obstacles.Brick;
+import Obstacles.EndGameBlock;
 import Obstacles.FinishLine;
 import Obstacles.Ground;
 import Obstacles.Obstacle;
 import Obstacles.Pipe;
 import Obstacles.QuestionBlock;
+import Obstacles.RestartGameBlock;
+import Obstacles.StartGameBlock;
 
 
 /**
@@ -36,9 +39,6 @@ public class Mario extends Character{
 	private boolean insidePipe = false;
 	private Pipe pipe;
 	private int pipeStart = -1;
-	//finish variables
-	private boolean ending = false;
-	private int endStart = -1;
 	
 	/**
 	 * 
@@ -125,15 +125,6 @@ public class Mario extends Character{
 	}
 	@Override
 	public void tick() {
-		
-		//Finish Line
-		if(ending)
-		{
-			if(game.getLoopNumber() - endStart > 300)
-				game.getCurrentLevel().setFinished(true);
-			
-			return;
-		}		
 		//Pipes
 		if(goingDownPipe) //Going down Pipe animation
 		{
@@ -187,230 +178,296 @@ public class Mario extends Character{
 			top = getMiddleBound();
 		else 
 			top = getBoundsTop();
+		
 		//if the current x or y is beyond or below the specified bounds, reset the shape to be at the bounds with the whole shape showing
-	    if(!dying && !ending){	
-			if(x <= 0) 
+	if(!dying){	
+		if(x <= 0) 
+		{
+			try
 			{
-				try
-				{
-					this.game.getCurrentLevel().loadPreviousLevel();
-				}
-				catch(RuntimeException e)
-				{
-					x = 0;
-				}
+				this.game.getCurrentLevel().loadPreviousLevel();
 			}
-			if(y <= 0)
+			catch(RuntimeException e)
 			{
-				y = 0;
+				x = 0;
 			}
-	
-			if(x + width >= game.getWidth()) 
+		}
+		if(y <= 0)
+		{
+			y = 0;
+		}
+
+		if(x + width >= game.getWidth()) 
+		{
+			try
 			{
-				try
-				{
-					this.game.getCurrentLevel().loadNextLevel();
-				}
-				catch(RuntimeException e)
-				{
-					x = game.getWidth()-width;
+				this.game.getCurrentLevel().loadNextLevel();
+			}
+			catch(RuntimeException e)
+			{
+				x = game.getWidth()-width;
+			}
+			
+		}
+		if(y + height >= game.getHeight()) 
+		{
+			y = game.getHeight() - height;
+		}
+		
+		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
+			if(t.isSolid())
+			{
+				if(t instanceof StartGameBlock){
+					if(top.intersects(t.getBoundsBottom())){
+						game.getCurrentLevel().setCurrentIndex(2);
+						game.getCurrentLevel().setCurrentArea(2);
+						setVelY(0);
+						jumping = false;
+						falling = true;
+					}
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(0);
+						if(falling){
+							falling = false;
+						}
+					}
+					else{
+						if(!falling && !jumping){
+							gravity = 0.0;
+							falling = true;
+						}
+					}
+					if(getBoundsLeft().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()+5;
+					}
+					if(getBoundsRight().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()-5;
+					}
 				}
 				
-			}
-			if(y + height >= game.getHeight()) 
-			{
-				y = game.getHeight() - height;
-			}
-			//Obstacles
-			for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
-				if(t.isSolid())
-				{
-					if(t instanceof QuestionBlock){
-						if(top.intersects(t.getBounds())){
-							setVelY(0);
+				if(t instanceof EndGameBlock){
+					if(top.intersects(t.getBoundsBottom())){
+						System.exit(0);
+						setVelY(0);
+						jumping = false;
+						falling = true;
+					}
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(0);
+						if(falling){
+							falling = false;
+						}
+					}
+					else{
+						if(!falling && !jumping){
+							gravity = 0.0;
+							falling = true;
+						}
+					}
+					if(getBoundsLeft().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()+5;
+					}
+					if(getBoundsRight().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()-5;
+					}
+				}
+				
+				if(t instanceof RestartGameBlock){
+					if(top.intersects(t.getBoundsBottom())){
+						game.getCurrentLevel().setCurrentIndex(0);
+						game.getCurrentLevel().setCurrentArea(0);
+						setVelY(0);
+						jumping = false;
+						falling = true;
+					}
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(0);
+						if(falling){
+							falling = false;
+						}
+					}
+					else{
+						if(!falling && !jumping){
+							gravity = 0.0;
+							falling = true;
+						}
+					}
+					if(getBoundsLeft().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()+5;
+					}
+					if(getBoundsRight().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()-5;
+					}
+				}
+				
+				if(t instanceof QuestionBlock){
+					if(top.intersects(t.getBoundsBottom())&& getVelY() < 0){
+						setVelY(0);
+						jumping = false;
+						falling = true;
+						t.die();
+						if(((QuestionBlock) t).hasCoin()){
+							Coin tempitem = new Coin(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasMushroom()){
+							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+						if(((QuestionBlock) t).hasLife()){
+							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32,game);
+							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
+						}
+					}
+				}
+				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
+					if(top.intersects(t.getBounds())){
+						setVelY(0);
+						if(jumping){
 							jumping = false;
 							falling = true;
-							t.die();
+							
 						}
 					}
-					if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
-						if(top.intersects(t.getBounds())){
-							setVelY(0);
-							if(jumping){
-								jumping = false;
-								falling = true;
-								
-							}
-						}
-						if(getBoundsBottom().intersects(t.getBounds())){
-							setVelY(0);
-							if(falling){
-								falling = false;
-							}
-						}
-						else{
-							if(!falling && !jumping){
-								gravity = 0.0;
-								falling = true;
-							}
-						}
-						if(getBoundsLeft().intersects(t.getBounds())){
-							setVelX(0);
-							x = getX()+5;
-						}
-						if(getBoundsRight().intersects(t.getBounds())){
-							setVelX(0);
-							x = getX()-5;
-						}
-					}
-					if(t instanceof Pipe)
-					{
-						Pipe p = (Pipe)t;
-						if(p.getArea() != null && p.getLinkedPipe() != null &&  p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
-							{
-								pipe = p;
-								pipeStart = game.getLoopNumber();
-								goingDownPipe = true;
-								playSound("Pipe.wav");
-							}
-						
-					}
-					if(t instanceof FinishLine)
-					{
-						FinishLine f = (FinishLine)t;
-						if(getBounds().intersects(f.getBounds()))
-						{
-							if(getBounds().intersects(f.getBarBounds()))
-							{
-								System.out.println("You hit the Bar!!!");
-								f.setBarVisiblity(false);
-							}
-							ending = true;
-							game.getCurrentLevel().stopMusic();
-							playSound("Audio\\Finish.wav");
-							endStart = game.getLoopNumber();
-						}
-					}
-				}
-			}
-			//Enemies
-			for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
-				if(enemy.isSolid())
-				{			
-					if(getBoundsBottom().intersects(enemy.getBoundsTop())){
-						if(enemy instanceof Koopa || enemy instanceof BulletBill || enemy instanceof Goomba){
-							playSound("Audio\\Jump.wav");
-							jumping = true;
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(0);
+						if(falling){
 							falling = false;
-							enemy.die();
-							game.getScoreboard().addScore();
-							break;
-						}
-						else{
-							die();
-							break;
 						}
 					}
-					if(getBoundsLeft().intersects(enemy.getBoundsRight())){
-						die();
-						break;
+					else{
+						if(!falling && !jumping){
+							gravity = 0.0;
+							falling = true;
+						}
 					}
-					if(getBoundsRight().intersects(enemy.getBoundsLeft())){
-						die();
-						break;
+					if(getBoundsLeft().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()+5;
 					}
-					if(getBoundsTop().intersects(enemy.getBoundsBottom()))
+					if(getBoundsRight().intersects(t.getBounds())){
+						setVelX(0);
+						x = getX()-5;
+					}
+				}
+				if(t instanceof Pipe)
+				{
+					Pipe p = (Pipe)t;
+					if(p.getArea() != null && p.getLinkedPipe() != null &&  p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+						{
+							pipe = p;
+							pipeStart = game.getLoopNumber();
+							goingDownPipe = true;
+							playSound("Pipe.wav");
+						}
+					
+				}
+				if(t instanceof FinishLine)
+				{
+					FinishLine f = (FinishLine)t;
+					if(getBounds().intersects(f.getBounds()))
 					{
+						if(getBounds().intersects(f.getBarBounds()))
+						{
+							System.out.println("You hit the Bar!!!");
+						}
+						game.getCurrentLevel().setFinished(true);
+					}
+				}
+			}
+		}
+		
+		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
+			if(enemy.isSolid())
+			{			
+				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
+					if(enemy instanceof Koopa || enemy instanceof BulletBill){
+						playSound("Audio\\Jump.wav");
+						jumping = true;
+						falling = false;
+						enemy.die();
+						game.getScoreboard().addScore();
+						break;
+					}
+					else{
 						die();
 						break;
 					}
 				}
-				
-			}
-			//Items in general
-			for(Item item: game.getCurrentLevel().getCurrentArea().getItems()){
-				if(item.isAlive()){
-					if(getBounds().intersects(item.getBounds())){
-						item.die();
-						if(item instanceof Coin){
-							game.getScoreboard().addCoin();
-							playSound("Audio\\Coin.wav");
-						}
-						if(item instanceof Mushroom){
-							game.getScoreboard().addScore();
-							playSound("Audio\\Mushroom.wav");
-						}
-						if(item instanceof ExtraLife){
-							game.getScoreboard().addLife();
-							game.getScoreboard().addScore();
-							playSound("Audio\\ExtraLife.wav");
-						}
-					}
+				if(getBoundsLeft().intersects(enemy.getBoundsRight())){
+					die();
+					break;
 				}
-			}
-			//Items from QuestionBlocks
-		    for(Obstacle o : game.getCurrentLevel().getCurrentArea().getObstacles())
-		    {
-		    	if(o instanceof QuestionBlock)
-		    	{
-		    		QuestionBlock q = (QuestionBlock)o;
-		    		Item item = q.getItem();
-		    		
-		    		if(item.isAlive() && item.isVisible()){
-						if(getBounds().intersects(item.getBounds())){
-							item.die();
-							if(item instanceof Coin){
-								game.getScoreboard().addCoin();
-								playSound("Audio\\Coin.wav");
-							}
-							if(item instanceof Mushroom){
-								game.getScoreboard().addScore();
-								playSound("Audio\\Mushroom.wav");
-							}
-							if(item instanceof ExtraLife){
-								game.getScoreboard().addLife();
-								game.getScoreboard().addScore();
-								playSound("Audio\\ExtraLife.wav");
-							}
-						}
-					}
-		    	}
-		    }
-		}	
-			
-			if(jumping){
-				gravity -= 0.2;
-				setVelY((int) -gravity);
-				if(gravity <= 0.0){
-					jumping = false;
-					falling = true;
+				if(getBoundsRight().intersects(enemy.getBoundsLeft())){
+					die();
+					break;
 				}
-			}
-			if(falling){
-				gravity += 0.3;
-				setVelY((int) gravity);
 			}
 			
-			if(dying){
-				if(game.getScoreboard().getLives() > 0){
-					if(y >= game.getHeight()-20) 
-					{
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						game.getScoreboard().takeLife();
-						dying = false;
-						game.getCurrentLevel().playMusic();
-						reset(30,300);
+		}
+		for(Item item: game.getCurrentLevel().getCurrentArea().getItems()){
+			if(item.isAlive()){
+				if(getBounds().intersects(item.getBounds())){
+					item.die();
+					if(item instanceof Coin){
+						game.getScoreboard().addCoin();
+						playSound("Audio\\Coin.wav");
+					}
+					if(item instanceof Mushroom){
+						game.getScoreboard().addScore();
+						playSound("Audio\\Mushroom.wav");
+					}
+					if(item instanceof ExtraLife){
+						game.getScoreboard().addLife();
+						game.getScoreboard().addScore();
+						playSound("Audio\\ExtraLife.wav");
 					}
 				}
-				
-				if(game.getScoreboard().getLives() == 0){
-					System.out.println("Game Over");
+			}
+		}
+	}	
+		
+		if(jumping){
+			gravity -= 0.2;
+			setVelY((int) -gravity);
+			if(gravity <= 0.0){
+				jumping = false;
+				falling = true;
+			}
+		}
+		if(falling){
+			gravity += 0.3;
+			setVelY((int) gravity);
+		}
+		
+		if(dying){
+			if(game.getScoreboard().getLives() > 0){
+				if(y >= game.getHeight()-20) 
+				{
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					game.getScoreboard().takeLife();
+					dying = false;
+					game.getCurrentLevel().playMusic();
+					setVelY(0);
+					reset(30,450);
 				}
 			}
+			
+			if(game.getScoreboard().getLives() == 0){
+				game.getCurrentLevel().setCurrentIndex(1);
+				game.getCurrentLevel().setCurrentArea(1);
+			}
+		}
 	}
 	/**
 	 * Uses the input from the Gameboard to move Mario
@@ -418,7 +475,7 @@ public class Mario extends Character{
 	 */
 	public void move(Set<Integer> activeKeys)
 	{
-		if(!dying && !ending){
+		if(!dying){
 			if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
 			{
 				if(!jumping && onGround)
@@ -531,7 +588,7 @@ public class Mario extends Character{
 	 */
 	public Rectangle getMiddleBound()
 	{
-		return new Rectangle(getX()+5,getY()+height/2,width-5,5);
+		return new Rectangle(getX()+5,getY()+30,width-5,5);
 	}
 	/**
 	 * 
@@ -563,8 +620,6 @@ public class Mario extends Character{
 		insidePipe = false;
 		pipe = null;
 		pipeStart = -1;
-		ending = false;
-		endStart = -1;
 		this.x = x;
 		this.y = y;
 	}
@@ -582,14 +637,6 @@ public class Mario extends Character{
 			System.out.println("Past");
 			y = game.getHeight() - height;
 		}
-	}
-	/**
-	 * 
-	 * @return True if the Level is ending
-	 */
-	public boolean isEnding()
-	{
-		return ending;
 	}
 
 }

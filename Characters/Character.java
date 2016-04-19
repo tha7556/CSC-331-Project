@@ -94,14 +94,6 @@ public abstract class Character {
 	}
 	/**
 	 * 
-	 * @return The height of the Character
-	 */
-	public int getHeight()
-	{
-		return height;
-	}
-	/**
-	 * 
 	 * @param x The new X coordinate value
 	 */
 	public void setX(int x) {

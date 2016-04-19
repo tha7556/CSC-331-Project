@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import Game.Game;
 import Game.Gameboard;
+import Obstacles.Obstacle;
 
 
 
