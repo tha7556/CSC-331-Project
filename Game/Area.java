@@ -15,6 +15,7 @@ import Characters.Enemy;
 import Characters.Koopa;
 import Characters.PiranhaPlant;
 import Characters.Thwomp;
+import Items.Coin;
 import Items.Item;
 import Obstacles.*;
 /**
@@ -278,6 +279,8 @@ public class Area
 	 				{
 	 					area.addObstacle(new FinishLine(x*32,y*32-375,g));
 	 				}
+	 				if(red==0 && green == 255 && blue == 255)
+	 					area.addItem(new Coin(x*32,y*32-32,g));
 	 			}
 	 		}
 	 }
