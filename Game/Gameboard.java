@@ -55,7 +55,11 @@ public class Gameboard extends JComponent implements KeyListener
 		else
 		{
 			Rectangle r = new Rectangle(0,0,getWidth(),getHeight());
-			Ellipse2D.Double e = new Ellipse2D.Double(mario.getX()-mario.getWidth()+15, mario.getY()-mario.getHeight()+20, mario.getWidth()*2, mario.getHeight()*2);
+			Ellipse2D.Double e;
+			if(!mario.isBig())
+				 e = new Ellipse2D.Double(mario.getX()-mario.getWidth()+15, mario.getY()-mario.getHeight()+20, mario.getWidth()*2, mario.getHeight()*2);
+			else
+				e = new Ellipse2D.Double(mario.getX()-mario.getWidth()+15, mario.getY()-mario.getHeight()+20, mario.getWidth()*4, mario.getHeight()*2);
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setColor(Color.BLACK);
 			g2.fill(r);
