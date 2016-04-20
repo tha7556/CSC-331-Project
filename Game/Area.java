@@ -211,6 +211,7 @@ public class Area
 	 * <br>Blue = Pipe
 	 * <br>Yellow = Ground
 	 * <br>Purple = FinishLine
+	 * <br>LightBlue = Coin
 	 * @param area The Area to add Objects to
 	 * @param g The instance of the Game
 	 */
