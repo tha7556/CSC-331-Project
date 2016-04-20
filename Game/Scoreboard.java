@@ -44,12 +44,12 @@ public class Scoreboard extends JComponent
 			score = 0;
 			game.resetActualTime();
 		}
-		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\TitleScreen.png"){
+		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\Levels\\TitleScreen.png"){
 			setVisibility(false);
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, 960, 50);
 		}
-		else if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\gameOverScreen.png"){
+		else if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\Levels\\gameOverScreen.png"){
 			setVisibility(false);
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, 960, 50);

@@ -235,12 +235,12 @@ public class Game extends JFrame
 		Game g = new Game();
 		
 		//First Level
-		Area titleScreen = new Area("Images\\TitleScreen.png");
-		Area startingAreaLevel1 = new Area("Images\\StartingAreaLevel1.png");
-		Area area = new Area("Images\\TestLevel.png");		
-		Area area2 = new Area("Images\\TestLevel2.png");
-		Area area3 = new Area("Images\\TestLevel3.png");
-		Area gameOverScreen = new Area("Images\\gameOverScreen.png");
+		Area titleScreen = new Area("Images\\Levels\\TitleScreen.png");
+		Area startingAreaLevel1 = new Area("Images\\Levels\\StartingAreaLevel1.png");
+		Area area = new Area("Images\\Levels\\TestLevel.png");		
+		Area area2 = new Area("Images\\Levels\\TestLevel2.png");
+		Area area3 = new Area("Images\\Levels\\TestLevel3.png");
+		Area gameOverScreen = new Area("Images\\Levels\\gameOverScreen.png");
 		
 		//Creating First Level
 		titleScreen.createArea(titleScreen, g);
@@ -260,10 +260,10 @@ public class Game extends JFrame
 		Level_1.add(gameOverScreen);
 		
 		
-		Area startingAreaLevel2 = new Area("Images\\StartingAreaLevel2.png");
-		area = new Area("Images\\Area2-1.png");		
-		area2 = new Area("Images\\Area2-2.png");
-		area3 = new Area("Images\\Area2-3.png");
+		Area startingAreaLevel2 = new Area("Images\\Levels\\StartingAreaLevel2.png");
+		area = new Area("Images\\Levels\\Area2-1.png");		
+		area2 = new Area("Images\\Levels\\Area2-2.png");
+		area3 = new Area("Images\\Levels\\Area2-3.png");
 		
 		area.createArea(area, g);
 		area2.createArea(area2, g);
