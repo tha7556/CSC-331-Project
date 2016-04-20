@@ -41,7 +41,7 @@ public class Scoreboard extends JComponent
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		if(game.getCurrentLevel().getCurrentIndex() == 0){
+		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\TitleScreen.png"){
 			lives = 5;
 			score = 0;
 			game.resetActualTime();
@@ -49,13 +49,13 @@ public class Scoreboard extends JComponent
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, 960, 50);
 		}
-		else if(game.getCurrentLevel().getCurrentIndex() == 1){
+		else if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\gameOverScreen.png"){
 			setVisibility(false);
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, 960, 50);
 			
 		}
-		else if(game.getCurrentLevel().getCurrentIndex() > 1){
+		else{
 			setVisibility(true);
 			String displayScore = String.format("%08d", score);
 			scoreboardimage.paintIcon(this, g, 0, 0);

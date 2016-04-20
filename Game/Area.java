@@ -23,6 +23,7 @@ import Obstacles.*;
  */
 public class Area 
 {
+	private String backGroundName;
 	private ImageIcon displayBackground;
 	private BufferedImage background;
 	private ArrayList<Enemy> enemies;
@@ -34,6 +35,7 @@ public class Area
 	 */
 	public Area(String background)
 	{
+		backGroundName = background;
 		enemies = new ArrayList<Enemy>();
 		obstacles = new ArrayList<Obstacle>();
 		items = new ArrayList<Item>();
@@ -44,6 +46,13 @@ public class Area
 		 } catch (IOException e) {
 		 e.printStackTrace();
 		 }
+	}
+	/**
+	 * 
+	 * @return background file name as a string for comparison
+	 */
+	public String returnBackGround(){
+		return backGroundName;
 	}
 	/**
 	 * Adds an Enemy to the enemies ArrayList

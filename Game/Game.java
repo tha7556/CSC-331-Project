@@ -216,44 +216,75 @@ public class Game extends JFrame
 	}
 	public static void main(String[] args)
 	{
-		ArrayList<Area> areas = new ArrayList<Area>();
+		ArrayList<Area> Level_1 = new ArrayList<Area>();
+		ArrayList<Area> Level_2 = new ArrayList<Area>();
 		Game g = new Game();
 		
-		Area titleScreen = new Area("Images\\Levels\\TitleScreen.png");
-		Area gameOverScreen = new Area("Images\\Levels\\gameOverScreen.png");
-		Area tutorialLevel = new Area("Images\\Levels\\TutorialLevel.png");
-		Area area = new Area("Images\\Levels\\TestLevel.png");		
-		Area area2 = new Area("Images\\Levels\\TestLevel2.png");
-		Area area3 = new Area("Images\\Levels\\TestLevel3.png");
+		//First Level
+		Area titleScreen = new Area("Images\\TitleScreen.png");
+		Area gameOverScreen = new Area("Images\\gameOverScreen.png");
+		Area WinningScreen = new Area("Images\\WinningScreen.png");
+		Area tutorialLevel = new Area("Images\\TutorialLevel.png");
+		Area area = new Area("Images\\TestLevel.png");		
+		Area area2 = new Area("Images\\TestLevel2.png");
+		Area area3 = new Area("Images\\TestLevel3.png");	
 		
-		//Pipe p1 = new Pipe(250, 450, g, area2);
-		//Pipe p2 = new Pipe(250,450,g);
-		//p1.setLinkedPipe(p2);
-		//area.addObstacle(p1);
-		//area2.addObstacle(p2);
-		//area2.addObstacle(new FinishLine(600,150,g));
-		
+		//Creating First Level
 		titleScreen.createArea(titleScreen, g);
 		gameOverScreen.createArea(gameOverScreen, g);
+		WinningScreen.createArea(WinningScreen, g);
 		tutorialLevel.createArea(tutorialLevel, g);
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
 		
-		areas.add(titleScreen);
-		areas.add(gameOverScreen);
-		areas.add(tutorialLevel);
-		areas.add(area);
-		areas.add(area2);
-		areas.add(area3);
+		
+		
+		//Adding Areas to First Level
+		Level_1.add(titleScreen);
+		Level_1.add(gameOverScreen);
+		Level_1.add(WinningScreen);
+		Level_1.add(tutorialLevel);
+		Level_1.add(area);
+		Level_1.add(area2);
+		Level_1.add(area3);
 		
 		
 		
-		Level level = new Level(areas, g.getGameboard(),"Audio\\Music.wav");
+		area = new Area("Images\\Area2-1.png");		
+		area2 = new Area("Images\\Area2-2.png");
+		area3 = new Area("Images\\Area2-3.png");
+		area.createArea(area, g);
+		area2.createArea(area2, g);
+		area3.createArea(area3, g);
+		Level_2.add(titleScreen);
+		Level_2.add(gameOverScreen);
+		Level_2.add(WinningScreen);
+		Level_2.add(tutorialLevel);
+		Level_2.add(area);
+		Level_2.add(area2);
+		Level_2.add(area3);
+		
+		
+		
+		Level level = new Level(Level_1, g.getGameboard(),"Audio\\Music.wav");
+		Level level2 = new Level(Level_2, g.getGameboard(),"Audio\\Music.wav");
+		
 		g.addLevel(level);
-		g.addLevel(new Level(areas, g.getGameboard(),"Audio\\Music.wav"));
-		for(Level lev : g.getLevels())
-			g.play(lev);
+		g.addLevel(level2);
+		
+		
+		for(int index = 0; index < g.getLevels().size(); index ++){
+			if(index == 0){
+				g.play(g.getLevels().get(index));
+			}
+			
+			else{
+				g.play(g.getLevels().get(index));
+				g.getCurrentLevel().setCurrentIndex(3);
+				g.getCurrentLevel().setCurrentArea(3);
+			}
+		}
 		g.dispose();
 	}
 	
