@@ -8,6 +8,7 @@ import Game.Game;
  */
 public class PiranhaPlant extends Enemy
 {
+	private double speed;
 	private int starty;
 	/**
 	 * 
@@ -17,19 +18,24 @@ public class PiranhaPlant extends Enemy
 	 */
 	public PiranhaPlant(int x, int y, Game game) {
 		super(x, y, 32, 64, true,"Images\\PiranhaPlant.png", game);
+		speed = Math.random()*10;
+		if(speed > 6){
+			speed -= 5;
+		}
+		System.out.println(speed);
+		
 		starty = y;
 		setVelY(2);
 	}
 	
 	public void tick() {
-		if(getY()==starty-64){
-			setVelY(2);
-		}
-		if(getY()==starty+64){
-			setVelY(-2);
-		}
 		y+=velY;
-
+		if(getY() <= starty-64){
+			setVelY((int)speed);
+		}
+		if(getY() >= starty+64){
+			setVelY(-(int)speed);
+		}
 	}
 
 }
