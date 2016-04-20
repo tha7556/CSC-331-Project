@@ -16,7 +16,7 @@ public class Koopa extends Enemy
 	 * @param game The instance of the Game
 	 */
 	public Koopa(int x, int y, Game game) {
-		super(x, y, 32, 32, true,"Images\\GoombaWalkRight.gif", game);
+		super(x, y, 19, 32, true,"Images\\KoopaWalkRight.gif", game);
 		
 	}
 	@Override
@@ -59,13 +59,13 @@ public class Koopa extends Enemy
 				if(getBoundsLeft().intersects(t.getBounds())){
 					setVelX(-velX);
 					x = t.getX()+t.getWidth();
-					setImage("Images\\GoombaWalkRight.gif");
+					setImage("Images\\KoopaWalkRight.gif");
 
 				}
 				if(getBoundsRight().intersects(t.getBounds())){
 					setVelX(-velX);
 					x = t.getX()-40;
-					setImage("Images\\GoombaWalkLeft.gif");
+					setImage("Images\\KoopaWalkLeft.gif");
 
 				}
 			
@@ -77,15 +77,18 @@ public class Koopa extends Enemy
 		for(Enemy coEnemies: game.getCurrentLevel().getCurrentArea().getEnemies()){
 			if(coEnemies.isSolid())
 			{
-			
+				//Thwomp kills the Koopa
+				if(coEnemies instanceof Thwomp)
+					if(getBoundsTop().intersects(coEnemies.getBoundsBottom()))
+						die();
 				if(getBoundsRight().intersects(coEnemies.getBoundsLeft())){
 					setVelX(-(getVelX()));
-					setImage("Images\\GoombaWalkLeft.gif");
+					setImage("Images\\KoopaWalkLeft.gif");
 
 				}
 				if(getBoundsLeft().intersects(coEnemies.getBoundsRight())){
 					setVelX(-(getVelX()));
-					setImage("Images\\GoombaWalkRight.gif");
+					setImage("Images\\KoopaWalkRight.gif");
 				}
 				if(getBoundsBottom().intersects(coEnemies.getBoundsTop())){
 					jumping = true;
@@ -98,12 +101,12 @@ public class Koopa extends Enemy
 		
 		if(x <= 0){
 			x = 0;
-			setImage("Images\\GoombaWalkRight.gif");
+			setImage("Images\\KoopaWalkRight.gif");
 			setVelX(-velX);
 		}
 		if(x + width >= game.getWidth()){
 			setVelX(-velX);
-			setImage("Images\\GoombaWalkLeft.gif");
+			setImage("Images\\KoopaWalkLeft.gif");
 			x = game.getWidth() - (width+1);
 		}
 		
