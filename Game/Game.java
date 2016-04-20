@@ -219,12 +219,12 @@ public class Game extends JFrame
 		ArrayList<Area> areas = new ArrayList<Area>();
 		Game g = new Game();
 		
-		Area titleScreen = new Area("Images\\TitleScreen.png");
-		Area gameOverScreen = new Area("Images\\gameOverScreen.png");
-		Area tutorialLevel = new Area("Images\\TutorialLevel.png");
-		Area area = new Area("Images\\TestLevel.png");		
-		Area area2 = new Area("Images\\TestLevel2.png");
-		Area area3 = new Area("Images\\TestLevel3.png");
+		Area titleScreen = new Area("Images\\Levels\\TitleScreen.png");
+		Area gameOverScreen = new Area("Images\\Levels\\gameOverScreen.png");
+		Area tutorialLevel = new Area("Images\\Levels\\TutorialLevel.png");
+		Area area = new Area("Images\\Levels\\TestLevel.png");		
+		Area area2 = new Area("Images\\Levels\\TestLevel2.png");
+		Area area3 = new Area("Images\\Levels\\TestLevel3.png");
 		
 		//Pipe p1 = new Pipe(250, 450, g, area2);
 		//Pipe p2 = new Pipe(250,450,g);
