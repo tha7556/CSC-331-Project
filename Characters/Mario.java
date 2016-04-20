@@ -58,7 +58,7 @@ public class Mario extends Character{
 	@Override
 	public void render(Graphics g, Gameboard c) {
 		if(!big){
-			if(goingDownPipe)
+			if(goingDownPipe || goingUpPipe)
 			{
 				setImage("Images\\MarioDownPipe.png");
 			}
@@ -105,7 +105,7 @@ public class Mario extends Character{
 			}
 		}
 		else{
-			if(goingDownPipe)
+			if(goingDownPipe || goingUpPipe)
 			{
 				setImage("Images\\BigMarioDownPipe.png");
 			}
@@ -198,8 +198,8 @@ public class Mario extends Character{
 		if(goingDownPipe) //Going down Pipe animation
 		{
 			x = pipe.getX()+(pipe.getWidth()/6);
-			if(game.getLoopNumber() - pipeStart < 35)
-				y += 3;
+			if(game.getLoopNumber() - pipeStart < 60)
+				y += 1;
 			else
 			{
 				goingDownPipe = false;
@@ -212,19 +212,19 @@ public class Mario extends Character{
 			Pipe p = pipe;
 			this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY()+10);
 			goingUpPipe = true;
-			pipe = p;
+			pipe = p.getLinkedPipe();
 			pipeStart = game.getLoopNumber();
 			return;
 		}
 		if(goingUpPipe)
 		{
 			if(game.getLoopNumber() - pipeStart == 20) //Waits 20 loops then plays sound
-				playSound("Pipe.wav");
+				playSound("Audio\\Pipe.wav");
 			else if(game.getLoopNumber() - pipeStart > 20) //After the 20 loops, move Mario
 			{
 				x = pipe.getX()+(pipe.getWidth()/6);
-				if(game.getLoopNumber() - pipeStart < 47)
-					y -= 3;
+				if(game.getLoopNumber() - pipeStart < 80)
+					y -= 1;
 				else
 				{
 					goingUpPipe = false;
@@ -406,6 +406,7 @@ public class Mario extends Character{
 						}
 					}
 					if(getBoundsLeft().intersects(t.getBounds())){
+						if(t instanceof Pipe)
 						setVelX(0);
 						x = getX()+5;
 					}
@@ -422,7 +423,7 @@ public class Mario extends Character{
 							pipe = p;
 							pipeStart = game.getLoopNumber();
 							goingDownPipe = true;
-							playSound("Pipe.wav");
+							playSound("Audio\\Pipe.wav");
 						}
 					
 				}
