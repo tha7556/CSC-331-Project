@@ -85,9 +85,17 @@ public abstract class Character {
 	public int getX() {
 		return x;
 	}
+	/**
+	 * 
+	 * @return The Height of the Character
+	 */
 	public int getHeight() {
 		return height;
 	}
+	/**
+	 * 
+	 * @param height The new Height of the Character
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
