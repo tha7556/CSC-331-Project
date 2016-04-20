@@ -22,7 +22,6 @@ public class PiranhaPlant extends Enemy
 		if(speed > 6){
 			speed -= 5;
 		}
-		System.out.println(speed);
 		
 		starty = y;
 		setVelY(2);

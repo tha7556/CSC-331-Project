@@ -1,6 +1,11 @@
 package Characters;
 
 import Game.Game;
+import Obstacles.Brick;
+import Obstacles.Ground;
+import Obstacles.Obstacle;
+import Obstacles.Pipe;
+import Obstacles.QuestionBlock;
 
 /**
  * An Enemy that stays up high until the player comes near, then drops down
@@ -8,6 +13,7 @@ import Game.Game;
  */
 public class Thwomp extends Enemy
 {
+	private int starty;
 
 	/**
 	 * 
@@ -22,7 +28,9 @@ public class Thwomp extends Enemy
 	
 	public void tick() {
 		y += velY;
-		
+		if(getX()>game.getMario().getX()&&getX()+64<game.getMario().getX()+32){
+			setVelY(5);
+		}
 		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
 			if(t.isSolid())
 			{
@@ -49,8 +57,7 @@ public class Thwomp extends Enemy
 							setVelY(2);
 					}
 				}
-			}
-	}
-	
-
+			}	
+		}
 }
+

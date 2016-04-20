@@ -289,8 +289,8 @@ public class Mario extends Character{
 			{
 				if(t instanceof StartGameBlock){
 					if(top.intersects(t.getBoundsBottom())){
-						game.getCurrentLevel().setCurrentIndex(2);
-						game.getCurrentLevel().setCurrentArea(2);
+						game.getCurrentLevel().setCurrentIndex(3);
+						game.getCurrentLevel().setCurrentArea(3);
 						setVelY(0);
 						jumping = false;
 						falling = true;
@@ -536,7 +536,7 @@ public class Mario extends Character{
 	}	
 		
 		if(jumping){
-			gravity -= 0.2;
+			gravity -= 0.25;
 			setVelY((int) -gravity);
 			if(gravity <= 0.0){
 				jumping = false;
