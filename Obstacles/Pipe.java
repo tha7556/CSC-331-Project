@@ -79,7 +79,7 @@ public class Pipe extends Obstacle
 	 */
 	public Rectangle getBoundsMiddle()
 	{
-		return new Rectangle(getX()+40,getY()-4,width/6,5);
+		return new Rectangle(getX()+27,getY()-4,width/6,5);
 	}
 	@Override
 	public void render(Graphics g, Gameboard c)
