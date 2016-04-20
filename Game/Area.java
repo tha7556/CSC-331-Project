@@ -15,7 +15,6 @@ import Characters.Enemy;
 import Characters.Koopa;
 import Characters.PiranhaPlant;
 import Characters.Thwomp;
-import Items.Coin;
 import Items.Item;
 import Obstacles.*;
 /**
@@ -211,7 +210,6 @@ public class Area
 	 * <br>Blue = Pipe
 	 * <br>Yellow = Ground
 	 * <br>Purple = FinishLine
-	 * <br>LightBlue = Coin
 	 * @param area The Area to add Objects to
 	 * @param g The instance of the Game
 	 */
@@ -280,8 +278,6 @@ public class Area
 	 				{
 	 					area.addObstacle(new FinishLine(x*32,y*32-375,g));
 	 				}
-	 				if(red==0 && green == 255 && blue == 255)
-	 					area.addItem(new Coin(x*32,y*32-32,g));
 	 			}
 	 		}
 	 }

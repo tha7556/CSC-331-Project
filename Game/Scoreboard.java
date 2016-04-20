@@ -19,7 +19,6 @@ public class Scoreboard extends JComponent
 	private int score;
 	private int coins;
 	private ImageIcon scoreboardimage;
-	private ImageIcon titleImage;
 	private Game game;
 	private boolean visibility;
 
@@ -34,17 +33,18 @@ public class Scoreboard extends JComponent
 		coins = 0;
 		lives = 5;
 		scoreboardimage = new ImageIcon("Images\\ScoreBoard.png");
-		titleImage = new ImageIcon("Images\\titleImage.png");
 		this.game = game;
 	}
 	
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\TitleScreen.png"){
+		if(game.getCurrentLevel().getCurrentIndex()== 0){
 			lives = 5;
 			score = 0;
 			game.resetActualTime();
+		}
+		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\TitleScreen.png"){
 			setVisibility(false);
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, 960, 50);

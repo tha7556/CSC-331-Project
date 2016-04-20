@@ -24,6 +24,7 @@ public class Game extends JFrame
 	private Gameboard gameBoard;
 	private int displayTime = 0, loop = 0;
 	private double actualTime = 0.0;
+	private static int levelIndex;
 	/**
 	 * 
 	 * @param levels An ArrayList of the Levels that will be in this Game
@@ -60,6 +61,19 @@ public class Game extends JFrame
 	public Game()
 	{
 		this(new ArrayList<Level>());
+	}
+	/**
+	 * 
+	 * @return index number in iteration
+	 */
+	public int getLevelIndex(){
+		return levelIndex;
+	}
+	/**
+	 * set the current index to a number n
+	 */
+	public void setLevelIndex(int n){
+		levelIndex = n;
 	}
 	/**
 	 * 
@@ -221,49 +235,47 @@ public class Game extends JFrame
 		Game g = new Game();
 		
 		//First Level
-		Area titleScreen = new Area("Images\\Levels\\TitleScreen.png");
-		Area gameOverScreen = new Area("Images\\Levels\\gameOverScreen.png");
-		Area WinningScreen = new Area("Images\\Levels\\WinningScreen.png");
-		Area tutorialLevel = new Area("Images\\Levels\\TutorialLevel.png");
-		Area area = new Area("Images\\Levels\\TestLevel.png");		
-		Area area2 = new Area("Images\\Levels\\TestLevel2.png");
-		Area area3 = new Area("Images\\Levels\\TestLevel3.png");	
+		Area titleScreen = new Area("Images\\TitleScreen.png");
+		Area startingAreaLevel1 = new Area("Images\\StartingAreaLevel1.png");
+		Area area = new Area("Images\\TestLevel.png");		
+		Area area2 = new Area("Images\\TestLevel2.png");
+		Area area3 = new Area("Images\\TestLevel3.png");
+		Area gameOverScreen = new Area("Images\\gameOverScreen.png");
 		
 		//Creating First Level
 		titleScreen.createArea(titleScreen, g);
-		gameOverScreen.createArea(gameOverScreen, g);
-		WinningScreen.createArea(WinningScreen, g);
-		tutorialLevel.createArea(tutorialLevel, g);
+		startingAreaLevel1.createArea(startingAreaLevel1, g);
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
-		
+		gameOverScreen.createArea(gameOverScreen, g);
 		
 		
 		//Adding Areas to First Level
 		Level_1.add(titleScreen);
-		Level_1.add(gameOverScreen);
-		Level_1.add(WinningScreen);
-		Level_1.add(tutorialLevel);
+		Level_1.add(startingAreaLevel1);
 		Level_1.add(area);
 		Level_1.add(area2);
 		Level_1.add(area3);
+		Level_1.add(gameOverScreen);
 		
 		
+		Area startingAreaLevel2 = new Area("Images\\StartingAreaLevel2.png");
+		area = new Area("Images\\Area2-1.png");		
+		area2 = new Area("Images\\Area2-2.png");
+		area3 = new Area("Images\\Area2-3.png");
 		
-		area = new Area("Images\\Levels\\Area2-1.png");		
-		area2 = new Area("Images\\Levels\\Area2-2.png");
-		area3 = new Area("Images\\Levels\\Area2-3.png");
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
-		Level_2.add(titleScreen);
-		Level_2.add(gameOverScreen);
-		Level_2.add(WinningScreen);
-		Level_2.add(tutorialLevel);
+		startingAreaLevel2.createArea(startingAreaLevel2, g);
+		
+		Level_2.add(startingAreaLevel2);
 		Level_2.add(area);
 		Level_2.add(area2);
 		Level_2.add(area3);
+		Level_2.add(area3);
+		Level_2.add(gameOverScreen);
 		
 		
 		
@@ -274,16 +286,9 @@ public class Game extends JFrame
 		g.addLevel(level2);
 		
 		
-		for(int index = 0; index < g.getLevels().size(); index ++){
-			if(index == 0){
-				g.play(g.getLevels().get(index));
-			}
+		for(levelIndex = 0; levelIndex < g.getLevels().size(); levelIndex ++){
+				g.play(g.getLevels().get(levelIndex));
 			
-			else{
-				g.play(g.getLevels().get(index));
-				g.getCurrentLevel().setCurrentIndex(3);
-				g.getCurrentLevel().setCurrentArea(3);
-			}
 		}
 		g.dispose();
 	}
