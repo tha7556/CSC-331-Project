@@ -58,7 +58,7 @@ public class Mario extends Character{
 	@Override
 	public void render(Graphics g, Gameboard c) {
 		if(!big){
-			if(goingDownPipe)
+			if(goingDownPipe || goingUpPipe)
 			{
 				setImage("Images\\MarioDownPipe.png");
 			}
@@ -105,7 +105,7 @@ public class Mario extends Character{
 			}
 		}
 		else{
-			if(goingDownPipe)
+			if(goingDownPipe || goingUpPipe)
 			{
 				setImage("Images\\BigMarioDownPipe.png");
 			}
@@ -212,7 +212,7 @@ public class Mario extends Character{
 			Pipe p = pipe;
 			this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY()+10);
 			goingUpPipe = true;
-			pipe = p;
+			pipe = p.getLinkedPipe();
 			pipeStart = game.getLoopNumber();
 			return;
 		}
@@ -761,6 +761,14 @@ public class Mario extends Character{
 	public boolean isEnding()
 	{
 		return ending;
+	}
+	/**
+	 * 
+	 * @return True if Mario is big
+	 */
+	public boolean isBig()
+	{
+		return big;
 	}
 
 }
