@@ -176,7 +176,15 @@ public class Area
 					e.render(g, comp);
 			for(Obstacle o : obstacles)
 				if(o.isVisible())
+				{
 					o.render(g, comp);
+					if(o instanceof QuestionBlock)
+					{
+						QuestionBlock q = (QuestionBlock)o;
+						if(q.getItem().isVisible() & q.getItem().isAlive())
+							q.getItem().render(g, comp);
+					}
+				}
 
 			for(Item i : items){
 				if(i.isVisible()){
@@ -259,7 +267,7 @@ public class Area
 	 				}
 	 				if(red == 255 && green == 0 && blue == 255)
 	 				{
-	 					area.addObstacle(new FinishLine(x*32,y*32-390,g));
+	 					area.addObstacle(new FinishLine(x*32,y*32-375,g));
 	 				}
 	 			}
 	 		}
