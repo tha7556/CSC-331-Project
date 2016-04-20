@@ -8,7 +8,6 @@ import Game.Game;
  */
 public class Thwomp extends Enemy
 {
-	private int starty;
 
 	/**
 	 * 
@@ -18,23 +17,39 @@ public class Thwomp extends Enemy
 	 */
 	public Thwomp(int x, int y, Game game) {
 		super(x, y, 64, 96, true,"Images\\Thwomp.png", game);
-		
-		starty = y-46;
 		setVelY(2);
 	}
 	
 	public void tick() {
-		if(getY()==starty){
-			setVelY(2);
-			if(getX()>game.getMario().getX()&&getX()+64<game.getMario().getX()+32){
-				setVelY(5);
+		y += velY;
+		
+		for(Obstacle t: game.getCurrentLevel().getCurrentArea().getObstacles()){
+			if(t.isSolid())
+			{
+				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
+					if(getBoundsTop().intersects(t.getBounds())){
+						setVelY(2);
+							
+						}
+					if(getBoundsBottom().intersects(t.getBounds())){
+						setVelY(-2);
+					}
+				}
 			}
 		}
-		if(getY()==starty+256+128){
-			setVelY(-2);
-		}
-		y+=velY;
-
+		
+		for(Enemy enemy: game.getCurrentLevel().getCurrentArea().getEnemies()){
+			if(enemy.isSolid())
+			{			
+				if(getBoundsBottom().intersects(enemy.getBoundsTop())){
+						setVelY(-2);
+					}
+					
+				if(getBoundsTop().intersects(enemy.getBoundsBottom())){
+							setVelY(2);
+					}
+				}
+			}
 	}
 	
 
