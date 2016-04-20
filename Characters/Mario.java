@@ -39,6 +39,10 @@ public class Mario extends Character{
 	private boolean insidePipe = false;
 	private Pipe pipe;
 	private int pipeStart = -1;
+	//finish variables
+	private boolean ending = false;
+	private int endStart = -1;
+	//Big variables
 	private boolean big;
 	private int invincible;
 	
@@ -181,6 +185,15 @@ public class Mario extends Character{
 	}
 	@Override
 	public void tick() {
+		
+		//Finish Line
+		if(ending)
+		{
+			if(game.getLoopNumber() - endStart > 300)
+				game.getCurrentLevel().setFinished(true);
+			
+			return;
+		}	
 		//Pipes
 		if(goingDownPipe) //Going down Pipe animation
 		{
@@ -237,7 +250,7 @@ public class Mario extends Character{
 			top = getBoundsTop();
 		
 		//if the current x or y is beyond or below the specified bounds, reset the shape to be at the bounds with the whole shape showing
-	if(!dying){	
+	if(!dying && !ending){	
 		if(x <= 0) 
 		{
 			try
@@ -364,23 +377,11 @@ public class Mario extends Character{
 				}
 				
 				if(t instanceof QuestionBlock){
-					if(top.intersects(t.getBoundsBottom())&& getVelY() < 0){
+					if(top.intersects(t.getBounds())){
 						setVelY(0);
 						jumping = false;
 						falling = true;
 						t.die();
-						if(((QuestionBlock) t).hasCoin()){
-							Coin tempitem = new Coin(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
-						if(((QuestionBlock) t).hasMushroom()){
-							Mushroom tempitem = new Mushroom(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
-						if(((QuestionBlock) t).hasLife()){
-							ExtraLife tempitem = new ExtraLife(t.getX(), t.getY()-32,game);
-							game.getCurrentLevel().getCurrentArea().addItem(tempitem);
-						}
 					}
 				}
 				if(t instanceof Ground || t instanceof Brick || t instanceof Pipe || t instanceof QuestionBlock){
@@ -433,8 +434,12 @@ public class Mario extends Character{
 						if(getBounds().intersects(f.getBarBounds()))
 						{
 							System.out.println("You hit the Bar!!!");
+							f.setBarVisiblity(false);
 						}
-						game.getCurrentLevel().setFinished(true);
+						ending = true;
+						game.getCurrentLevel().stopMusic();
+						playSound("Audio\\Finish.wav");
+						endStart = game.getLoopNumber();
 					}
 				}
 			}
@@ -465,9 +470,15 @@ public class Mario extends Character{
 					die();
 					break;
 				}
+				if(getBoundsTop().intersects(enemy.getBoundsBottom()))
+				{
+					die();
+					break;
+				}
 			}
 			
 		}
+		//Items in general
 		for(Item item: game.getCurrentLevel().getCurrentArea().getItems()){
 			if(item.isAlive()){
 				if(getBounds().intersects(item.getBounds())){
@@ -491,6 +502,37 @@ public class Mario extends Character{
 				}
 			}
 		}
+		//Items from QuestionBlocks
+	    for(Obstacle o : game.getCurrentLevel().getCurrentArea().getObstacles())
+	    {
+	    	if(o instanceof QuestionBlock)
+	    	{
+	    		QuestionBlock q = (QuestionBlock)o;
+	    		Item item = q.getItem();
+	    		
+	    		if(item.isAlive() && item.isVisible()){
+					if(getBounds().intersects(item.getBounds())){
+						item.die();
+						if(item instanceof Coin){
+							game.getScoreboard().addCoin();
+							playSound("Audio\\Coin.wav");
+						}
+						if(item instanceof Mushroom){
+							game.getScoreboard().addScore();
+							playSound("Audio\\Mushroom.wav");
+							big=true;
+							setHeight(64);
+							y-=32;
+						}
+						if(item instanceof ExtraLife){
+							game.getScoreboard().addLife();
+							game.getScoreboard().addScore();
+							playSound("Audio\\ExtraLife.wav");
+						}
+					}
+				}
+	    	}
+	    }
 	}	
 		
 		if(jumping){
@@ -535,7 +577,7 @@ public class Mario extends Character{
 	 */
 	public void move(Set<Integer> activeKeys)
 	{
-		if(!dying){
+		if(!dying && !ending){
 			if(activeKeys.contains(KeyEvent.VK_SPACE) && !activeKeys.contains(KeyEvent.VK_LEFT) && !activeKeys.contains(KeyEvent.VK_RIGHT) && jumpStart < game.getLoopNumber())
 			{
 				if(!jumping && onGround)
@@ -648,7 +690,7 @@ public class Mario extends Character{
 	 */
 	public Rectangle getMiddleBound()
 	{
-		return new Rectangle(getX()+5,getY()+30,width-5,5);
+		return new Rectangle(getX()+5,getY()+height/2,width-5,5);
 	}
 	/**
 	 * 
@@ -680,6 +722,8 @@ public class Mario extends Character{
 		insidePipe = false;
 		pipe = null;
 		pipeStart = -1;
+		ending = false;
+		endStart = -1;
 		this.x = x;
 		this.y = y;
 	}
@@ -701,12 +745,21 @@ public class Mario extends Character{
 				}
 			}
 			else{
+				playSound("Audio\\Powerdown.wav");
 				big=false;
 				invincible = 100;
 				setHeight(32);
 				y+=32;
 			}
 		}
+	}
+	/**
+	 * 
+	 * @return True if the Level is ending
+	 */
+	public boolean isEnding()
+	{
+		return ending;
 	}
 
 }
