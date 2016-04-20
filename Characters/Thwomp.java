@@ -13,8 +13,6 @@ import Obstacles.QuestionBlock;
  */
 public class Thwomp extends Enemy
 {
-	private int starty;
-
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -28,6 +26,16 @@ public class Thwomp extends Enemy
 	
 	public void tick() {
 		y += velY;
+		if(getY() < 0)
+		{
+			y = 0;
+			setVelY(-velY);
+		}
+		if(getY()+getHeight() > game.getHeight())
+		{
+			y = game.getHeight()-getHeight();
+			setVelY(-velY);
+		}
 		if(getX()>game.getMario().getX()&&getX()+64<game.getMario().getX()+32){
 			setVelY(5);
 		}
