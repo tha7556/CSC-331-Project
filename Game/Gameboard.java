@@ -1,8 +1,12 @@
 package Game;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Ellipse2D;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JComponent;
@@ -39,11 +43,26 @@ public class Gameboard extends JComponent implements KeyListener
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		Area area = level.getCurrentArea();
-		if(area != null)
+		if(!mario.isEnding())
 		{
-			area.draw(g, this);
-			mario.render(g, this);
+			Area area = level.getCurrentArea();
+			if(area != null)
+			{
+				area.draw(g, this);
+				mario.render(g, this);
+			}
+		}
+		else
+		{
+			Rectangle r = new Rectangle(0,0,getWidth(),getHeight());
+			Ellipse2D.Double e = new Ellipse2D.Double(mario.getX()-mario.getWidth()+15, mario.getY()-mario.getHeight()+20, mario.getWidth()*2, mario.getHeight()*2);
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setColor(Color.BLACK);
+			g2.fill(r);
+			g2.setColor(new Color(148,146,255));
+			g2.fill(e);
+			mario.render(g2, this);
+			
 		}
 	}
 	/**
