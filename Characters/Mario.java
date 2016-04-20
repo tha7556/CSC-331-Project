@@ -39,6 +39,8 @@ public class Mario extends Character{
 	private boolean insidePipe = false;
 	private Pipe pipe;
 	private int pipeStart = -1;
+	private boolean big;
+	private int invincible;
 	
 	/**
 	 * 
@@ -51,52 +53,106 @@ public class Mario extends Character{
 	}
 	@Override
 	public void render(Graphics g, Gameboard c) {
-		if(goingDownPipe)
-		{
-			setImage("Images\\MarioDownPipe.png");
+		if(!big){
+			if(goingDownPipe)
+			{
+				setImage("Images\\MarioDownPipe.png");
+			}
+			else if(this.jumping){
+				if(facingRight)
+					setImage("Images\\MarioJumpRight.png");
+				else
+					setImage("Images\\MarioJumpLeft.png");
+			}
+			else if(!this.onGround)
+			{
+				if(facingRight)
+					setImage("Images\\MarioFallRight.png");
+				else
+					setImage("Images\\MarioFallLeft.png");
+			}
+			else if(this.runningRight){
+				setImage("Images\\MarioWalkRight.gif");
+			}
+			
+			else if(this.runningLeft){
+				setImage("Images\\MarioWalkLeft.gif");
+			}
+			
+			else if(this.standingStillRight && !ducking){
+				setImage("Images\\MarioIdleRight.png");
+			}
+			
+			else if(this.standingStillLeft && !ducking){
+				setImage("Images\\MarioIdleLeft.png");
+			}
+			else if(facingRight && ducking)
+			{
+				setImage("Images\\MarioDuckRight.png");
+			}
+			else if(!facingRight && ducking)
+			{
+				setImage("Images\\MarioDuckLeft.png");
+			}
+			
+			
+			else{
+				setImage("Images\\MarioIdleRight.png");
+			}
 		}
-		else if(this.jumping){
-			if(facingRight)
-				setImage("Images\\MarioJumpRight.png");
-			else
-				setImage("Images\\MarioJumpLeft.png");
-		}
-		else if(!this.onGround)
-		{
-			if(facingRight)
-				setImage("Images\\MarioFallRight.png");
-			else
-				setImage("Images\\MarioFallLeft.png");
-		}
-		else if(this.runningRight){
-			setImage("Images\\MarioWalkRight.gif");
-		}
-		
-		else if(this.runningLeft){
-			setImage("Images\\MarioWalkLeft.gif");
-		}
-		
-		else if(this.standingStillRight && !ducking){
-			setImage("Images\\MarioIdleRight.png");
-		}
-		
-		else if(this.standingStillLeft && !ducking){
-			setImage("Images\\MarioIdleLeft.png");
-		}
-		else if(facingRight && ducking)
-		{
-			setImage("Images\\MarioDuckRight.png");
-		}
-		else if(!facingRight && ducking)
-		{
-			setImage("Images\\MarioDuckLeft.png");
-		}
-		
-		
 		else{
-			setImage("Images\\MarioIdleRight.png");
+			if(goingDownPipe)
+			{
+				setImage("Images\\BigMarioDownPipe.png");
+			}
+			else if(this.jumping){
+				if(facingRight)
+					setImage("Images\\BigMarioJumpRight.png");
+				else
+					setImage("Images\\BigMarioJumpLeft.png");
+			}
+			else if(!this.onGround)
+			{
+				if(facingRight)
+					setImage("Images\\BigMarioFallRight.png");
+				else
+					setImage("Images\\BigMarioFallLeft.png");
+			}
+			else if(this.runningRight){
+				setImage("Images\\BigMarioWalkRight.gif");
+			}
+			
+			else if(this.runningLeft){
+				setImage("Images\\BigMarioWalkLeft.gif");
+			}
+			
+			else if(this.standingStillRight && !ducking){
+				setImage("Images\\BigMarioIdleRight.png");
+			}
+			
+			else if(this.standingStillLeft && !ducking){
+				setImage("Images\\BigMarioIdleLeft.png");
+			}
+			else if(facingRight && ducking)
+			{
+				setImage("Images\\BigMarioDuckRight.png");
+			}
+			else if(!facingRight && ducking)
+			{
+				setImage("Images\\BigMarioDuckLeft.png");
+			}
+			
+			
+			else{
+				setImage("Images\\BigMarioIdleRight.png");
+			}
 		}
-		image.paintIcon(game, g, x-8, y);
+		if(!big){
+			image.paintIcon(game, g, x-8, y);
+		}
+		else{
+			image.paintIcon(game, g, x, y+8);
+		}
 		if(pipe != null)
 			pipe.render(g, c);
 		g.setColor(Color.RED);
@@ -166,6 +222,7 @@ public class Mario extends Character{
 			
 		}
 		//Normal Moving
+		invincible-=1;
 		x += velX;
 		y += velY;
 		onGround = isOnGround();
@@ -422,6 +479,9 @@ public class Mario extends Character{
 					if(item instanceof Mushroom){
 						game.getScoreboard().addScore();
 						playSound("Audio\\Mushroom.wav");
+						big=true;
+						setHeight(64);
+						y-=32;
 					}
 					if(item instanceof ExtraLife){
 						game.getScoreboard().addLife();
@@ -626,16 +686,26 @@ public class Mario extends Character{
 	
 	@Override
 	public void die(){
-		game.getCurrentLevel().stopMusic();
-		playSound("Audio\\death.wav");
-		dying = true;
-		jumping = true;
-		gravity = 6.0;
-		setVelX(0);
-		if(getY() >= game.getHeight()) 
-		{
-			System.out.println("Past");
-			y = game.getHeight() - height;
+		if(invincible<0){
+			if(!big){
+				game.getCurrentLevel().stopMusic();
+				playSound("Audio\\death.wav");
+				dying = true;
+				jumping = true;
+				gravity = 6.0;
+				setVelX(0);
+				if(getY() >= game.getHeight()) 
+				{
+					System.out.println("Past");
+					y = game.getHeight() - height;
+				}
+			}
+			else{
+				big=false;
+				invincible = 100;
+				setHeight(32);
+				y+=32;
+			}
 		}
 	}
 

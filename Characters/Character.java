@@ -20,6 +20,7 @@ import Game.Gameboard;
 public abstract class Character {
 	protected int x, y;
 	protected int width, height;
+
 	protected boolean solid = true;;
 	protected int velX, velY;
 	protected Game game;
@@ -83,6 +84,12 @@ public abstract class Character {
 	 */
 	public int getX() {
 		return x;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	/**
 	 * 
