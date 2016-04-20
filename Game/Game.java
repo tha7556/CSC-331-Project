@@ -7,9 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Characters.*;
-import Obstacles.FinishLine;
-import Obstacles.Obstacle;
-import Obstacles.Pipe;
+import Obstacles.*;
+import Items.Item;
 /**
  * The class containing the Game loop and extends JFrame
  *
@@ -157,6 +156,13 @@ public class Game extends JFrame
 				{
 					FinishLine f = (FinishLine)o;
 					f.tick();
+				}
+				else if(o instanceof QuestionBlock && o.isVisible())
+				{
+					QuestionBlock q = (QuestionBlock)o;
+					Item item = q.getItem();
+					if(item.isAlive() && item.isVisible())
+						item.tick();
 				}
 			}
 			gameBoard.repaint();
