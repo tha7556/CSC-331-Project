@@ -1,14 +1,11 @@
 package Obstacles;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
 import Game.Area;
 import Game.Game;
-import Game.Gameboard;
 
 /**
  * An object that when Mario uses it, a different Area is displayed 
@@ -80,14 +77,5 @@ public class Pipe extends Obstacle
 	public Rectangle getBoundsMiddle()
 	{
 		return new Rectangle(getX()+27,getY()-4,width/6,5);
-	}
-	@Override
-	public void render(Graphics g, Gameboard c)
-	{
-		super.render(g,c);
-		g.setColor(Color.YELLOW);
-		Rectangle r = getBoundsMiddle();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
 	}
 }

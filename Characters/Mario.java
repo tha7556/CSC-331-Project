@@ -1,5 +1,4 @@
 package Characters;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -163,29 +162,6 @@ public class Mario extends Character{
 		}
 		if(pipe != null && (goingUpPipe || goingDownPipe))
 			pipe.render(g, c);
-		g.setColor(Color.RED);
-		Rectangle r = getBounds();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
-		g.setColor(Color.GREEN);
-		r = getBoundsTop();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
-		g.setColor(Color.GREEN);
-		r = getBoundsBottom();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
-		g.setColor(Color.BLUE);
-		r = getBoundsLeft();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
-		g.setColor(Color.BLUE);
-		r = getBoundsRight();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
-		
-		g.setColor(Color.BLUE);
-		r = getMiddleBound();
-		g.drawRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight());
 	}
 	@Override
 	public void tick() {

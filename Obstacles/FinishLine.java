@@ -63,7 +63,6 @@ public class FinishLine extends Obstacle
 		if(barVisible)
 		{
 			bar.paintIcon(c, g, barX, barY);
-			g.drawRect((int)getBarBounds().getX(), (int)getBarBounds().getY(), (int)getBarBounds().getWidth(), (int)getBarBounds().getHeight());
 		}
 	}
 	/**

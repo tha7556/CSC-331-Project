@@ -3,13 +3,10 @@ package Obstacles;
 import javax.swing.ImageIcon;
 
 import Game.Game;
-import Items.Coin;
-import Items.ExtraLife;
-import Items.Item;
-import Items.Mushroom;
+import Items.*;
 /**
  * Unbreakable Obstacle that when hit, turns brown and dispenses an Item
- *@author Tyler
+ * @author Tyler
  */
 public class QuestionBlock extends Obstacle
 {
@@ -28,9 +25,6 @@ public class QuestionBlock extends Obstacle
 		double a = Math.random();
 		if(a > .4){
 			item = new Coin(x+5,y-30,game);
-		}
-		else if(a > 0.001){
-			item = new Mushroom(x,y-30,game);
 		}
 		else{
 			item = new ExtraLife(x,y-30,game);

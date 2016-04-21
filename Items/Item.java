@@ -1,6 +1,5 @@
 package Items;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -181,8 +180,6 @@ public abstract class Item
 		if(g != null)
 		{
 			image.paintIcon(c, g, x, y);
-			g.setColor(Color.red);
-			g.drawRect((int)getBounds().getX(), (int)getBounds().getY(), (int)getBounds().getWidth(), (int)getBounds().getHeight());
 		}
 		
 	}
