@@ -161,7 +161,7 @@ public class Mario extends Character{
 		else{
 			image.paintIcon(game, g, x, y+8);
 		}
-		if(pipe != null)
+		if(pipe != null && (goingUpPipe || goingDownPipe))
 			pipe.render(g, c);
 		g.setColor(Color.RED);
 		Rectangle r = getBounds();
@@ -217,6 +217,8 @@ public class Mario extends Character{
 			this.game.getCurrentLevel().loadSpecificLevel(pipe.getArea(), pipe.getLinkedPipe().getX(),pipe.getLinkedPipe().getY()+10);
 			goingUpPipe = true;
 			pipe = p.getLinkedPipe();
+			x = pipe.getX() + (pipe.getWidth()/6);
+			y = pipe.getY() + (pipe.getHeight())-55;
 			pipeStart = game.getLoopNumber();
 			return;
 		}
@@ -421,7 +423,7 @@ public class Mario extends Character{
 				if(t instanceof Pipe)
 				{
 					Pipe p = (Pipe)t;
-					if(p.getArea() != null && p.getLinkedPipe() != null &&  p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking)
+					if(p.getArea() != null && p.getLinkedPipe() != null &&  p.getBoundsMiddle().intersects(getBoundsBottom()) && ducking && !big)
 						{
 							pipe = p;
 							pipeStart = game.getLoopNumber();
@@ -565,7 +567,7 @@ public class Mario extends Character{
 					dying = false;
 					game.getCurrentLevel().playMusic();
 					setVelY(0);
-					reset(respawnX,respawnY);
+					reset();
 				}
 			}
 			
@@ -732,6 +734,14 @@ public class Mario extends Character{
 		this.x = x;
 		this.y = y;
 	}
+	/**
+	 * Overloaded reset with no parameters, resets Mario at the respawn point
+	 */
+	public void reset()
+	{
+		System.out.println("Spawned at: " + respawnX + " " + respawnY);
+		reset(respawnX,respawnY);
+	}
 	
 	@Override
 	public void die(){
@@ -781,6 +791,7 @@ public class Mario extends Character{
 	 */
 	public void setRespawnPoint(int x, int y)
 	{
+		System.out.println("respawnpoint: " + x + " " + y);
 		respawnX = x;
 		respawnY = y;
 	}
