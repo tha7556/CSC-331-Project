@@ -29,7 +29,7 @@ public class QuestionBlock extends Obstacle
 		if(a > .4){
 			item = new Coin(x+5,y-30,game);
 		}
-		else if(a > 0.1){
+		else if(a > 0.001){
 			item = new Mushroom(x,y-30,game);
 		}
 		else{
