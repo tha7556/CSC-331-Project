@@ -5,9 +5,11 @@ import Game.Game;
 
 /**
  * 
+ * Restarts the Game
  * @param x The x location on the Gameboard
  * @param y The y location on the Gameboard
  * @param game The instance of the Game
+ * @author Jacob
  */
 public class RestartGameBlock extends Obstacle{
 

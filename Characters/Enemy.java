@@ -11,6 +11,7 @@ import Game.Gameboard;
 
 /**
  * Extends the {@link Character} class to create Enemies
+ * @author Jacob
  *
  */
 public class Enemy extends Character{

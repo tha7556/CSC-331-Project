@@ -4,7 +4,7 @@ import Game.Game;
 
 /**
  * A giant Enemy that flies across the Screen
- *
+ * @author Jacob
  */
 public class BulletBill extends Enemy
 {

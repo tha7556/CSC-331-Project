@@ -12,7 +12,7 @@ import Game.Gameboard;
 
 /**
  * An object that when Mario uses it, a different Area is displayed 
- *
+ * @author Tyler
  */
 public class Pipe extends Obstacle
 {

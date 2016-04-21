@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 import Game.Game;
 /**
  * A breakable Obstacle 
- *
+ * @author Tyler
  */
 public class Brick extends Obstacle
 {

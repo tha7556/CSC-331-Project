@@ -11,6 +11,7 @@ import Obstacles.*;
 import Items.Item;
 /**
  * The class containing the Game loop and extends JFrame
+ * @author Tyler & Jacob
  *
  */
 public class Game extends JFrame 

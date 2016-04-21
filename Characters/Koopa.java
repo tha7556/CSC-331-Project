@@ -5,7 +5,7 @@ import Game.Game;
 import Obstacles.Obstacle;
 /**
  * A basic Enemy 
- *
+ * @author Jacob
  */
 public class Koopa extends Enemy
 {

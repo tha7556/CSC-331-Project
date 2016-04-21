@@ -7,6 +7,7 @@ import Game.Game;
  * @param x The x location on the Gameboard
  * @param y The y location on the Gameboard
  * @param game The instance of the Game
+ * @author Tyler
  */
 public class EndGameBlock extends Obstacle{
 

@@ -10,7 +10,7 @@ import Game.Gameboard;
 
 /**
  * An object that triggers the next Area when crossed
- *
+ * @author Tyler
  */
 public class FinishLine extends Obstacle
 {

@@ -25,7 +25,7 @@ import Obstacles.StartGameBlock;
 
 /**
  * The {@link Character} that the user will control
- *
+ * @author Jacob
  */
 public class Mario extends Character{
 	

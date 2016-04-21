@@ -4,6 +4,7 @@ import Game.Game;
 
 /**
  *Extra Life Item that can be picked up by Mario and gives him 1 more life
+ * @author Andy
  */
 public class ExtraLife extends Item
 {

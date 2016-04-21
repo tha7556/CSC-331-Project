@@ -4,6 +4,7 @@ import Game.Game;
 
 /**
  *Coin Item that can be picked up by Mario and adds to the score on the Scoreboard
+ *@author Andy
  */
 public class Coin extends Item
 {

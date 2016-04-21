@@ -20,6 +20,7 @@ import Items.Item;
 import Obstacles.*;
 /**
  * A single Area inside of a Level
+ * @author Tyler & Jacob
  *
  */
 public class Area 

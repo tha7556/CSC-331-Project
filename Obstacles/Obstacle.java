@@ -15,7 +15,7 @@ import Game.Gameboard;
 
 /**
  * Abstract Obstacle Class used to make Obstacles that Mario can interact with
- *
+ * @author Tyler
  */
 public abstract class Obstacle 
 {

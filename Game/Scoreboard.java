@@ -8,8 +8,10 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 /**
+ * 
  * The Scoreboard that displays Mario's lives, the Time, and the player's points
  * <br>Extends JComponent</br>
+ * @author Tyler & Jacob
  *
  */
 public class Scoreboard extends JComponent

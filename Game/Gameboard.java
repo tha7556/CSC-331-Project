@@ -17,6 +17,7 @@ import Game.Area;
  * Extends JComponent and implements KeyListener.
  * <br>When a key is pressed it is added to the Set activeKeys
  * <br>When it is released it is removed
+ * @author Tyler & Jacob
  *
  */
 public class Gameboard extends JComponent implements KeyListener

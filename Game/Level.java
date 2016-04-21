@@ -8,6 +8,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 /**
  * A single Level that contains different Areas
+ * @author Tyler & Jacob
  *
  */
 public class Level 

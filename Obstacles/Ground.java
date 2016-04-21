@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 import Game.Game;
 /**
  * An unbreakable Obstacle that represents the bottom of the Area
- *
+ * @author Tyler
  */
 public class Ground extends Obstacle
 {

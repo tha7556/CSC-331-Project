@@ -11,7 +11,8 @@ import Game.Game;
 import Game.Gameboard;
 import Obstacles.Obstacle;
 /**
- * Abstract Item class used to make coins extra lives, 
+ * Abstract Item class used to make coins extra lives
+ * @author Tyler 
  * 
  *
  */

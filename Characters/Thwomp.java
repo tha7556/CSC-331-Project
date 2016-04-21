@@ -9,7 +9,7 @@ import Obstacles.QuestionBlock;
 
 /**
  * An Enemy that stays up high until the player comes near, then drops down
- *
+ *@author Jacob
  */
 public class Thwomp extends Enemy
 {

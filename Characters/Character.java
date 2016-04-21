@@ -15,7 +15,7 @@ import Game.Gameboard;
 
 /**
  * An abstract class that Mario and the Enemies extend
- *
+ * @author Jacob
  */
 public abstract class Character {
 	protected int x, y;

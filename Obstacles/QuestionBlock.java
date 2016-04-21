@@ -9,7 +9,7 @@ import Items.Item;
 import Items.Mushroom;
 /**
  * Unbreakable Obstacle that when hit, turns brown and dispenses an Item
- *
+ *@author Tyler
  */
 public class QuestionBlock extends Obstacle
 {
