@@ -1,6 +1,5 @@
 package Obstacles;
 
-import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 
