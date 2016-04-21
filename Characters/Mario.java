@@ -219,7 +219,7 @@ public class Mario extends Character{
 		if(goingUpPipe)
 		{
 			if(game.getLoopNumber() - pipeStart == 20) //Waits 20 loops then plays sound
-				playSound("Pipe.wav");
+				playSound("Audio\\Pipe.wav");
 			else if(game.getLoopNumber() - pipeStart > 20) //After the 20 loops, move Mario
 			{
 				x = pipe.getX()+(pipe.getWidth()/6);
