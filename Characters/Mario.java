@@ -422,7 +422,7 @@ public class Mario extends Character{
 							pipe = p;
 							pipeStart = game.getLoopNumber();
 							goingDownPipe = true;
-							playSound("Pipe.wav");
+							playSound("Audio\\Pipe.wav");
 						}
 					
 				}
