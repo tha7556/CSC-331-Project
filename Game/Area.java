@@ -265,7 +265,7 @@ public class Area
 	 				}
 	 				if(red == 0 && green == 0 && blue == 255)
 	 				{
-	 					area.addObstacle(new Pipe(x*32, y*32-32, g));
+	 					area.addObstacle(new Pipe(x*32, y*32-64, g));
 	 				}
 	 				
 	 				if(red == 1 && green == 34 && blue == 102){
