@@ -284,7 +284,7 @@ public class Area
 	 					area.addItem(new Coin(x*32,y*32-32,g));
 	 				if(red==5 && green == 5 && blue == 5)
 	 				{
-	 					setRespawnPoint(x*32+5, y*32-g.getMario().getHeight());	
+	 					setRespawnPoint(x*32+5, y*32-g.getMario().getHeight()-5);	
 	 				}
 	 			}
 	 		}
