@@ -233,6 +233,8 @@ public class Game extends JFrame
 	{
 		ArrayList<Area> Level_1 = new ArrayList<Area>();
 		ArrayList<Area> Level_2 = new ArrayList<Area>();
+		ArrayList<Area> Level_3 = new ArrayList<Area>();
+		ArrayList<Area> Level_4 = new ArrayList<Area>();
 		Game g = new Game();
 		
 		//First Level
@@ -266,17 +268,23 @@ public class Game extends JFrame
 		Level_1.add(area3);
 		Level_1.add(gameOverScreen);
 		
-		
+		//Second Level
 		Area startingAreaLevel2 = new Area("Images\\Levels\\StartingAreaLevel2.png");
-		area = new Area("Images\\Levels\\Area2-1.png");		
-		area2 = new Area("Images\\Levels\\Area2-2.png");
-		area3 = new Area("Images\\Levels\\Area2-3.png");
+		area = new Area("Images\\Levels\\TylerLevel2-1.png");		
+		area2 = new Area("Images\\Levels\\TylerLevel2-2.png");
+		area3 = new Area("Images\\Levels\\TylerLevel2-3.png");
 		
+		//Creating 2nd Level
+		Pipe p3 = new Pipe(550,480,g,area3);
+		Pipe p4 = new Pipe(40,65,g,area);
+		area.addObstacle(p3);
+		area3.addObstacle(p4);
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
 		startingAreaLevel2.createArea(startingAreaLevel2, g);
 		
+		//Adding Areas to Second Level
 		Level_2.add(startingAreaLevel2);
 		Level_2.add(area);
 		Level_2.add(area2);
@@ -285,14 +293,58 @@ public class Game extends JFrame
 		Level_2.add(gameOverScreen);
 		
 		
+		//3rd Level
+		Area startingAreaLevel3 = new Area("Images\\Levels\\StartingAreaLevel3.png");
+		area = new Area("Images\\Levels\\JacobLevel3-1.png");		
+		area2 = new Area("Images\\Levels\\JacobLevel3-2.png");
+		area3 = new Area("Images\\Levels\\JacobLevel3-3.png");
 		
+		//Creating 3rd Level
+		area.createArea(area, g);
+		area2.createArea(area2, g);
+		area3.createArea(area3, g);
+		startingAreaLevel3.createArea(startingAreaLevel3, g);
+		
+		//Adding Areas to Third Level
+		Level_3.add(startingAreaLevel3);
+		Level_3.add(area);
+		Level_3.add(area2);
+		Level_3.add(area3);
+		Level_3.add(area3);
+		Level_3.add(gameOverScreen);
+		
+		//4th Level
+		Area startingAreaLevel4 = new Area("Images\\Levels\\StartingAreaLevel4.png");
+		area = new Area("Images\\Levels\\JacobLevel4-1.png");		
+		area2 = new Area("Images\\Levels\\JacobLevel4-2.png");
+		area3 = new Area("Images\\Levels\\JacobLevel4-3.png");
+		
+		//Creating 4th Level
+		area.createArea(area, g);
+		area2.createArea(area2, g);
+		area3.createArea(area3, g);
+		startingAreaLevel4.createArea(startingAreaLevel4, g);
+		
+		//Adding Areas to Fourth Level
+		Level_4.add(startingAreaLevel4);
+		Level_4.add(area);
+		Level_4.add(area2);
+		Level_4.add(area3);
+		Level_4.add(area3);
+		Level_4.add(gameOverScreen);
+		
+		//Adding the Levels to the Game
 		Level level = new Level(Level_1, g.getGameboard(),"Audio\\Music.wav");
 		Level level2 = new Level(Level_2, g.getGameboard(),"Audio\\Music.wav");
+		Level level3 = new Level(Level_3, g.getGameboard(),"Audio\\Music.wav");
+		Level level4 = new Level(Level_4, g.getGameboard(),"Audio\\Music.wav");
 		
 		g.addLevel(level);
 		g.addLevel(level2);
+		g.addLevel(level3);
+		g.addLevel(level4);
 		
-		
+		//Plays every Level
 		for(levelIndex = 0; levelIndex < g.getLevels().size(); levelIndex ++){
 				g.play(g.getLevels().get(levelIndex));
 			
