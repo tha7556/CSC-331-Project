@@ -1,0 +1,28 @@
+﻿Mario Project Contributions by member (Also listed in Javadocs for each file):
+	
+Jacob: 
+The Characters package
+The Game package
+The RestartGameBlock class
+The StartGameBlock class
+The RestartBlock image
+The StartBlock image
+Designed Level 3
+Designed Level 4
+
+Tyler: 
+The Obstacles package
+The Game package
+The Item class
+Getting all of the Images and sounds except for RestartBlock, StartBlock, BigMario, PiranhaPlant, Goomba, and Thwomp images
+Designed Level 1
+Designed Level 2
+
+Andy: 
+The Coin class
+The ExtraLife class
+The Mushroom classes
+The BigMario images
+The PiranhaPlant image
+The Goomba images
+The Thwomp Image
