@@ -46,12 +46,12 @@ public class Scoreboard extends JComponent
 		}
 		if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\Levels\\TitleScreen.png"){
 			setVisibility(false);
-			g.setColor(Color.BLUE);
+			g.setColor(new Color(148,146,255));
 			g.fillRect(0, 0, 960, 50);
 		}
 		else if(game.getCurrentLevel().getCurrentArea().returnBackGround() == "Images\\Levels\\gameOverScreen.png"){
 			setVisibility(false);
-			g.setColor(Color.GREEN);
+			g.setColor(new Color(148,146,255));
 			g.fillRect(0, 0, 960, 50);
 			
 		}
