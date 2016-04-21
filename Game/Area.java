@@ -30,6 +30,7 @@ public class Area
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Obstacle> obstacles; //Change to ArrayList<Obstacle> later
 	private ArrayList<Item> items;     //Change to ArrayList<Item> later
+	private int x,y;
 	/**
 	 * 
 	 * @param background The String representation of the ImageIcon File
@@ -283,10 +284,23 @@ public class Area
 	 					area.addItem(new Coin(x*32,y*32-32,g));
 	 				if(red==5 && green == 5 && blue == 5)
 	 				{
-	 					g.getMario().setRespawnPoint(x*32, y*32-5);
+	 					setRespawnPoint(x*32+5, y*32-g.getMario().getHeight());	
 	 				}
 	 			}
 	 		}
+	 }
+	 public void setRespawnPoint(int x, int y)
+	 {
+		 this.x = x;
+		 this.y = y;
+	 }
+	 public int getRespawnPointX()
+	 {
+		 return x;
+	 }
+	 public int getRespawnPointY()
+	 {
+		 return y;
 	 }
 }
 
