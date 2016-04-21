@@ -237,14 +237,20 @@ public class Game extends JFrame
 		//First Level
 		Area titleScreen = new Area("Images\\Levels\\TitleScreen.png");
 		Area startingAreaLevel1 = new Area("Images\\Levels\\StartingAreaLevel1.png");
-		Area area = new Area("Images\\Levels\\TestLevel.png");		
-		Area area2 = new Area("Images\\Levels\\TestLevel2.png");
-		Area area3 = new Area("Images\\Levels\\TestLevel3.png");
+		Area area = new Area("Images\\Levels\\TylerLevel1.png");		
+		Area area2 = new Area("Images\\Levels\\TylerLevel2.png");
+		Area area3 = new Area("Images\\Levels\\TylerLevel3.png");
 		Area gameOverScreen = new Area("Images\\Levels\\gameOverScreen.png");
 		
 		//Creating First Level
 		titleScreen.createArea(titleScreen, g);
 		startingAreaLevel1.createArea(startingAreaLevel1, g);
+		Pipe p1 = new Pipe(580,480,g,area3);
+		Pipe p2 = new Pipe(20,480,g,area);
+		p1.setLinkedPipe(p2);
+		p2.setLinkedPipe(p1);
+		area.addObstacle(p1);
+		area3.addObstacle(p2);
 		area.createArea(area, g);
 		area2.createArea(area2, g);
 		area3.createArea(area3, g);
