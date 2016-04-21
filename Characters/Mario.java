@@ -45,6 +45,7 @@ public class Mario extends Character{
 	//Big variables
 	private boolean big;
 	private int invincible;
+	private int respawnX, respawnY;
 	
 	/**
 	 * 
@@ -54,6 +55,9 @@ public class Mario extends Character{
 	 */
 	public Mario(int x, int y, Game game) {
 		super(x, y, 32, 32, true,"Images\\MarioIdleRight.png", game);
+		respawnX = x;
+		respawnY = y;
+		
 	}
 	@Override
 	public void render(Graphics g, Gameboard c) {
@@ -198,8 +202,8 @@ public class Mario extends Character{
 		if(goingDownPipe) //Going down Pipe animation
 		{
 			x = pipe.getX()+(pipe.getWidth()/6);
-			if(game.getLoopNumber() - pipeStart < 35)
-				y += 3;
+			if(game.getLoopNumber() - pipeStart < 70)
+				y += 1;
 			else
 			{
 				goingDownPipe = false;
@@ -220,11 +224,11 @@ public class Mario extends Character{
 		{
 			if(game.getLoopNumber() - pipeStart == 20) //Waits 20 loops then plays sound
 				playSound("Audio\\Pipe.wav");
-			else if(game.getLoopNumber() - pipeStart > 20) //After the 20 loops, move Mario
+			else if(game.getLoopNumber() - pipeStart > 40) //After the 20 loops, move Mario
 			{
 				x = pipe.getX()+(pipe.getWidth()/6);
-				if(game.getLoopNumber() - pipeStart < 47)
-					y -= 3;
+				if(game.getLoopNumber() - pipeStart < 90)
+					y -= 1;
 				else
 				{
 					goingUpPipe = false;
@@ -561,7 +565,7 @@ public class Mario extends Character{
 					dying = false;
 					game.getCurrentLevel().playMusic();
 					setVelY(0);
-					reset(30,450);
+					reset(respawnX,respawnY);
 				}
 			}
 			
@@ -769,6 +773,16 @@ public class Mario extends Character{
 	public boolean isBig()
 	{
 		return big;
+	}
+	/**
+	 * Sets where Mario will respawn at
+	 * @param x The x coordinate he respawns at
+	 * @param y The y coordinate he respawns at
+	 */
+	public void setRespawnPoint(int x, int y)
+	{
+		respawnX = x;
+		respawnY = y;
 	}
 
 }

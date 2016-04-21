@@ -281,6 +281,10 @@ public class Area
 	 				}
 	 				if(red==0 && green == 255 && blue == 255)
 	 					area.addItem(new Coin(x*32,y*32-32,g));
+	 				if(red==5 && green == 5 && blue == 5)
+	 				{
+	 					g.getMario().setRespawnPoint(x*32, y*32-5);
+	 				}
 	 			}
 	 		}
 	 }
