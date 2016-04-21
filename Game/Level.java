@@ -111,6 +111,7 @@ public class Level
 			{
 				displayArea(areas.get(currentIndex+1),gameboard.getGraphics(),gameboard);	
 				gameboard.getMario().reset(0, gameboard.getMario().getY());
+				gameboard.getMario().setRespawnPoint(areas.get(currentIndex+1).getRespawnPointX(), areas.get(currentIndex+1).getRespawnPointY());
 				currentIndex++;
 				return;
 			}
@@ -126,6 +127,7 @@ public class Level
 		{
 			displayArea(areas.get(currentIndex-1),gameboard.getGraphics(),gameboard);	
 			gameboard.getMario().reset(960-gameboard.getMario().getWidth()-10, gameboard.getMario().getY());
+			gameboard.getMario().setRespawnPoint(areas.get(currentIndex-1).getRespawnPointX(), areas.get(currentIndex-1).getRespawnPointY());
 			currentIndex--;
 			return;
 		}
@@ -143,7 +145,8 @@ public class Level
 		if(areas.contains(area))
 		{
 			displayArea(area,gameboard.getGraphics(),gameboard);
-			gameboard.getMario().reset(x, y);
+			gameboard.getMario().reset(area.getRespawnPointX(),area.getRespawnPointY());
+			gameboard.getMario().setRespawnPoint(area.getRespawnPointX(), area.getRespawnPointY());
 			currentIndex = areas.indexOf(area);
 
 			return;
