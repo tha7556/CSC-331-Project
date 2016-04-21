@@ -169,7 +169,7 @@ public class Mario extends Character{
 		//Finish Line
 		if(ending)
 		{
-			if(game.getLoopNumber() - endStart > 300)
+			if(game.getLoopNumber() - endStart > 400)
 				game.getCurrentLevel().setFinished(true);
 			
 			return;
@@ -178,7 +178,7 @@ public class Mario extends Character{
 		if(goingDownPipe) //Going down Pipe animation
 		{
 			x = pipe.getX()+(pipe.getWidth()/6);
-			if(game.getLoopNumber() - pipeStart < 70)
+			if(game.getLoopNumber() - pipeStart < 60)
 				y += 1;
 			else
 			{
@@ -271,6 +271,7 @@ public class Mario extends Character{
 			{
 				if(t instanceof StartGameBlock){
 					if(top.intersects(t.getBoundsBottom())){
+						playSound("Audio\\LetsGo.wav");
 						game.getCurrentLevel().setCurrentIndex(1);
 						game.getCurrentLevel().setCurrentArea(1);
 						setVelY(0);
@@ -709,6 +710,7 @@ public class Mario extends Character{
 		endStart = -1;
 		this.x = x;
 		this.y = y;
+		this.gravity = 0.0;
 	}
 	/**
 	 * Overloaded reset with no parameters, resets Mario at the respawn point
