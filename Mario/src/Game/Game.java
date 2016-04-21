@@ -236,6 +236,7 @@ public class Game extends JFrame
 		ArrayList<Area> Level_2 = new ArrayList<Area>();
 		ArrayList<Area> Level_3 = new ArrayList<Area>();
 		ArrayList<Area> Level_4 = new ArrayList<Area>();
+		ArrayList<Area> Level_5 = new ArrayList<Area>();
 		Game g = new Game();
 		
 		//First Level
@@ -334,16 +335,28 @@ public class Game extends JFrame
 		Level_4.add(area3);
 		Level_4.add(gameOverScreen);
 		
+		//LastLevel with end
+		Area startingAreaLevel5 = new Area("Images\\Levels\\StartingAreaLevel5.png");
+		Area winningScreen = new Area("Images\\Levels\\WinningScreen.png");
+		
+		startingAreaLevel5.createArea(startingAreaLevel5, g);
+		winningScreen.createArea(winningScreen, g);
+		
+		Level_5.add(startingAreaLevel5);
+		Level_5.add(winningScreen);
+		
 		//Adding the Levels to the Game
 		Level level = new Level(Level_1, g.getGameboard(),"Audio\\Music.wav");
 		Level level2 = new Level(Level_2, g.getGameboard(),"Audio\\Music.wav");
 		Level level3 = new Level(Level_3, g.getGameboard(),"Audio\\Music.wav");
 		Level level4 = new Level(Level_4, g.getGameboard(),"Audio\\Music.wav");
+		Level level5 = new Level(Level_5, g.getGameboard(),"Audio\\Music.wav");
 		
 		g.addLevel(level);
 		g.addLevel(level2);
 		g.addLevel(level3);
 		g.addLevel(level4);
+		g.addLevel(level5);
 		
 		//Plays every Level
 		for(levelIndex = 0; levelIndex < g.getLevels().size(); levelIndex ++){
