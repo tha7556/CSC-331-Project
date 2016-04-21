@@ -791,7 +791,6 @@ public class Mario extends Character{
 	 */
 	public void setRespawnPoint(int x, int y)
 	{
-		System.out.println("respawnpoint: " + x + " " + y);
 		respawnX = x;
 		respawnY = y;
 	}
