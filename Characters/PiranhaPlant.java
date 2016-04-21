@@ -11,7 +11,7 @@ import Game.Game;
 public class PiranhaPlant extends Enemy
 {
 	private double speed;
-	private int starty;
+	private int starty, start;
 	/**
 	 * 
 	 * @param x The x location on the Gameboard
@@ -22,9 +22,11 @@ public class PiranhaPlant extends Enemy
 		super(x, y, 32, 64, true,"Images\\PiranhaPlant.png", game);
 		speed = Math.random()*10;
 		if(speed > 6){
-			speed -= 5;
+			speed -= 6;
 		}
-		
+		if(speed < 1)
+			speed += 2;
+		start = game.getLoopNumber();
 		starty = y;
 		setVelY(2);
 	}
@@ -37,6 +39,23 @@ public class PiranhaPlant extends Enemy
 		if(getY() >= starty+64){
 			setVelY(-(int)speed);
 		}
+		if(game.getLoopNumber() - start > 300)
+		{
+			recalculateSpeed();
+			start = game.getLoopNumber();
+		}
+	}
+	/**
+	 * Sets Speed to a random number
+	 */
+	public void recalculateSpeed()
+	{
+		speed = Math.random()*10;
+		if(speed > 6){
+			speed -= 6;
+		}
+		if(speed < 1)
+			speed += 2;
 	}
 
 }
