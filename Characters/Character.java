@@ -199,28 +199,28 @@ public abstract class Character {
 	 * @return The border collision Rectangle of the top part of the {@link Character}
 	 */
 	public Rectangle getBoundsTop(){
-		return new Rectangle(getX()+14,getY(),width-25,5);
+		return new Rectangle(getX()+10,getY(),width-15,5);
 	}
 	/**
 	 * 
 	 * @return The border collision Rectangle of the bottom part of the {@link Character}
 	 */
 	public Rectangle getBoundsBottom(){
-		return new Rectangle(getX()+14,getY()+height+2,width-25,6);
+		return new Rectangle(getX()+10,getY()+height+2,width-15,6);
 	}
 	/**
 	 * 
 	 * @return The border collision Rectangle of the left part of the {@link Character}
 	 */
 	public Rectangle getBoundsLeft(){
-		return new Rectangle(getX()+5,getY()+10, 5, height-20);
+		return new Rectangle(getX()+5,getY()+10, 5, height-15);
 	}
 	/**
 	 * 
 	 * @return The border collision Rectangle of the right part of the {@link Character}
 	 */
 	public Rectangle getBoundsRight(){
-		return new Rectangle(getX()-5+width,getY()+10, 5, height-20);
+		return new Rectangle(getX()-5+width,getY()+10, 5, height-15);
 	}
 	/**
 	 * 
