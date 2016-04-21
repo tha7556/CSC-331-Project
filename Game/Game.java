@@ -196,7 +196,7 @@ public class Game extends JFrame
 			}
 		}
 		//End of Level:
-		mario.reset(30, 450);
+		mario.reset();
 		currentLevel.stopMusic();
 		setVisible(false);
 	}
@@ -246,7 +246,7 @@ public class Game extends JFrame
 		titleScreen.createArea(titleScreen, g);
 		startingAreaLevel1.createArea(startingAreaLevel1, g);
 		Pipe p1 = new Pipe(580,480,g,area3);
-		Pipe p2 = new Pipe(20,480,g,area);
+		Pipe p2 = new Pipe(30,480,g,area);
 		p1.setLinkedPipe(p2);
 		p2.setLinkedPipe(p1);
 		area.addObstacle(p1);
