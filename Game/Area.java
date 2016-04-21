@@ -289,15 +289,28 @@ public class Area
 	 			}
 	 		}
 	 }
+	 /**
+	  * Sets the point that Mario will respawn at after he dies
+	  * @param x The x coordinate where Mario will go
+	  * @param y The y coordinate where Mario will go
+	  */
 	 public void setRespawnPoint(int x, int y)
 	 {
 		 this.x = x;
 		 this.y = y;
 	 }
+	 /**
+	  * 
+	  * @return The x coordinate of the spawn point
+	  */
 	 public int getRespawnPointX()
 	 {
 		 return x;
 	 }
+	 /**
+	  * 
+	  * @return The y coordinate of the spawn point
+	  */
 	 public int getRespawnPointY()
 	 {
 		 return y;
